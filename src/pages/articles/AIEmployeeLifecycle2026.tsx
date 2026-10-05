@@ -37,13 +37,11 @@ type IconName =
   | "flag";
 
 const contents = [
-  ["at-a-glance", "The lifecycle in one view"],
   ["meet-maya", "Meet Maya"],
   ["candidate", "Candidate and hiring"],
   ["interview", "Interview and selection"],
   ["onboarding", "Onboarding"],
-  ["performance", "Performance"],
-  ["development", "Development and mobility"],
+  ["performance", "Performance & Development"],
   ["retention", "Retention and experience"],
   ["exit", "Exit and offboarding"],
   ["chro", "What CHROs should build"],
@@ -196,50 +194,6 @@ function HeroJourney() {
   </div>;
 }
 
-
-function OnboardingFigure() {
-  const days = [
-    ["Day 1", "Settle the basics", "Access, payroll, laptop, team map", "4/4"],
-    ["Day 3", "Understand the work", "Product tour, customer calls, metrics", "3/4"],
-    ["Day 7", "Start contributing", "Shadow launch review, first small project", "2/3"],
-    ["Day 14", "Check the fit", "Manager check-in, blockers, role clarity", "0/3"],
-  ];
-  return <figure className="lc-figure lc-onboard">
-    <div className="lc-figure-head"><span className="lc-label">Maya’s first two weeks</span><span className="lc-small-tag">Personalised, not improvised</span></div>
-    <div className="lc-onboard-grid">
-      <div className="lc-onboard-plan">
-        {days.map(([day, title, text, count], i) => <div className={i < 2 ? "is-done" : ""} key={day}><span className="lc-day">{day}</span><span className="lc-check"><Icon name={i < 2 ? "check" : "clock"} size={14} /></span><div><strong>{title}</strong><p>{text}</p></div><b>{count}</b></div>)}
-      </div>
-      <div className="lc-assistant-card">
-        <div className="lc-assistant-head"><span><Icon name="spark" size={15} /></span><div><strong>Ask People Ops</strong><small>Uses approved policy + onboarding data</small></div></div>
-        <div className="lc-bubble is-user">Can I expense the train to the customer workshop?</div>
-        <div className="lc-bubble is-ai">Yes. Your UK travel policy covers standard rail for customer travel. Keep the receipt and code it to <strong>Customer research</strong>.</div>
-        <div className="lc-source-chip"><Icon name="book" size={13} />Travel policy · updated 12 Sep 2026</div>
-      </div>
-    </div>
-    <figcaption>Illustrative onboarding plan. The AI answer is only as trustworthy as the policy source, permissions and escalation path behind it.</figcaption>
-  </figure>;
-}
-
-function PerformanceFigure() {
-  const evidence = [
-    ["Launch readiness", "Reduced unresolved handoffs from 14 to 4 before release", "+"],
-    ["Operating rhythm", "Introduced weekly cross-functional review used by 3 teams", "+"],
-    ["Analytics depth", "Still relies on analyst support for complex SQL questions", "gap"],
-  ];
-  return <figure className="lc-figure lc-performance">
-    <div className="lc-figure-head"><span className="lc-label">Quarterly review workspace</span><span className="lc-small-tag">Separate evidence from interpretation</span></div>
-    <div className="lc-window">
-      <div className="lc-window-bar"><i /><i /><i /><span>performance / q4 check-in</span><b>Draft, not submitted</b></div>
-      <div className="lc-window-body">
-        <div className="lc-review-head"><div><small>Employee</small><strong>Maya Chen</strong></div><div><small>Manager</small><strong>Alex Morgan</strong></div><div><small>Cycle</small><strong>Q4 2026</strong></div></div>
-        <div className="lc-evidence-list">{evidence.map(([title, text, kind]) => <div key={title}><span className={`lc-evidence-mark is-${kind}`}><Icon name={kind === "+" ? "check" : "flag"} size={14} /></span><div><strong>{title}</strong><p>{text}</p></div></div>)}</div>
-        <div className="lc-ai-draft"><span><Icon name="spark" size={14} />AI draft</span><p>Maya improved launch coordination and created a repeatable operating rhythm. The strongest development opportunity is building more independent analytics capability.</p><button type="button">Edit before using</button></div>
-      </div>
-    </div>
-    <figcaption>Illustrative review. AI can compress a quarter of notes into a usable starting point; the manager still owns context, weighting, fairness and the conversation itself.</figcaption>
-  </figure>;
-}
 
 function SkillsFigure() {
   const skills = [
@@ -543,42 +497,71 @@ export default function AIEmployeeLifecycle2026({
 
 </Section>
 
-            <Section id="onboarding" number="05" heading="Onboarding: the best AI may feel like a very patient colleague">
-              <P>Maya accepts the offer. Now the glamorous AI future meets the first week of employment: payroll forms, laptop access, acronyms nobody explained and a calendar full of meetings she does not yet understand.</P>
-              <P>This is one of the places I think AI can be quietly excellent.</P>
-              <P>An onboarding agent can answer “Where is the travel policy?”, explain which team owns a system, surface the right product walkthrough for Maya’s role and nudge her manager when a human conversation is overdue. It can also personalise the sequence instead of giving every employee the same 47-link onboarding portal.</P>
-              <OnboardingFigure />
-              <h3>The real value is not answering more questions</h3>
-              <P>It is reducing the number of tiny dead ends that make a new hire feel stupid for asking.</P>
-              <P>But an HR agent only earns trust if it knows where its answer came from. The employee should be able to see the source policy, its date and what to do when the situation is not covered. “I don’t know — ask People Ops” is a feature, not a failure.</P>
-              <P>That matters because the wider 2026 data says the environment around AI is doing a huge amount of the work. Microsoft found that organizational factors including culture, manager support and talent practices accounted for more than twice the reported AI impact of individual factors in its model.<Cite n={1} /></P>
-              <Quote>Do not use AI to make onboarding feel automated. Use it to remove the admin so the human parts of onboarding happen sooner.</Quote>
-            </Section>
+          <Section id="onboarding" number="04" heading="How AI Is Changing Employee Onboarding">
+  <P>The worst onboarding I ever had started with a folder called <strong>START HERE</strong>.</P>
+  <P>Inside were 47 links, three outdated org charts, two videos recorded by people who had already left the company and a benefits document that somehow opened as a 62-page PDF.</P>
+  <P>By day three, I had learned a lot about the company. Just not much about how to do my job.</P>
+  <P>Maya’s first week can look very different.</P>
+  <P>She gets the offer, accepts and arrives on Monday to an onboarding sequence built around the role she was actually hired to do. Instead of sending her the entire company knowledge base, an AI onboarding agent can surface the processes, teams and systems most relevant to Product Operations.</P>
+  
+  
 
-            <Section id="performance" number="06" heading="Performance: AI can assemble the evidence. Managers still have to make sense of it">
-              <P>Three months in, Maya is doing well. Six months in, her manager has a more familiar problem: the quarter happened faster than the notes.</P>
-              <P>AI can pull together goals, project updates, feedback, recognition and prior check-ins. It can draft a review and remind the manager that the launch process Maya rebuilt cut unresolved handoffs before release.</P>
-              <P>That is useful. It is also the point where convenience can become authority very quickly.</P>
-              <PerformanceFigure />
-              <P>If the model drafts “Maya needs to be more strategic”, where did that come from? A manager note? A missed meeting? The language of her Slack messages? The fact that she did not speak much in a call?</P>
-              <P>IBM’s 2026 CHRO study found that only 26% of organizations clearly define work across human-led, AI-assisted and AI-executed activities, while 72% of HR organizations remain in an experimentation phase with AI.<Cite n={2} /> That is the operating-model gap hiding underneath a lot of HR tech.</P>
-              <P>The better design is to let AI assemble the record and make the interpretation visibly editable. The manager should be able to inspect the evidence, add context and own the final language.</P>
-              <Quote>AI can help a manager remember the quarter. It should not become the manager of record.</Quote>
-            </Section>
+   <figure className="lc-maya-search">
+  <img
+    src="/images/ai_onboarding.png"
+    alt="AI walking Maya through onboarding step by step."
+    width={1200}
+    height={750}
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption className="lc-maya-caption">AI walking Maya through onboarding step by step.</figcaption>
+</figure>
+  
+  <p style={{ paddingTop: 10 }}>It can also adjust the sequence as she goes. Finish the analytics setup early and the next walkthrough can move forward. Get stuck waiting for access to a tool and the system can flag it rather than happily sending lesson six.</p>
+ 
 
-            <Section id="development" number="07" heading="Development: AI gets more interesting when it can see the next role">
-              <P>Maya’s strongest development question is not “Which course should I take?” It is “What could I realistically do next here?”</P>
-              <P>That is where the skills layer becomes more useful than the LMS catalogue.</P>
-              <P>If the organization understands the skills inside Maya’s current work, the skills required by a senior role and the projects that could close the gap, AI can connect those three things. Suddenly development becomes less about content consumption and more about movement.</P>
-              <SkillsFigure />
-              <P>The timing matters. The World Economic Forum says employers expect 39% of workers’ core skills to change by 2030, while skills gaps are the most commonly cited barrier to business transformation in its survey.<Cite n={8} /></P>
-              <P>Microsoft’s 2026 data shows the employee side too: 66% of surveyed AI users said AI lets them spend more time on high-value work, and 58% said they are producing work they could not have produced a year earlier.<Cite n={1} /></P>
-              <P>That means the role itself is moving while Maya is learning it.</P>
-              <P>The smart development system is not simply recommending “AI fundamentals”. It is noticing that the job now requires more judgment, quality control, data literacy or workflow design, then connecting those changes to real work.</P>
-              <Quote>The course catalogue is the least interesting part of AI-driven development. The interesting part is seeing capability, opportunity and work change in the same view.</Quote>
-            </Section>
 
-            <Section id="retention" number="08" heading="Retention: the difference between a useful signal and creepy surveillance is smaller than it looks">
+</Section>
+
+
+         <Section id="performance" number="05" heading="How AI Is Changing Performance Reviews and Development">
+  <P>I have seen performance reviews where 11 months of good work somehow disappear because you made one very visible mistake three weeks before the meeting.</P>
+  <P>Managers do not usually mean to do this. They’re just trying to reconstruct a year from memory, scattered notes, Slack messages and whatever happened recently enough to still be sitting in their head.</P>
+  <P>By Maya’s first review, AI can give her manager a much better starting point.</P>
+  <P>It can pull together her goals, project updates, feedback, recognition and previous check-ins, then draft a review around what actually happened. So when Maya’s manager sits down to write it, the launch process she rebuilt six months ago does not vanish simply because the latest project is fresher in everyone’s memory.</P>
+
+   <figure className="lc-maya-search">
+  <img
+    src="/images/ai-performance-review.png"
+    alt="AI drafting Maya's performance review from the year's evidence."
+    width={1200}
+    height={750}
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption className="lc-maya-caption">AI drafting Maya's performance review from the year's evidence.</figcaption>
+</figure>
+  <p style={{ paddingTop: 10 }}>The same information can also shape what comes next.</p>
+  <P>If Maya consistently delivers projects well but struggles when several teams need aligning, AI can flag stakeholder management as an area to develop and recommend relevant training, mentoring or stretch projects. If her analytics work keeps showing up as a strength, that can feed into the next set of responsibilities too.</P>
+  
+    <figure className="lc-maya-search">
+  <img
+    src="/images/ai-development.png"
+    alt="AI turning Maya's review into a development plan."
+    width={1200}
+    height={750}
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption className="lc-maya-caption">AI turning Maya's review into a development plan.</figcaption>
+</figure>
+  
+
+</Section>
+          
+
+            <Section id="retention" number="06" heading="Retention: the difference between a useful signal and creepy surveillance is smaller than it looks">
               <P>A year in, Maya’s role starts wobbling.</P>
               <P>Two priorities change in a month. Her manager is pulled into a reorganisation. Late meetings creep up. An internal role opens that fits where she wants to go.</P>
               <P>A people analytics platform can spot some of those changes. The temptation is to turn them into a single number: <strong>flight risk, 73%.</strong></P>
