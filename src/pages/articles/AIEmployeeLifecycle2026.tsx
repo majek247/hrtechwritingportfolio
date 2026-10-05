@@ -198,31 +198,6 @@ function HeroJourney() {
 
 
 
-function CandidateFigure() {
-  const candidates = [
-    ["Maya Chen", "Product ops · SaaS", "92", "5/6 skill signals", true],
-    ["Elliot Reed", "RevOps · Fintech", "86", "4/6 skill signals", false],
-    ["Priya Shah", "Customer ops · SaaS", "84", "4/6 skill signals", false],
-  ] as const;
-  return <figure className="lc-figure lc-candidate">
-    <div className="lc-figure-head"><span className="lc-label">Illustrative talent search</span><span className="lc-small-tag">Filter in, then review</span></div>
-    <div className="lc-window">
-      <div className="lc-window-bar"><i /><i /><i /><span>talent / product-ops</span><b>286 applicants</b></div>
-      <div className="lc-window-body">
-        <div className="lc-query-row"><Icon name="spark" size={15} /><span>Find people who can improve cross-functional product operations, not just people with “Product Ops” in the title.</span></div>
-        <div className="lc-candidate-head"><span>Candidate</span><span>Match</span><span>Evidence</span></div>
-        {candidates.map(([name, role, score, evidence, active]) => <div className={`lc-candidate-row${active ? " is-active" : ""}`} key={name}>
-          <div className="lc-mini-person"><span>{name.split(" ").map(v => v[0]).join("")}</span><div><strong>{name}</strong><small>{role}</small></div></div>
-          <div className="lc-match"><strong>{score}</strong><span>/100</span></div>
-          <div className="lc-evidence"><span>{evidence}</span><small>Open evidence →</small></div>
-        </div>)}
-      </div>
-      <div className="lc-window-foot"><span><Icon name="shield" size={13} />Ranking is a starting point</span><strong>Recruiter reviews the evidence before shortlist</strong></div>
-    </div>
-    <figcaption>Illustrative interface and made-up candidates. A score is only useful if the recruiter can inspect the evidence and challenge the assumptions behind it.</figcaption>
-  </figure>;
-}
-
 function InterviewFigure() {
   const transcript = [
     ["12:14", "Hiring manager", "Tell me about a time a launch got messy."],
@@ -531,17 +506,42 @@ export default function AIEmployeeLifecycle2026({
     
             </Section>
 
-            <Section id="candidate" number="03" heading="Hiring: AI can widen the search and flood it at the same time">
-              <P>Recruitment is the obvious place to start because both sides now have AI.</P>
-              <P>Maya can use it to sharpen her CV, rewrite a cover letter and prepare for the interview. The company can use it to draft the job description, search for candidates, parse applications, rank skills, personalise outreach and summarise the pipeline.</P>
-              <P>The result is slightly awkward: AI makes it easier to apply and easier to process applications at exactly the same time.</P>
-              <P>LinkedIn’s 2026 analysis puts the new bottleneck neatly: recruiters are dealing with more applications, but the harder problem is <strong>signal quality</strong>. Two-thirds of recruiters in its research said finding qualified talent had become harder than a year earlier. LinkedIn also reports that organizations using its Hiring Assistant made 11% more “quality hires” on its defined measure and hired 18% more high-demand talent than organizations using traditional recruiting workflows.<Cite n={4} /></P>
-              <CandidateFigure />
-              <h3>The interesting shift is from filtering out to finding evidence</h3>
-              <P>A basic ATS asks whether Maya has the right words on her CV. A stronger AI-assisted workflow can look for the underlying evidence: she ran launch retrospectives, rebuilt handoffs between teams, worked with product analytics and reduced operational errors.</P>
-              <P>That can be genuinely useful. It can also create a false sense of precision. A match score of 92 looks wonderfully objective until you ask what was weighted, what was missing and whether the model has simply learned to prefer candidates who resemble previous hires.</P>
-              <P>The ILO’s 2025 review of AI in HR makes this point more sharply. It argues that many problems start with three things: the objective a system is asked to optimize, the data used to represent people and the way the system is programmed.<Cite n={6} /></P>
-              <Quote label="What I would test">Can the recruiter open the recommendation and see why Maya surfaced? If not, the AI has made the shortlist faster but made the hiring decision harder to defend.</Quote>
+            <Section id="candidate" number="02" heading="How AI Is Changing Job Applications and Candidate Screening">
+              <P>Maya clicks the role, decides it’s worth a shot and starts the application. Before submitting, she gives AI the job description and her CV and asks it to rewrite a few bullets so the relevant experience is clearer: product launches, process improvement, analytics and systems implementation.</P>
+             
+               <figure className="lc-maya-search">
+  <img
+    src="/images/ai-cv-rewrite.png"
+    alt="AI rewriting Maya's CV bullets against the job description."
+    width={1200}
+    height={750}
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption className="lc-maya-caption">AI rewriting Maya's CV bullets against the job description.</figcaption>
+</figure>
+
+
+            <p style={{ paddingTop: 10 }}>Then she hits submit.</p>
+              
+              <P>Now the same application moves to the other side of the system. An ATS can parse Maya’s CV, identify those skills, compare them with the role and help the recruiter decide whether she belongs in the shortlist for closer review.</P>
+           
+                <figure className="lc-maya-search">
+  <img
+    src="/images/rivermereats.png"
+    alt="AI scoring Maya against the role for the recruiter."
+    width={1200}
+    height={750}
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption className="lc-maya-caption">AI scoring Maya against the role for the recruiter.</figcaption>
+</figure>
+           
+  <p style={{ paddingTop: 10 }}>For Maya, the value is simple: the parts of her background that matter are easier to spot. For the recruiter, the same information is easier to compare against the role at scale. </p>
+             
+       <P>That does not remove the need for judgement, but it improves the first pass. Instead of asking whether Maya has held the exact title before, the recruiter can focus on whether she has done enough of the work to merit a closer look.</P>
+
             </Section>
 
             <Section id="interview" number="04" heading="Interviewing: let AI remember the conversation, not invent a personality">
