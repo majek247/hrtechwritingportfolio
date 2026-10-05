@@ -139,7 +139,7 @@ function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
 
 function Section({ id, number, heading, children }: { id: string; number: string; heading: string; children: ReactNode }) {
   return <section className="lc-section" id={id} aria-labelledby={`${id}-heading`}>
-    <div className="lc-section-kicker"><span>{number}</span><span /></div>
+    {number && <div className="lc-section-kicker"><span>{number}</span><span /></div>}
     <h2 id={`${id}-heading`}>{heading}</h2>
     {children}
   </section>;
@@ -478,7 +478,7 @@ export default function AIEmployeeLifecycle2026({
 
         <article className="lc-article" id="lc-article" ref={articleRef} aria-label="How AI Is Changing the Employee Lifecycle in 2026">
           <div className="lc-editorial">
-            <Section id="at-a-glance" number="01" heading="A few years ago, if I applied for a job, I could roughly picture what happened next.  ">
+            <Section id="at-a-glance" number="" heading="A few years ago, if I applied for a job, I could roughly picture what happened next.  ">
               <P lead>Someone opened my CV. A recruiter decided whether to call me. A manager interviewed me. If I joined, HR handled the paperwork and my manager took it from there.</P>
               <P lead>In 2026, there can be a lot more happening in between.</P>
               <P lead>AI might help decide which vacancy I see, pull skills from my CV, summarise my interview, answer my first-week questions, prepare material for my performance review, recommend training and flag that I might be ready for another role.</P>
@@ -491,13 +491,44 @@ export default function AIEmployeeLifecycle2026({
          
             </Section>
 
-            <Section id="meet-maya" number="02" heading="Meet Maya. Her employee record starts before she is an employee">
-              <P>At 08:43 on a Tuesday, Maya is drinking coffee and half-looking at LinkedIn when a product operations role appears in her feed.</P>
-              <P>She has never worked under the exact title the company searched for. Her current job sits somewhere between customer operations, product launches and internal systems. Five years ago, a keyword-heavy search might have missed her.</P>
-              <P>In 2026, that is precisely the sort of gap AI promises to close.</P>
-              <P>It can read the role as a bundle of skills rather than a job title. It can connect Maya’s launch experience with stakeholder management, process design and product analytics. It can help a recruiter ask a broader question: <strong>who could do this job, not just who has already had this job?</strong></P>
-              <P>That sounds like a small change. It is not. Once the system starts interpreting skills, potential and fit, the employee lifecycle has effectively begun before Maya has clicked Apply.</P>
-              <Note title="A useful distinction">In this guide, Maya is an illustrative composite, not a real employee. The interfaces and example scores are deliberately fictional. The research and market data are real and linked in the references.</Note>
+            <Section id="meet-maya" number="01" heading="AI in Hiring Now Starts Before the Application">
+              <P>Meet Maya.</P>
+              <P>It is 8:43 on a Tuesday morning and she is doing what I suspect a lot of people do when they’re not <em>really</em> job hunting: drinking coffee, scrolling LinkedIn and occasionally clicking a role that looks interesting.</P>
+              <P>One of them is a <strong>Product Operations Manager position.</strong></P>
+       
+
+
+  <figure className="lc-maya-search">
+  <img
+    src="/images/maya-linkedin-search.png"
+    alt="AI recommending a role to Maya based on her transferable skills."
+    width={1200}
+    height={750}
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption className="lc-maya-caption">AI recommending a role to Maya based on her transferable skills.</figcaption>
+</figure>
+
+         <p style={{ paddingTop: 10 }}>The odd thing is, Maya has never been a Product Operations Manager. Her current title is Customer Operations Lead. Before that, she worked on product launches, fixed messy internal processes and somehow became the person everyone called when a new tool needed rolling out.</p>
+
+             <P>On paper, she is not the obvious match.</P>
+             <P>But look at the work underneath the titles and it starts to make more sense: stakeholder management, process design, product analytics, launches, systems implementation.</P>
+             
+             
+             <P>That is one of the ways AI is changing the employee lifecycle.</P>
+          
+
+
+
+ <P>Instead of matching people to jobs mainly through titles and keywords, AI can use the skills and experience underneath them to work out which roles might be relevant.</P>
+
+             <P>So Maya does not need to know that “Product Operations Manager” is a job she should be searching for. The platform can make that connection first and put the role in front of her. </P>
+
+<P>That matters for employers too.</P>
+
+<P>A Product Operations vacancy no longer has to compete only for people who already call themselves Product Operations Managers. It can also reach candidates in customer operations, implementation, programme management or other adjacent roles whose experience overlaps with the work. </P>
+    
             </Section>
 
             <Section id="candidate" number="03" heading="Hiring: AI can widen the search and flood it at the same time">
@@ -640,7 +671,13 @@ const styles = String.raw`
 .lc-note{display:flex;gap:15px;background:#e6f1ea;border-top:1px solid #cfe2d6;padding:23px 24px;margin:30px 0}
 .lc-note>svg{color:#1f6b4f;margin-top:2px}
 .lc-note .lc-label{color:#167273;font-size:9px}
-.lc-editorial .lc-note p{font-family:var(--sans);font-size:12px;line-height:1.75;margin:8px 0 0;color:#545264}.lc-figure{border:1px solid var(--line);background:#f3f1ea;border-radius:15px;padding:24px;margin:30px 0!important;overflow:hidden}.lc-figure-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:25px}.lc-figure-head>.lc-label{color:#77726a;font-size:9px}.lc-small-tag{font-size:8px;color:#857f77;border:1px solid #d8d3ca;border-radius:20px;padding:4px 9px;white-space:nowrap}.lc-figure figcaption{font-family:var(--sans);font-size:9px;line-height:1.75;color:#8c877f;padding-top:18px;margin-top:20px;border-top:1px solid #ddd8cf}.lc-window{background:#fff;border:1px solid #dfdfe4;border-radius:12px;overflow:hidden}.lc-window-body{padding:18px}.lc-window-foot{padding:12px 16px;background:#20263a;color:#edf0f7;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:9px}.lc-window-foot span{display:flex;gap:6px;align-items:center;color:#b9bfd0}.lc-window-foot strong{font-size:9px;font-weight:650}
+.lc-editorial .lc-note p{font-family:var(--sans);font-size:12px;line-height:1.75;margin:8px 0 0;color:#545264}.lc-figure{border:1px solid var(--line);background:#f3f1ea;border-radius:15px;padding:24px;margin:30px 0!important;overflow:hidden}.lc-figure-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:25px}.lc-figure-head>.lc-label{color:#77726a;font-size:9px}.lc-small-tag{font-size:8px;color:#857f77;border:1px solid #d8d3ca;border-radius:20px;padding:4px 9px;white-space:nowrap}.lc-figure figcaption{font-family:var(--sans);font-size:9px;line-height:1.75;color:#8c877f;padding-top:18px;margin-top:20px;border-top:1px solid #ddd8cf}.lc-window{background:#fff;border:1px solid #dfdfe4;border-radius:12px;overflow:hidden}
+
+.lc-maya-search{margin:30px 0}
+.lc-maya-search img{display:block;width:100%;height:auto}
+.lc-maya-caption{text-align:center;font-size:10px;line-height:1.7;color:#011522;padding-top:12px;max-width:640px;margin-inline:auto}
+
+.lc-window-body{padding:18px}.lc-window-foot{padding:12px 16px;background:#20263a;color:#edf0f7;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:9px}.lc-window-foot span{display:flex;gap:6px;align-items:center;color:#b9bfd0}.lc-window-foot strong{font-size:9px;font-weight:650}
 .lc-map{background:#12182a;border-color:#262e45;color:#fff}.lc-map .lc-label{color:#a9a1da}.lc-map .lc-small-tag{border-color:#343c55;color:#9ea6ba}.lc-map-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#2b3349;border:1px solid #2b3349;border-radius:12px;overflow:hidden}.lc-map-card{background:#171e32;padding:20px}.lc-map-top{display:flex;align-items:center;justify-content:space-between}.lc-map-top>span{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#2b2750;color:#b7acf9}.lc-map-top>b{font-size:9px;color:#636c82;letter-spacing:.1em}.lc-section .lc-map-card h3{color:#fff;font-size:15px;margin:17px 0 16px}.lc-map-card>div:not(.lc-map-top){border-top:1px solid #293148;padding-top:12px;margin-top:11px}.lc-map-card small{font-size:8px;color:#7f879b;text-transform:uppercase;letter-spacing:.1em}.lc-editorial .lc-map-card p{font-family:var(--sans);font-size:10px;line-height:1.55;color:#c0c5d2;margin:4px 0 0}.lc-map figcaption{border-color:#2a3246;color:#7e879a}
 .lc-glance-figure{margin:30px 0!important}.lc-glance{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#ded9d0;border:1px solid #ded9d0;border-radius:14px;overflow:hidden}.lc-glance>div{background:#f5f3ed;padding:23px 20px;display:flex;flex-direction:column;gap:9px}.lc-glance strong{font-family:var(--serif);font-size:34px;font-weight:400;letter-spacing:-.045em;color:#4b3fac}.lc-glance span{font-family:var(--sans);font-size:10px;line-height:1.7;color:#4f515b}.lc-glance-figure figcaption{font-family:var(--sans);font-size:9px;line-height:1.8;color:#8b867e;margin-top:11px}
 .lc-query-row{display:flex;align-items:center;gap:10px;background:#eef6f1;border:1px solid #cfe2d6;border-radius:9px;padding:12px;color:#167273;font-size:10px;line-height:1.5}.lc-candidate-head{display:grid;grid-template-columns:1fr 72px 160px;color:#a1a4ad;font-size:8px;text-transform:uppercase;letter-spacing:.1em;padding:16px 8px 8px;border-bottom:1px solid #ececf0}.lc-candidate-row{display:grid;grid-template-columns:1fr 72px 160px;align-items:center;padding:13px 8px;border-bottom:1px solid #eeeef1}.lc-candidate-row.is-active{background:#faf9ff}.lc-mini-person{display:flex;align-items:center;gap:10px}.lc-mini-person>span{width:31px;height:31px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e6f1ea;color:#167273;font-size:8px;font-weight:750}.lc-mini-person strong{display:block;font-size:11px}.lc-mini-person small{display:block;font-size:8px;color:#9195a0;margin-top:2px}.lc-match strong{font-family:var(--serif);font-size:24px;font-weight:400;color:#167273}.lc-match span{font-size:8px;color:#a1a4ad}.lc-evidence span{display:block;font-size:9px;color:#525864}.lc-evidence small{display:block;font-size:8px;color:#7162ce;margin-top:3px}
