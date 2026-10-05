@@ -197,36 +197,6 @@ function HeroJourney() {
 }
 
 
-
-function InterviewFigure() {
-  const transcript = [
-    ["12:14", "Hiring manager", "Tell me about a time a launch got messy."],
-    ["13:02", "Maya", "We had product, sales and CS using three different definitions of ‘ready’. I mapped the handoffs first..."],
-    ["14:08", "AI note", "Evidence detected: process design, stakeholder alignment, operating cadence."],
-  ];
-  return <figure className="lc-figure lc-interview">
-    <div className="lc-figure-head"><span className="lc-label">Interview intelligence</span><span className="lc-small-tag">Remember more. Infer less.</span></div>
-    <div className="lc-interview-grid">
-      <div className="lc-window">
-        <div className="lc-window-bar"><i /><i /><i /><span>interview / live notes</span></div>
-        <div className="lc-window-body">
-          <div className="lc-call-head"><div className="lc-avatar sm">MC</div><div><strong>Maya Chen</strong><small>Structured interview · 31:42</small></div><span className="lc-live"><i />Live</span></div>
-          <div className="lc-transcript">{transcript.map(([time, who, text]) => <div key={time}><span>{time}</span><p><strong>{who}</strong>{text}</p></div>)}</div>
-        </div>
-      </div>
-      <div className="lc-score-card">
-        <span className="lc-label">What the panel sees</span>
-        <h3>Evidence, not vibes.</h3>
-        <div className="lc-signal"><span>Systems thinking</span><strong>3 examples</strong></div>
-        <div className="lc-signal"><span>Stakeholder management</span><strong>2 examples</strong></div>
-        <div className="lc-signal"><span>Role-specific gap</span><strong>Data modelling</strong></div>
-        <div className="lc-do-not"><Icon name="shield" size={16} /><div><strong>Do not score</strong><span>facial expression · accent · “enthusiasm” · personality guessed from video</span></div></div>
-      </div>
-    </div>
-    <figcaption>Illustrative workflow. The stronger use case is retrieving job-relevant evidence from a structured interview, not converting human behaviour into a pseudo-scientific personality score.</figcaption>
-  </figure>;
-}
-
 function OnboardingFigure() {
   const days = [
     ["Day 1", "Settle the basics", "Access, payroll, laptop, team map", "4/4"],
@@ -544,16 +514,34 @@ export default function AIEmployeeLifecycle2026({
 
             </Section>
 
-            <Section id="interview" number="04" heading="Interviewing: let AI remember the conversation, not invent a personality">
-              <P>Maya gets the interview.</P>
-              <P>This is where AI can be incredibly useful in a very boring way. It can schedule the call, build a structured interview pack, transcribe the conversation, pull out examples against the role criteria and give the panel a clean record of what was actually said.</P>
-              <P>That matters because human interviewers are not perfect note-taking machines. We remember the great anecdote, forget the second candidate’s detail and occasionally let “I liked them” do more work than we admit.</P>
-              <InterviewFigure />
-              <P>The line I would draw is simple: use AI to help the panel <strong>retrieve evidence</strong>; be much more sceptical when it claims to infer things the interview never directly established.</P>
-              <P>The ILO warns that algorithmic management systems can turn messy management questions into apparently neat technical outputs without fixing the underlying problem.<Cite n={5} /> “Leadership potential”, “culture fit” and “engagement” become especially risky when the system is reading proxies rather than job-relevant evidence.</P>
-              <P>And regulation is catching up. Under the EU AI Act, certain AI systems used for recruitment, selection, promotion, termination, task allocation, monitoring and evaluation in employment are classified as high-risk.<Cite n={7} /></P>
-              <Quote>A transcript is evidence. A score is an opinion wearing a decimal. Treat them differently.</Quote>
-            </Section>
+<Section id="interview" number="03" heading="How AI Is Changing Job Interviews">
+  <P>If you have ever left an interview wondering whether you actually answered the question or spent three minutes circling it, Maya’s next step will feel familiar.</P>
+  <P>She gets shortlisted.</P>
+  <P>The email lands the following afternoon with an invitation to a first-round interview. Before the call, Maya gives AI the job description again, asks it to predict the questions she is likely to get and practises explaining the product launches, process improvements and systems work that got her this far.</P>
+  <P>Then the interview starts, and AI is on the other side too.</P>
+  
+     <figure className="lc-maya-search">
+  <img
+    src="/images/ai-powered-interview.png"
+    alt="AI conducting Maya's first-round interview."
+    width={1200}
+    height={750}
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption className="lc-maya-caption">AI conducting Maya's first-round interview.</figcaption>
+</figure>
+  
+  <p style={{ paddingTop: 10 }}>Anyone who has interviewed people knows how quickly the notes get messy: you are listening to Maya, thinking about the next question and trying to write down the useful parts at the same time.</p>
+
+
+  <P>With AI capturing the transcript, the recruiter can stay in the conversation and come back afterwards to Maya’s actual examples: the launch she managed, the process she changed, the system she rolled out. Maya gets more attention during the interview, and the recruiter gets a cleaner record when it is time to compare her with the other candidates.</P>
+ 
+  <P>Where I would be much more cautious is when the system starts going beyond what Maya actually said. Summarising her example of handling a difficult launch is useful. Scoring her confidence, facial expressions or speaking style and turning that into a prediction about job performance is where the risks start to outweigh benefits.</P>
+
+
+
+</Section>
 
             <Section id="onboarding" number="05" heading="Onboarding: the best AI may feel like a very patient colleague">
               <P>Maya accepts the offer. Now the glamorous AI future meets the first week of employment: payroll forms, laptop access, acronyms nobody explained and a calendar full of meetings she does not yet understand.</P>
