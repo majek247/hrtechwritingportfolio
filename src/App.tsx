@@ -4,7 +4,7 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import { Seo } from "./components/Seo";
 import Home from "./pages/Home";
-import OpenBanking from "./pages/articles/OpenBanking";
+import AIEmployeeLifecycle2026 from "./pages/articles/AIEmployeeLifecycle2026";
 import AveniBestAINoteTakingTools from "./pages/articles/AveniBestAINoteTakingTools";
 import AdfinStubbsCaseStudy from "./pages/articles/AdfinStubbsCaseStudy";
 
@@ -39,15 +39,15 @@ export default function App() {
         />
 
         <Route
-          path="/articles/open-banking-2026"
+          path="/articles/ai-employee-lifecycle"
           element={
             <>
               <Seo
                title="Fintech Article Writing Sample: Open Banking in 2026 | GrowUp"
                 description="A fintech writing sample by GrowUp: a research-led article on open banking in 2026, covering Pay by Bank, VRPs, fraud risk and provider evaluation."
-                path="/articles/open-banking-2026"
+                path="/articles/ai-employee-lifecycle"
               />
-              <OpenBanking />
+              <AIEmployeeLifecycle2026 />
             </>
           }
         />
