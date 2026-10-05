@@ -37,17 +37,15 @@ type IconName =
   | "flag";
 
 const contents = [
-  ["meet-maya", "Meet Maya"],
-  ["candidate", "Candidate & Hiring"],
-  ["interview", "Interview & Selection"],
-  ["onboarding", "Onboarding"],
+  ["meet-maya", "Job Discovery & Matching"],
+  ["candidate", "Application & Screening"],
+  ["interview", "Interview & Evaluation"],
+  ["onboarding", "Role-Based Onboarding"],
   ["performance", "Performance & Development"],
-  ["retention", "Retention"],
-  ["exit", "Exit & Offboarding"],
-  ["chro", "What CHROs should build"],
+  ["retention", "Retention & Attrition Signals"],
+  ["exit", "Offboarding & Knowledge Transfer"],
+  ["chro", "AI in HR Framework"],
 ] as const;
-
-
 
 
 function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
@@ -99,40 +97,6 @@ function Note({ title, children }: { title: string; children: ReactNode }) {
   return <aside className="lc-note"><Icon name="shield" /><div><span className="lc-label">{title}</span><p>{children}</p></div></aside>;
 }
 
-function HeroJourney() {
-  const steps = [
-    ["01", "Candidate", "Matched to role", "search"],
-    ["02", "Interview", "Notes structured", "chat"],
-    ["03", "Onboard", "Plan personalised", "calendar"],
-    ["04", "Perform", "Evidence surfaced", "chart"],
-    ["05", "Develop", "Skills mapped", "book"],
-    ["06", "Exit", "Knowledge handed over", "door"],
-  ] as const;
-  return <div className="lc-hero-ui" aria-label="Illustrative employee lifecycle interface">
-    <div className="lc-hero-window">
-      <div className="lc-window-bar"><i /><i /><i /><span>peopleOS / maya.chen</span><b>AI assist: on</b></div>
-      <div className="lc-hero-profile">
-        <div className="lc-avatar">MC</div>
-        <div><small>Employee journey</small><strong>Maya Chen</strong><span>Product Operations · London</span></div>
-        <div className="lc-profile-status"><i />Active journey</div>
-      </div>
-      <div className="lc-journey-line">
-        {steps.map(([n, title, text, icon], i) => <div className="lc-journey-step" key={title}>
-          <div className="lc-journey-node"><Icon name={icon as IconName} size={15} /></div>
-          <small>{n}</small><strong>{title}</strong><span>{text}</span>
-          {i < steps.length - 1 && <em />}
-        </div>)}
-      </div>
-      <div className="lc-hero-insight">
-        <span className="lc-ai-badge"><Icon name="spark" size={13} />AI moment</span>
-        <p><strong>Next best action:</strong> give Maya the product analytics module before her first quarterly review.</p>
-        <button type="button">Why this suggestion? <Icon name="arrow" size={14} /></button>
-      </div>
-    </div>
-    <div className="lc-float-card is-a"><span>Human decision</span><strong>Offer approved by recruiter</strong></div>
-    <div className="lc-float-card is-b"><span>AI assist</span><strong>3 hours of admin removed</strong></div>
-  </div>;
-}
 
 
 function SkillsFigure() {
@@ -206,7 +170,7 @@ export default function AIEmployeeLifecycle2026({
   showNavigation = false,
 }: Props = {}) {
   const articleRef = useRef<HTMLElement>(null);
-  const [active, setActive] = useState<string>(contents[0][0]);
+  const [active, setActive] = useState<string>("");
   const [progress, setProgress] = useState(0);
   const [minutes, setMinutes] = useState(15);
   const [shareStatus, setShareStatus] = useState("");
@@ -222,12 +186,20 @@ export default function AIEmployeeLifecycle2026({
       const rect = article.getBoundingClientRect();
       const travel = Math.max(1, rect.height - window.innerHeight);
       setProgress(Math.max(0, Math.min(100, (-rect.top / travel) * 100)));
-      let current: string = contents[0][0];
-      for (const [id] of contents) {
-        const section = article.querySelector<HTMLElement>(`#${id}`);
-        if (section && section.getBoundingClientRect().top <= 170) current = id;
-      }
-      setActive(current);
+     
+  let current = "";
+
+for (const [id] of contents) {
+  const section = article.querySelector<HTMLElement>(`#${id}`);
+
+  if (section && section.getBoundingClientRect().top <= 170) {
+    current = id;
+  }
+}
+
+setActive(current);
+
+
       frame = null;
     };
     const queue = () => { if (frame === null) frame = window.requestAnimationFrame(update); };
@@ -274,13 +246,21 @@ export default function AIEmployeeLifecycle2026({
       </nav>}
       <div className="lc-hero-main lc-container">
         <div className="lc-hero-copy">
-          <div className="lc-category"><span />HR tech writing sample</div>
+          <div className="lc-category"><span />HR Tech Writing Sample</div>
           <h1>How AI Is Changing the Employee Lifecycle in 2026</h1>
-          <p className="lc-deck">Follow one employee from first application to final handover, and see where AI removes work, changes decisions and creates entirely new questions for HR.</p>
+          <p className="lc-deck">A practical look at where AI now enters the employee lifecycle, from candidate matching and interview notes to onboarding, reviews, retention and offboarding.</p>
           <div className="lc-hero-meta"><span>GrowUp Editorial</span><span>{minutes} min read</span><time dateTime="2026-10-05">October 2026</time></div>
-          <a className="lc-read-link" href="#lc-article">Follow the journey <Icon name="arrow" size={18} /></a>
+          <a className="lc-read-link" href="#lc-article">Read the guide <Icon name="arrow" size={18} /></a>
         </div>
-        <div className="lc-hero-art"><HeroJourney /></div>
+        <div className="lc-hero-art">
+  <img
+    src="/images/aiopsheroimg.png"
+    alt="Illustration of the employee lifecycle, from candidate through to exit."
+    width={1200}
+    height={900}
+    fetchPriority="high"
+  />
+</div>
       </div>
     </header>
 
@@ -288,10 +268,10 @@ export default function AIEmployeeLifecycle2026({
       <section className="lc-overview" aria-labelledby="lc-overview-heading">
         <h2 className="lc-label" id="lc-overview-heading">Article overview</h2>
         <dl>{[
-          { icon: "book" as const, label: "Content type", value: "Research-led industry guide" },
-          { icon: "person" as const, label: "Primary reader", value: "CHROs and people leaders" },
-          { icon: "nodes" as const, label: "Narrative device", value: "One employee lifecycle" },
-          { icon: "shield" as const, label: "Commercial angle", value: "AI value, trust and governance" },
+          { icon: "book" as const, label: "Content Type", value: "Scenario-Based Narrative Guide" },
+          { icon: "person" as const, label: "Audience", value: "CHROs and People Leaders" },
+          { icon: "nodes" as const, label: "Scope", value: "Full Employee Lifecycle" },
+          { icon: "shield" as const, label: "Takeaway", value: "AI Roles and Guardrails" },
         ].map(item => <div key={item.label}><span className="lc-icon-tile"><Icon name={item.icon} size={18} /></span><div><dt>{item.label}</dt><dd>{item.value}</dd></div></div>)}</dl>
       </section>
 
@@ -338,15 +318,9 @@ export default function AIEmployeeLifecycle2026({
              <P>On paper, she is not the obvious match.</P>
              <P>But look at the work underneath the titles and it starts to make more sense: stakeholder management, process design, product analytics, launches, systems implementation.</P>
              
-             
-             <P>That is one of the ways AI is changing the employee lifecycle.</P>
-          
+         
 
-
-
- <P>Instead of matching people to jobs mainly through titles and keywords, AI can use the skills and experience underneath them to work out which roles might be relevant.</P>
-
-             <P>So Maya does not need to know that “Product Operations Manager” is a job she should be searching for. The platform can make that connection first and put the role in front of her. </P>
+             <P>Maya does not need to know that “Product Operations Manager” is a job she should be searching for. The AI can make that connection first and put the role in front of her. </P>
 
 <P>That matters for employers too.</P>
 
@@ -354,7 +328,7 @@ export default function AIEmployeeLifecycle2026({
     
             </Section>
 
-            <Section id="candidate" number="02" heading="How AI Is Changing Job Applications and Candidate Screening">
+            <Section id="candidate" number="02" heading="AI Candidate Screening From Application to Shortlist">
               <P>Maya clicks the role, decides it’s worth a shot and starts the application. Before submitting, she gives AI the job description and her CV and asks it to rewrite a few bullets so the relevant experience is clearer: product launches, process improvement, analytics and systems implementation.</P>
              
                <figure className="lc-maya-search">
@@ -392,7 +366,7 @@ export default function AIEmployeeLifecycle2026({
 
             </Section>
 
-<Section id="interview" number="03" heading="How AI Is Changing Job Interviews">
+<Section id="interview" number="03" heading="Using AI to Capture and Review Job Interviews">
   <P>If you have ever left an interview wondering whether you actually answered the question or spent three minutes circling it, Maya’s next step will feel familiar.</P>
   <P>She gets shortlisted.</P>
   <P>The email lands the following afternoon with an invitation to a first-round interview. Before the call, Maya gives AI the job description again, asks it to predict the questions she is likely to get and practises explaining the product launches, process improvements and systems work that got her this far.</P>
@@ -421,7 +395,7 @@ export default function AIEmployeeLifecycle2026({
 
 </Section>
 
-          <Section id="onboarding" number="04" heading="How AI Is Changing Employee Onboarding">
+          <Section id="onboarding" number="04" heading="Building Role-Based Employee Onboarding With AI">
   <P>The worst onboarding I ever had started with a folder called <strong>START HERE</strong>.</P>
   <P>Inside were 47 links, three outdated org charts, two videos recorded by people who had already left the company and a benefits document that somehow opened as a 62-page PDF.</P>
   <P>By day three, I had learned a lot about the company. Just not much about how to do my job.</P>
@@ -449,7 +423,7 @@ export default function AIEmployeeLifecycle2026({
 </Section>
 
 
-         <Section id="performance" number="05" heading="How AI Is Changing Performance Reviews and Development">
+         <Section id="performance" number="05" heading="Using AI to Improve Performance Reviews and Development">
   <P>I have seen performance reviews where 11 months of good work somehow disappear because you made one very visible mistake three weeks before the meeting.</P>
   <P>Managers do not usually mean to do this. They’re just trying to reconstruct a year from memory, scattered notes, Slack messages and whatever happened recently enough to still be sitting in their head.</P>
   <P>By Maya’s first review, AI can give her manager a much better starting point.</P>
@@ -485,7 +459,7 @@ export default function AIEmployeeLifecycle2026({
 </Section>
           
 
-         <Section id="retention" number="06" heading="How AI Is Changing Employee Retention">
+         <Section id="retention" number="06" heading="Spotting Employee Retention Patterns Before People Leave">
   <P>Most companies have had the meeting where somebody asks, “Did we see this coming?” after a strong employee resigns.</P>
   <P>Quite often, the answer is that the signals were there. They were just scattered across too many places.</P>
   <P>A manager changed. Workload rose. Internal moves slowed down. Engagement dipped. A few experienced people left the same team within a short period.</P>
@@ -511,7 +485,7 @@ export default function AIEmployeeLifecycle2026({
 
 </Section>
 
-      <Section id="exit" number="07" heading="How AI Is Changing Exit and Offboarding">
+      <Section id="exit" number="07" heading="Improving Employee Offboarding and Knowledge Transfer">
   <P>One of the strangest exits I ever had ended with someone asking me, on my final afternoon, whether I could “just quickly write down everything I was working on”.</P>
   <P>There were open projects, recurring meetings, half-finished docs and a few processes that mostly lived in my head. None of it had been pulled together until the clock was already running out.</P>
   <P>AI can make that handover much less chaotic.</P>
@@ -570,7 +544,8 @@ const styles = String.raw`
 
 .lc-button-accent{background:#1F9FA1;color:#fff!important}
 .lc-button-accent:hover{transform:translateY(-1px);background:#178a8c}
-.lc-hero-main{width:min(1240px,calc(100% - 96px));margin-inline:auto;display:grid;grid-template-columns:.92fr 1.08fr;gap:46px;min-height:660px;align-items:center;padding-block:54px 64px;position:relative;z-index:2}.lc-category{display:flex;align-items:center;gap:8px;color:#1F9FA1;font-size:10px;letter-spacing:.16em;text-transform:uppercase;width:fit-content;border:1px solid rgba(31,159,161,.4);padding:6px 12px;border-radius:30px;margin-bottom:23px}.lc-category>span{width:4px;height:4px;background:currentColor;border-radius:50%}.lc-hero h1{font-family:var(--serif);font-size:clamp(43px,4.6vw,68px);font-weight:400;letter-spacing:-.052em;line-height:1.035;max-width:660px;text-wrap:balance;color:#f5f8f2}.lc-deck{max-width:525px;font-size:16px;line-height:1.75;color:#fafafa;margin-top:26px!important}.lc-hero-meta{display:flex;flex-wrap:wrap;font-size:12px;color:#8f96aa;margin-top:25px}.lc-hero-meta>*+*::before{content:'·';padding-inline:12px;color:#5e6579}.lc-read-link{display:flex;align-items:center;gap:14px;width:fit-content;font-size:13px;color:#1F9FA1!important;margin-top:28px}.lc-hero-art{min-width:0;position:relative}
+.lc-hero-main{width:min(1240px,calc(100% - 96px));margin-inline:auto;display:grid;grid-template-columns:.92fr 1.08fr;gap:46px;min-height:660px;align-items:center;padding-block:54px 64px;position:relative;z-index:2}.lc-category{display:flex;align-items:center;gap:8px;color:#1F9FA1;font-size:10px;letter-spacing:.16em;text-transform:uppercase;width:fit-content;border:1px solid rgba(31,159,161,.4);padding:6px 12px;border-radius:30px;margin-bottom:23px}.lc-category>span{width:4px;height:4px;background:currentColor;border-radius:50%}.lc-hero h1{font-family:var(--serif);font-size:clamp(43px,4.6vw,68px);font-weight:400;letter-spacing:-.052em;line-height:1.035;max-width:660px;text-wrap:balance;color:#f5f8f2}.lc-deck{max-width:500px;font-size:16px;line-height:1.75;color:#fafafa;margin-top:26px!important}.lc-hero-meta{display:flex;flex-wrap:wrap;font-size:12px;color:#8f96aa;margin-top:25px}.lc-hero-meta>*+*::before{content:'·';padding-inline:12px;color:#5e6579}.lc-read-link{display:flex;align-items:center;gap:14px;width:fit-content;font-size:13px;color:#1F9FA1!important;margin-top:28px}.lc-hero-art{min-width:0;position:relative;display:flex;align-items:center;justify-content:center}
+.lc-hero-art img{display:block;width:100%;height:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 30px 60px rgba(0,0,0,.3))}
 .lc-hero-ui{position:relative;padding:42px 12px 34px}.lc-hero-window{background:#f9fafc;color:#1c2332;border:1px solid rgba(255,255,255,.22);border-radius:18px;box-shadow:0 32px 80px rgba(0,0,0,.36);overflow:hidden;transform:rotate(.4deg)}.lc-window-bar{height:44px;border-bottom:1px solid #e7e8ee;display:flex;align-items:center;gap:6px;padding:0 15px;background:#f1f2f6;font-size:9px;color:#7b8190}.lc-window-bar i{width:7px;height:7px;border-radius:50%;background:#cfd2db}.lc-window-bar i:first-child{background:#ffac93}.lc-window-bar i:nth-child(2){background:#f3d77b}.lc-window-bar i:nth-child(3){background:#a7dfc6}.lc-window-bar span{margin-left:7px}.lc-window-bar b{margin-left:auto;font-size:8px;background:#d9ede2;color:#167273;border-radius:20px;padding:4px 8px;font-weight:700}.lc-hero-profile{display:flex;align-items:center;gap:13px;padding:21px 22px 17px;border-bottom:1px solid #ececf0}.lc-avatar{width:47px;height:47px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#d5d0ff,#a7e5d2);font-size:13px;font-weight:800;color:#2b3150;flex-shrink:0}.lc-avatar.sm{width:34px;height:34px;font-size:10px}.lc-hero-profile>div:nth-child(2){min-width:0}.lc-hero-profile small{display:block;font-size:8px;color:#999eaa;text-transform:uppercase;letter-spacing:.13em}.lc-hero-profile strong{display:block;font-size:15px;margin-top:3px}.lc-hero-profile div>span{font-size:9px;color:#7c8290}.lc-profile-status{margin-left:auto!important;font-size:8px!important;color:#3e7a68!important;display:flex;gap:6px;align-items:center;white-space:nowrap}.lc-profile-status i{width:6px;height:6px;background:#64c49f;border-radius:50%}.lc-journey-line{display:grid;grid-template-columns:repeat(6,1fr);padding:26px 18px 23px;gap:4px}.lc-journey-step{position:relative;text-align:center;min-width:0}.lc-journey-node{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#eeebff;color:#6253c7;margin:0 auto 9px;position:relative;z-index:2;border:4px solid #fafaff}.lc-journey-step small{display:block;font-size:7px;color:#b0b4bf;letter-spacing:.1em}.lc-journey-step strong{display:block;font-size:9px;margin-top:2px}.lc-journey-step>span{display:block;font-size:7px;color:#8f94a0;line-height:1.35;margin-top:3px;padding-inline:2px}.lc-journey-step em{position:absolute;top:16px;left:64%;width:78%;height:1px;background:#d9d7e4;z-index:1}.lc-hero-insight{margin:0 20px 21px;padding:15px;border:1px solid #ded9fb;border-radius:11px;background:#f5f3ff;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}.lc-ai-badge{font-size:8px;font-weight:750;color:#167273;display:flex;align-items:center;gap:5px;white-space:nowrap}.lc-hero-insight p{font-size:9px;line-height:1.55;color:#515868}.lc-hero-insight p strong{color:#262d3c}.lc-hero-insight button{background:transparent;border:0;color:#167273;font-size:8px;font-weight:700;display:flex;align-items:center;gap:5px;padding:0}.lc-float-card{position:absolute;background:#11182b;border:1px solid rgba(255,255,255,.12);box-shadow:0 17px 34px rgba(0,0,0,.26);border-radius:10px;padding:11px 13px;color:#fff;z-index:4}.lc-float-card span{display:block;color:#939bb2;font-size:7px;text-transform:uppercase;letter-spacing:.12em}.lc-float-card strong{font-size:9px;display:block;margin-top:3px;font-weight:650}.lc-float-card.is-a{left:-19px;top:18px;transform:rotate(-3deg)}.lc-float-card.is-b{right:-5px;bottom:3px;transform:rotate(2.5deg)}
 .lc-main{padding-bottom:48px}.lc-overview{padding:42px 0 46px;border-bottom:1px solid var(--line)}.lc-overview>h2{color:#232838;font-size:11px;letter-spacing:.22em;font-weight:700;margin-bottom:30px}.lc-overview dl{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}.lc-overview dl>div{display:flex;align-items:center;gap:16px;min-width:0}.lc-overview dl>div+div{border-left:1px solid #e4e0d7;padding-left:30px}.lc-icon-tile{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid #cfe2d6;color:#1f6b4f;background:#f2f8f4;flex-shrink:0}.lc-overview dt{font-size:9px;color:#9b978f;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:7px}.lc-overview dd{font-size:13px;font-weight:600;line-height:1.45;color:#272c38}.lc-reading-layout{display:grid;grid-template-columns:240px minmax(0,790px);gap:72px;padding-top:58px;justify-content:space-between;align-items:start}.lc-toc{position:sticky;top:40px}.lc-toc>.lc-label{color:#88847e;font-size:11px;padding-bottom:18px}.lc-toc nav{display:flex;flex-direction:column}.lc-toc nav a,.lc-mobile-toc nav a{display:flex;gap:13px;font-size:13px;padding:11px 0;color:#73757e;line-height:1.45;border-bottom:1px solid #e8e4dc}.lc-toc nav a>span,.lc-mobile-toc nav a>span{font-size:10px;font-variant-numeric:tabular-nums;color:#aaa59c;min-width:20px;padding-top:2px}
 
@@ -629,7 +604,7 @@ const styles = String.raw`
 .lc-sources{margin-top:56px;padding-top:31px;border-top:1px solid var(--line)}.lc-sources>.lc-label{color:#827d75;font-size:11px}.lc-sources h2{font-family:var(--serif);font-size:34px;line-height:1.2;letter-spacing:-.03em;font-weight:400;color:#272b36;margin-top:13px}.lc-sources>p{font-size:12px;color:#676a72;line-height:1.75;margin-top:12px;max-width:760px}.lc-sources ol{list-style:none;padding:0;margin:22px 0 0}.lc-sources li{display:flex;gap:17px;align-items:center;border-bottom:1px solid var(--line);padding:19px 0;scroll-margin-top:40px}.lc-sources li>span{font-size:10px;color:#99938a}.lc-sources li>a{flex:1}.lc-sources small{font-size:10px;color:#8b867e;display:block;margin-bottom:4px}.lc-sources strong{font-size:13px;font-weight:650;color:#343844;line-height:1.4}.lc-sources li svg{color:#8272da}.lc-sources li:hover strong{color:#594bb8}.lc-cta{margin-top:50px;background:radial-gradient(circle at 90% 10%,rgba(123,104,238,.35),transparent 36%),var(--ink);padding:42px;border-radius:16px;color:#f4f3f9}.lc-cta .lc-label{color:#a99ef0;font-size:9px}.lc-cta h2{font-family:var(--serif);font-size:41px;font-weight:400;line-height:1.12;letter-spacing:-.037em;margin-top:19px;max-width:670px}.lc-cta h2 em{color:#b7efdd;font-style:italic}.lc-cta p{font-size:12px;line-height:1.8;color:#adb2c1;max-width:520px;margin-top:18px}.lc-cta .lc-button{margin-top:23px}.lc-article-end{display:flex;justify-content:space-between;gap:20px;padding-block:25px;font-size:10px;color:#8c877f}.lc-article-end>a:first-child{display:flex;gap:8px;align-items:center}
 @media(min-width:1500px){.lc-hero-main{min-height:700px}.lc-hero h1{font-size:69px}}
 @media(max-width:1100px){.lc-container{width:calc(100% - 64px)}.lc-nav-links{gap:20px;font-size:10px}.lc-hero-main{gap:24px}.lc-hero h1{font-size:50px}.lc-reading-layout{gap:44px;grid-template-columns:185px minmax(0,1fr)}.lc-overview dl{gap:18px}.lc-overview dl>div+div{padding-left:18px}.lc-map-grid{grid-template-columns:repeat(2,1fr)}.lc-handover{grid-template-columns:1fr auto auto}.lc-handover button{grid-column:3}.lc-handover>span:nth-of-type(3){display:none}}
-@media(max-width:820px){.lc-container{width:calc(100% - 44px)}.lc-nav{min-height:78px}.lc-nav-links{display:none}.lc-nav>.lc-button{margin-left:auto;padding:10px 17px;min-height:39px;font-size:10px}.lc-hero-main{grid-template-columns:1fr;padding-top:38px;padding-bottom:42px}.lc-hero-copy{max-width:680px}.lc-hero h1{font-size:clamp(42px,8vw,62px);max-width:700px}.lc-deck{max-width:600px}.lc-hero-art{max-width:680px;width:100%;margin-inline:auto}.lc-overview dl{grid-template-columns:1fr 1fr;gap:25px}.lc-overview dl>div+div{border:0;padding-left:0}.lc-reading-layout{display:block;padding-top:28px}.lc-toc{display:none}.lc-mobile-toc{display:block;border-block:1px solid var(--line);margin-bottom:30px;padding:14px 0}.lc-mobile-toc summary{list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#5c50af;font-weight:650;cursor:pointer}.lc-mobile-toc summary::-webkit-details-marker{display:none}.lc-mobile-toc nav{padding-top:10px}.lc-editorial p{font-size:17px}.lc-editorial p.lc-lead{font-size:21px}.lc-section h2{font-size:33px}.lc-section{padding-top:43px}.lc-map-grid{grid-template-columns:repeat(2,1fr)}.lc-glance{grid-template-columns:repeat(2,1fr)}.lc-interview-grid,.lc-onboard-grid,.lc-skills-grid,.lc-retention-wrap{grid-template-columns:1fr}.lc-pulse{grid-row:auto}.lc-exit-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:820px){.lc-container{width:calc(100% - 44px)}.lc-nav{min-height:78px}.lc-nav-links{display:none}.lc-nav>.lc-button{margin-left:auto;padding:10px 17px;min-height:39px;font-size:10px}.lc-hero-main{grid-template-columns:1fr;padding-top:38px;padding-bottom:42px}.lc-hero-copy{max-width:680px}.lc-hero h1{font-size:clamp(42px,8vw,62px);max-width:700px}.lc-deck{max-width:600px}.lc-hero-art{max-width:680px;width:100%;margin-inline:auto;padding:20px 0}.lc-overview dl{grid-template-columns:1fr 1fr;gap:25px}.lc-overview dl>div+div{border:0;padding-left:0}.lc-reading-layout{display:block;padding-top:28px}.lc-toc{display:none}.lc-mobile-toc{display:block;border-block:1px solid var(--line);margin-bottom:30px;padding:14px 0}.lc-mobile-toc summary{list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#5c50af;font-weight:650;cursor:pointer}.lc-mobile-toc summary::-webkit-details-marker{display:none}.lc-mobile-toc nav{padding-top:10px}.lc-editorial p{font-size:17px}.lc-editorial p.lc-lead{font-size:21px}.lc-section h2{font-size:33px}.lc-section{padding-top:43px}.lc-map-grid{grid-template-columns:repeat(2,1fr)}.lc-glance{grid-template-columns:repeat(2,1fr)}.lc-interview-grid,.lc-onboard-grid,.lc-skills-grid,.lc-retention-wrap{grid-template-columns:1fr}.lc-pulse{grid-row:auto}.lc-exit-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.lc-container{width:calc(100% - 34px)}.lc-hero{padding-top:68px}.lc-logo{font-size:21px}.lc-category{font-size:9px}.lc-hero h1{font-size:40px;line-height:1.08}.lc-deck{font-size:13px;line-height:1.8}.lc-hero-meta{font-size:9px}.lc-hero-meta>*+*::before{padding-inline:8px}.lc-hero-ui{padding:24px 0 28px}.lc-float-card{display:none}.lc-journey-line{grid-template-columns:repeat(3,1fr);row-gap:17px}.lc-journey-step em{display:none}.lc-hero-insight{grid-template-columns:1fr;gap:8px}.lc-hero-insight button{width:fit-content}.lc-overview{padding:28px 0}.lc-overview dl{gap:22px 12px}.lc-overview dd{font-size:11px}.lc-overview dl>div{gap:11px}.lc-icon-tile{width:36px;height:36px}.lc-editorial p.lc-lead{font-size:20px}.lc-section h2{font-size:29px}.lc-editorial .lc-quote p{font-size:24px}.lc-figure{padding:17px}.lc-figure-head{align-items:flex-start;flex-wrap:wrap;margin-bottom:19px}.lc-map-grid{grid-template-columns:1fr}.lc-glance{grid-template-columns:1fr 1fr}.lc-glance>div{padding:17px 14px}.lc-glance strong{font-size:27px}.lc-glance span{font-size:9px}.lc-candidate-head,.lc-candidate-row{grid-template-columns:1fr 55px}.lc-candidate-head span:last-child,.lc-candidate-row>.lc-evidence{display:none}.lc-review-head{grid-template-columns:1fr}.lc-exit-grid{grid-template-columns:1fr 1fr}.lc-handover{grid-template-columns:1fr 1fr}.lc-handover>div{grid-column:1/-1}.lc-handover button{grid-column:2}.lc-rights-head{display:none}.lc-rights-row{grid-template-columns:1fr auto;padding:14px}.lc-rights-row>p{grid-column:1/-1}.lc-cta{padding:31px 24px}.lc-cta h2{font-size:35px}.lc-article-end{flex-direction:column;gap:15px}.lc-build-list>div{gap:13px}}
 @media(prefers-reduced-motion:no-preference){.lc-page{scroll-behavior:smooth}.lc-page a,.lc-page button{transition:color .18s,background .18s,transform .18s}}
 @media print{.lc-page{background:#fff;color:#000}.lc-progress,.lc-nav,.lc-toc,.lc-mobile-toc,.lc-cta,.lc-article-end,.lc-read-link{display:none!important}.lc-hero{background:#fff;color:#000;padding-top:0}.lc-hero-main{min-height:0;padding-block:20px;grid-template-columns:1fr}.lc-hero-art{display:none}.lc-deck,.lc-hero-meta{color:#333}.lc-container{width:100%}.lc-reading-layout{display:block;padding-top:20px}.lc-section{break-inside:auto}.lc-figure,.lc-quote,.lc-note{break-inside:avoid}.lc-hero h1{font-size:36px}.lc-section h2{font-size:26px}.lc-editorial p{font-size:12px;line-height:1.6}.lc-sources a::after{content:' (' attr(href) ')';font-size:8px;overflow-wrap:anywhere}}

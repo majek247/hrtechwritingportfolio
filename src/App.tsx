@@ -43,8 +43,8 @@ export default function App() {
           element={
             <>
               <Seo
-               title="Fintech Article Writing Sample: Open Banking in 2026 | GrowUp"
-                description="A fintech writing sample by GrowUp: a research-led article on open banking in 2026, covering Pay by Bank, VRPs, fraud risk and provider evaluation."
+               title="HR Tech Article Writing Sample | AI Across the Employee Lifecycle"
+               description="A story-led HR tech writing sample from GrowUp, following one fictional employee through hiring, onboarding, performance, retention and exit to show where AI helps, where it needs a human, and who owns the decision."
                 path="/articles/ai-employee-lifecycle"
               />
               <AIEmployeeLifecycle2026 />
