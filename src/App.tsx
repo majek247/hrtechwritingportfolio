@@ -5,8 +5,8 @@ import Footer from "./components/Footer";
 import { Seo } from "./components/Seo";
 import Home from "./pages/Home";
 import AIEmployeeLifecycle2026 from "./pages/articles/AIEmployeeLifecycle2026";
-import AveniBestAINoteTakingTools from "./pages/articles/AveniBestAINoteTakingTools";
-import AdfinStubbsCaseStudy from "./pages/articles/AdfinStubbsCaseStudy";
+import BestGlobalEmployeeBenefitsPlatforms2026 from "./pages/articles/BestGlobalEmployeeBenefitsPlatforms2026";
+import MakiCapgeminiCaseStudy from "./pages/articles/MakiCapgeminiCaseStudy";
 
 function ScrollTop() {
   const { pathname } = useLocation();
@@ -55,7 +55,7 @@ export default function App() {
   
 
         <Route
-          path="/articles/best-ai-note-taking-tools"
+          path="/articles/best-global-employee-benefits-platform"
           element={
             <>
               <Seo
@@ -63,13 +63,13 @@ export default function App() {
                 description="A fintech writing sample by GrowUp: a comparison of five AI note-taking tools for UK financial advisers, written as an example of content for Aveni."
                 path="/articles/best-ai-note-taking-tools"
               />
-              <AveniBestAINoteTakingTools />
+              <BestGlobalEmployeeBenefitsPlatforms2026 />
             </>
           }
         />
 
         <Route
-          path="/articles/adfin-stubbs-parkin-case-study"
+          path="/articles/maki-capgemini-case-study"
           element={
             <>
               <Seo
@@ -78,7 +78,7 @@ export default function App() {
                 path="/articles/adfin-stubbs-parkin-case-study"
                 image="/images/stubbs-parkin-og.png"
               />
-              <AdfinStubbsCaseStudy />
+              <MakiCapgeminiCaseStudy />
             </>
           }
         />
