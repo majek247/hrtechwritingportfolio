@@ -38,77 +38,17 @@ type IconName =
 
 const contents = [
   ["meet-maya", "Meet Maya"],
-  ["candidate", "Candidate and hiring"],
-  ["interview", "Interview and selection"],
+  ["candidate", "Candidate & Hiring"],
+  ["interview", "Interview & Selection"],
   ["onboarding", "Onboarding"],
   ["performance", "Performance & Development"],
-  ["retention", "Retention and experience"],
-  ["exit", "Exit and offboarding"],
+  ["retention", "Retention"],
+  ["exit", "Exit & Offboarding"],
   ["chro", "What CHROs should build"],
 ] as const;
 
-const sources = [
-  {
-    name: "Microsoft",
-    title: "2026 Work Trend Index: Agents, human agency, and opportunity",
-    date: "5 May 2026",
-    url: "https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization",
-  },
-  {
-    name: "IBM Institute for Business Value",
-    title: "2026 CHRO Study: Designing the Thinking Organization",
-    date: "2026",
-    url: "https://www.ibm.com/thought-leadership/institute-business-value/c-suite-study/chro",
-  },
-  {
-    name: "CHRO Association",
-    title: "2026 CHRO Survey: Key Findings",
-    date: "2026",
-    url: "https://www.chro.org/w/2026-chro-survey-key-findings-1",
-  },
-  {
-    name: "LinkedIn Talent Solutions",
-    title: "AI in Hiring: Why Speed Isn’t the Real Outcome. Quality Is.",
-    date: "22 July 2026",
-    url: "https://www.linkedin.com/business/talent/blog/talent-acquisition/ai-in-hiring",
-  },
-  {
-    name: "International Labour Organization",
-    title: "The messy business of managing people at work: Is AI the solution?",
-    date: "15 May 2026",
-    url: "https://www.ilo.org/resource/article/messy-business-managing-people-work-ai-solution",
-  },
-  {
-    name: "International Labour Organization",
-    title: "AI in human resource management: The limits of empiricism",
-    date: "11 November 2025",
-    url: "https://www.ilo.org/publications/ai-human-resource-management-limits-empiricism",
-  },
-  {
-    name: "European Union",
-    title: "Regulation (EU) 2024/1689 — Artificial Intelligence Act",
-    date: "Consolidated version, 27 July 2026",
-    url: "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng",
-  },
-  {
-    name: "World Economic Forum",
-    title: "The Future of Jobs Report 2025",
-    date: "7 January 2025",
-    url: "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
-  },
-  {
-    name: "PwC",
-    title: "Global Workforce Hopes and Fears Survey 2026",
-    date: "29 September 2026",
-    url: "https://www.pwc.com/gx/en/issues/workforce/hopes-and-fears.html",
-  },
-  {
-    name: "SAGE / IOS Press",
-    title: "Demystifying how AI Transforms HRM Practices through the Lens of Employee Life Cycle",
-    date: "19 August 2026",
-    url: "https://journals.sagepub.com/doi/full/10.3233/FAIA260577",
-  },
-];
+
+
 
 function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
   const paths: Record<IconName, ReactNode> = {
@@ -212,56 +152,17 @@ function SkillsFigure() {
   </figure>;
 }
 
-function RetentionFigure() {
-  const signals = [
-    ["Role clarity", "Down", "Two priorities changed this month"],
-    ["Manager connection", "Healthy", "1:1 cadence is consistent"],
-    ["Internal opportunity", "Open", "Senior role is a plausible next move"],
-    ["Workload", "Watch", "Late-meeting load increased for 3 weeks"],
-  ];
-  return <figure className="lc-figure lc-retention">
-    <div className="lc-figure-head"><span className="lc-label">Experience signals</span><span className="lc-small-tag">Ask before you predict</span></div>
-    <div className="lc-retention-wrap">
-      <div className="lc-pulse"><small>Team pulse</small><strong>Something changed.</strong><p>Do not jump straight to “Maya is a 73% flight risk.” Start with the observable signals and give the manager something humane to do with them.</p></div>
-      <div className="lc-signal-list">{signals.map(([name, status, text]) => <div key={name}><span className={`lc-status is-${status.toLowerCase()}`}>{status}</span><div><strong>{name}</strong><small>{text}</small></div></div>)}</div>
-      <div className="lc-next-conversation"><Icon name="chat" size={18} /><div><small>Suggested manager action</small><strong>Ask whether the recent priority changes are making the role feel less clear.</strong><span>Not: “Our model says you might leave.”</span></div></div>
-    </div>
-    <figcaption>Illustrative signals. This is intentionally not a predictive attrition score: observable patterns are easier to challenge, explain and use responsibly.</figcaption>
-  </figure>;
-}
 
-function ExitFigure() {
-  const cards = [
-    ["01", "Access", "Revoke systems, transfer owners, close permissions", "shield"],
-    ["02", "Knowledge", "Turn project notes into a clean handover", "book"],
-    ["03", "Experience", "Summarise exit themes without flattening nuance", "chat"],
-    ["04", "Alumni", "Keep consented contact and possible rehire signals", "person"],
-  ] as const;
-  return <figure className="lc-figure lc-exit">
-    <div className="lc-figure-head"><span className="lc-label">The last day still matters</span><span className="lc-small-tag">Leave cleanly</span></div>
-    <div className="lc-exit-grid">{cards.map(([n, title, text, icon]) => <div key={title}><span>{n}</span><span className="lc-exit-icon"><Icon name={icon as IconName} size={18} /></span><strong>{title}</strong><p>{text}</p></div>)}</div>
-    <div className="lc-handover"><div><small>AI-assisted handover</small><strong>Launch operations · what the next owner needs</strong></div><span>7 decisions</span><span>4 recurring meetings</span><span>3 open risks</span><button type="button">Review with Maya</button></div>
-    <figcaption>Illustrative offboarding. Automating access and documentation is useful. The exit conversation itself is still a place for trust, context and judgment.</figcaption>
-  </figure>;
-}
-
-function DecisionRightsFigure() {
-  const rows = [
-    ["Draft a job description", "AI can do", "Human checks role reality and requirements"],
-    ["Recommend candidates to inspect", "AI can do", "Human validates evidence and shortlist"],
-    ["Reject a candidate automatically", "High-stakes", "Require clear policy, legal review and human oversight"],
-    ["Summarise an interview", "AI can do", "Human verifies the source before scoring"],
-    ["Draft a performance review", "AI can assist", "Manager owns judgment and wording"],
-    ["Recommend learning", "AI can do", "Employee and manager choose the path"],
-    ["Predict who will leave", "Use with care", "Prefer team-level signals and explainability"],
-    ["Terminate employment", "Human decision", "AI should never become the accountable party"],
-  ];
-  return <figure className="lc-figure lc-rights">
-    <div className="lc-figure-head"><span className="lc-label">Decision-rights map</span><span className="lc-small-tag">Write this before buying tools</span></div>
-    <div className="lc-rights-table"><div className="lc-rights-head"><span>Moment</span><span>AI role</span><span>Who owns the decision?</span></div>{rows.map(([moment, ai, owner]) => <div className="lc-rights-row" key={moment}><strong>{moment}</strong><span>{ai}</span><p>{owner}</p></div>)}</div>
-    <figcaption>GrowUp decision-rights framework. Exact controls should be adapted to your jurisdiction, workforce, risk profile and the specific AI system in use.</figcaption>
-  </figure>;
-}
+const decisionRows = [
+  ["Draft a job description", "Turning a hiring brief into a first draft, pulling out recurring skills from similar roles and flagging requirements that may be unnecessarily restrictive", "Decide what the person will actually be responsible for, which skills are genuinely required and whether the brief reflects the role as it exists today"],
+  ["Recommend candidates", "Surfacing adjacent experience, relevant skills and project evidence that match the work", "Open the evidence, challenge weak matches and decide who deserves a conversation rather than treating the ranking as the shortlist"],
+  ["Reject a candidate", "Flagging missing must-have requirements, incomplete applications or obvious mismatches for review", "Define which requirements are truly non-negotiable and make sure a model score alone is not deciding who never gets seen"],
+  ["Summarise an interview", "Transcribing the conversation, grouping answers by competency and pulling out the examples each candidate actually gave", "Check the transcript, correct missing context and score the candidate on the evidence rather than accepting the AI summary as fact"],
+  ["Draft a performance review", "Bringing together goals, project updates, peer feedback, recognition and previous check-ins so older work does not disappear from view", "Decide what the evidence means, add context AI cannot see and own every judgement that goes into the employee’s final review"],
+  ["Recommend development", "Spotting repeated strengths or gaps and suggesting relevant courses, mentors, projects or internal opportunities", "Agree with the employee which development actually matters and avoid turning one weak signal into a permanent label about capability"],
+  ["Identify retention patterns", "Comparing attrition, mobility, workload, engagement and manager changes across teams to show where patterns are emerging", "Investigate what changed, speak to the people involved and avoid treating a statistical pattern as proof of why an individual might leave"],
+  ["Terminate employment", "Pulling together documented performance history, prior conversations, policy records and other relevant information", "Review the full context, follow the appropriate process and make the employment decision through accountable human judgement"],
+];
 
 const guardrails = [
   { title: "Start with the decision, not the demo", text: "Write down what the system will influence: who gets seen, who gets interviewed, what a manager reads, what learning gets recommended, or what action HR takes. Risk becomes much easier to govern when the decision is explicit." },
@@ -272,8 +173,31 @@ const guardrails = [
   { title: "Keep a record of what changed", text: "Models, prompts, policies and integrations change. If AI touches employment decisions, keep versioning, audit trails and ownership clear enough that you can reconstruct why a recommendation appeared." },
 ];
 
-function BuildList({ items }: { items: { title: string; text: string }[] }) {
-  return <div className="lc-build-list">{items.map((x, i) => <div key={x.title}><span>{String(i + 1).padStart(2, "0")}</span><div><h3>{x.title}</h3><p>{x.text}</p></div><Icon name="arrow" size={18} /></div>)}</div>;
+
+function DecisionTable() {
+  return <figure className="lc-decision">
+    <div className="lc-figure-head"><span className="lc-label">Decision-rights map</span><span className="lc-small-tag">Write this before buying tools</span></div>
+    <div className="lc-decision-scroll" role="region" aria-label="Decision-rights map; scroll horizontally on smaller screens" tabIndex={0}>
+      <table className="lc-decision-table">
+        <thead>
+          <tr>
+            <th scope="col">Moment</th>
+            <th scope="col">AI can help with</th>
+            <th scope="col">Human responsibility</th>
+          </tr>
+        </thead>
+        <tbody>
+          {decisionRows.map(([moment, ai, human]) => <tr key={moment}>
+            <td><strong>{moment}</strong></td>
+            <td>{ai}</td>
+            <td>{human}</td>
+          </tr>)}
+        </tbody>
+      </table>
+    </div>
+
+ 
+  </figure>;
 }
 
 export default function AIEmployeeLifecycle2026({
@@ -561,56 +485,76 @@ export default function AIEmployeeLifecycle2026({
 </Section>
           
 
-            <Section id="retention" number="06" heading="Retention: the difference between a useful signal and creepy surveillance is smaller than it looks">
-              <P>A year in, Maya’s role starts wobbling.</P>
-              <P>Two priorities change in a month. Her manager is pulled into a reorganisation. Late meetings creep up. An internal role opens that fits where she wants to go.</P>
-              <P>A people analytics platform can spot some of those changes. The temptation is to turn them into a single number: <strong>flight risk, 73%.</strong></P>
-              <P>I would resist that.</P>
-              <RetentionFigure />
-              <P>At team level, patterns can be extremely useful. A spike in regrettable attrition after manager changes, a department with unusually low internal mobility, or a cohort whose workload is climbing faster than its engagement can all give HR somewhere intelligent to look.</P>
-              <P>At individual level, prediction gets much more sensitive because the same signal can mean completely different things. Fewer messages might mean disengagement. It might also mean Maya finally has a quiet week.</P>
-              <P>PwC’s 2026 workforce survey found nearly two-thirds of workers now use AI, but it also describes a two-speed workforce: 56% sit in an “engine room” group with less access to AI, learning and opportunity than the front-runners.<Cite n={9} /> Retention strategy therefore cannot just ask who might leave. It has to ask who is getting the tools, development and opportunity to stay relevant.</P>
-              <Quote>Use AI to tell managers where to look. Be very careful about letting it tell them what an employee feels.</Quote>
-            </Section>
+         <Section id="retention" number="06" heading="How AI Is Changing Employee Retention">
+  <P>Most companies have had the meeting where somebody asks, “Did we see this coming?” after a strong employee resigns.</P>
+  <P>Quite often, the answer is that the signals were there. They were just scattered across too many places.</P>
+  <P>A manager changed. Workload rose. Internal moves slowed down. Engagement dipped. A few experienced people left the same team within a short period.</P>
+  <P>AI can help connect those dots earlier.</P>
+  <P>At team level, that is useful because HR can look for repeatable patterns rather than one-off anecdotes. If regrettable attrition keeps rising after manager changes, one function has unusually low internal mobility or a certain cohort is carrying more work while engagement falls, there is a concrete area to investigate.</P>
+     <figure className="lc-maya-search">
+  <img
+    src="/images/ai-retention.png"
+    alt="AI spotting team-level patterns in attrition and engagement."
+    width={1200}
+    height={750}
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption className="lc-maya-caption">AI spotting team-level patterns in attrition and engagement.</figcaption>
+</figure>
+ <p style={{ paddingTop: 10 }}>Where I would become much more careful is at the individual level.</p>
+  <P>Take Maya, for example.</P>
+  <P>If she sends fewer messages, misses a company event and stops applying for internal roles, an algorithm might decide she is disengaging.</P>
+  <P>Maybe she is.</P>
+  <P>Or maybe the quarter has finally calmed down, she is focused on a major project and there simply has not been an internal role she wants.</P>
+  
 
-            <Section id="exit" number="09" heading="Exit: AI can make the handover cleaner without pretending departure is just a workflow">
-              <P>Eventually Maya leaves. Maybe for a bigger role. Maybe because the company changed. Maybe because the internal move never happened.</P>
-              <P>AI is useful here too: pull together open projects, identify recurring meetings, suggest new owners, summarise documentation gaps, close access and group exit-interview themes across a cohort.</P>
-              <ExitFigure />
-              <P>What it should not do is flatten an exit conversation into a neat reason code and call the job done.</P>
-              <P>“Better opportunity” can hide compensation, manager quality, career ceiling, workload and timing. The value comes from combining structured themes with the messy context the person actually gave you.</P>
-              <P>There is also an overlooked upside: a good offboarding system preserves enough context for the relationship to continue. Alumni networks, boomerang hires and referrals all depend on leaving with the same care you wanted when the employee joined.</P>
-              <Quote>The lifecycle does not end when the account is deactivated. The person leaves with a story about what it was like to work there.</Quote>
-            </Section>
+</Section>
 
-            <Section id="chro" number="10" heading="What I would want written down before scaling AI across HR">
-              <P lead>By the end of Maya’s journey, AI has touched almost every major HR system without ever needing to become “the HR department”.</P>
-              <P>That is the point.</P>
-              <P>The strongest use cases are often practical: find evidence faster, reduce admin, personalise the next step, connect fragmented information and make a human decision easier to make well.</P>
-              <P>The risk arrives when the system quietly crosses from <strong>supporting a decision</strong> to <strong>becoming the reason for it</strong>.</P>
-              <DecisionRightsFigure />
-              <h3>Then build the operating rules around those decisions</h3>
-              <BuildList items={guardrails} />
-              <P>The CHRO Association’s 2026 survey says AI and workplace digitization have become dominant priorities, with organizations using AI in areas including talent acquisition, service delivery and learning while wrestling with readiness, governance and workforce concerns.<Cite n={3} /></P>
-              <P>IBM’s warning is even more strategic: 46% of organizations in its study do not involve the CHRO when AI strategy is defined.<Cite n={2} /></P>
-              <P>That feels backwards. If AI is changing how people are found, assessed, managed, developed and moved through the organization, HR is not downstream from AI strategy. HR is sitting in the middle of it.</P>
-              <Quote label="The final takeaway">The best AI in HR is boring in the right places. It fills the form, finds the policy, remembers the evidence and removes the handoff. The dangerous version turns messy human context into a neat score and nobody asks what the score actually means.</Quote>
+      <Section id="exit" number="07" heading="How AI Is Changing Exit and Offboarding">
+  <P>One of the strangest exits I ever had ended with someone asking me, on my final afternoon, whether I could “just quickly write down everything I was working on”.</P>
+  <P>There were open projects, recurring meetings, half-finished docs and a few processes that mostly lived in my head. None of it had been pulled together until the clock was already running out.</P>
+  <P>AI can make that handover much less chaotic.</P>
+  <P>It can show open projects, identify recurring meetings, suggest likely new owners and flag where documentation is thin or missing. It can also help coordinate the less glamorous bits: access reviews, account closure, equipment returns and the long list of permissions nobody remembers until after someone has left.</P>
+
+
+   <figure className="lc-maya-search">
+  <img
+    src="/images/ai-offboarding.png"
+    alt="AI spotting team-level patterns in attrition and engagement."
+    width={1200}
+    height={750}
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption className="lc-maya-caption">AI spotting team-level patterns in attrition and engagement.</figcaption>
+</figure>
+
+ <p style={{ paddingTop: 10 }}>What it should not do is flatten an exit conversation into a neat reason code and call the job done.</p>
+
+  
+ 
+  <P>There is still a person leaving at the end of all that data, and the way the company handles those final few weeks matters.</P>
+
+ <P>A good offboarding process should preserve enough context for the relationship to continue. Former employees can become referrers, customers, future hires or the person you call two years later when a role opens up again.</P>
+  
+
+</Section>
+
+
+            <Section id="chro" number="8" heading="How to Implement AI in HR: A Practical Framework">
+              <P lead>Now that we have seen what AI can do across hiring, onboarding, performance, retention and offboarding, the next question is the practical one: <strong>how do you actually introduce it without creating a mess?</strong></P>
+              <P>I would not start by buying tools or writing a giant AI policy. I would start by writing down exactly where AI is allowed to help, where a human needs to check the output and who owns the final decision.</P>
+              <P>That becomes the operating system for everything that follows.</P>
+
+              <DecisionTable />
+
+        <P>If I think back to the bad onboarding, rushed reviews and awkward exits I have experienced myself, none of them needed some revolutionary HR system to fix them. They mostly needed better context at the right moment. That is where I think AI earns its place: helping people notice what matters before it gets buried, forgotten or dealt with too late.</P>
+
             </Section>
           </div>
 
-          <section className="lc-sources" aria-labelledby="lc-sources-heading">
-            <div className="lc-label">Research &amp; references</div>
-            <h2 id="lc-sources-heading">The research behind the journey.</h2>
-            <p>Research checked for this October 2026 portfolio sample. Product screens, Maya’s journey and all example values are illustrative. Market figures are attributed to the original publishers below. Legal classifications are included as editorial context, not legal advice.</p>
-            <ol>{sources.map((s, i) => <li key={s.url} id={`lc-source-${i + 1}`}><span>{String(i + 1).padStart(2, "0")}</span><a href={s.url} target="_blank" rel="noopener noreferrer"><small>{s.name} · {s.date}</small><strong>{s.title}</strong></a><Icon name="arrow" size={17} /></li>)}</ol>
-          </section>
-
-          <section className="lc-cta">
-            <div className="lc-label">GrowUp · HR tech content writing</div>
-            <h2>Make the product easier to understand <em>before sales has to explain it.</em></h2>
-            <p>Research-led articles, buyer guides and customer stories for HR tech teams selling products that need more than feature copy to make sense.</p>
-            <a className="lc-button lc-button-accent" href={contactHref}>Talk about your next piece <Icon name="arrow" size={17} /></a>
-          </section>
+      
 
           <div className="lc-article-end"><a href={portfolioHref}><Icon name="back" size={17} />Back to writing portfolio</a><a href="#lc-article">Back to the article ↑</a></div>
         </article>
@@ -647,6 +591,22 @@ const styles = String.raw`
 .lc-maya-search{margin:30px 0}
 .lc-maya-search img{display:block;width:100%;height:auto}
 .lc-maya-caption{text-align:center;font-size:10px;line-height:1.7;color:#011522;padding-top:12px;max-width:640px;margin-inline:auto}
+
+.lc-decision{margin:34px 0!important;padding:0}
+.lc-decision .lc-figure-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}
+.lc-decision .lc-figure-head>.lc-label{color:#011522;font-size:9px}
+.lc-decision .lc-small-tag{font-size:8px;color:#011522;border:1px solid #d8d3ca;border-radius:20px;padding:4px 9px;white-space:nowrap}
+.lc-decision-scroll{overflow-x:auto}
+.lc-decision-scroll:focus{outline-offset:-3px}
+.lc-decision-table{width:100%;border-collapse:collapse;min-width:680px}
+.lc-decision-table th{text-align:left;padding:0 22px 13px 0;background:transparent;color:#011522;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #011522;vertical-align:bottom}
+.lc-decision-table th:first-child{width:26%}
+.lc-decision-table td{padding:20px 22px 20px 0;border-bottom:1px solid #dbe5dd;vertical-align:top;font-family:var(--sans);font-size:13px;line-height:1.55;color:#011522}
+.lc-decision-table td:last-child{padding-right:0}
+.lc-decision-table td strong{display:block;font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:-.015em;color:#011522;line-height:1.35;margin:0}
+.lc-decision-table tr:last-child td{border-bottom:1px solid #dbe5dd}
+.lc-decision figcaption{font-family:var(--sans);font-size:9px;line-height:1.75;color:#011522;padding-top:16px;margin-top:0}
+
 
 .lc-window-body{padding:18px}.lc-window-foot{padding:12px 16px;background:#20263a;color:#edf0f7;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:9px}.lc-window-foot span{display:flex;gap:6px;align-items:center;color:#b9bfd0}.lc-window-foot strong{font-size:9px;font-weight:650}
 .lc-map{background:#12182a;border-color:#262e45;color:#fff}.lc-map .lc-label{color:#a9a1da}.lc-map .lc-small-tag{border-color:#343c55;color:#9ea6ba}.lc-map-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#2b3349;border:1px solid #2b3349;border-radius:12px;overflow:hidden}.lc-map-card{background:#171e32;padding:20px}.lc-map-top{display:flex;align-items:center;justify-content:space-between}.lc-map-top>span{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#2b2750;color:#b7acf9}.lc-map-top>b{font-size:9px;color:#636c82;letter-spacing:.1em}.lc-section .lc-map-card h3{color:#fff;font-size:15px;margin:17px 0 16px}.lc-map-card>div:not(.lc-map-top){border-top:1px solid #293148;padding-top:12px;margin-top:11px}.lc-map-card small{font-size:8px;color:#7f879b;text-transform:uppercase;letter-spacing:.1em}.lc-editorial .lc-map-card p{font-family:var(--sans);font-size:10px;line-height:1.55;color:#c0c5d2;margin:4px 0 0}.lc-map figcaption{border-color:#2a3246;color:#7e879a}
