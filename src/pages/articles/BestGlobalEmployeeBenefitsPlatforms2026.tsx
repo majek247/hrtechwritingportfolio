@@ -43,6 +43,9 @@ type Vendor = {
   };
   verdict: string;
   refs: number[];
+  quote?: string;
+  quotePerson?: string;
+  quoteRole?: string;
 };
 
 
@@ -87,6 +90,9 @@ const vendors: Vendor[] = [
     },
     verdict: "Ben is the one I would start with when the problem is not simply ‘employees need a nicer benefits portal’ but ‘our global programme is held together by spreadsheets, tickets and local workarounds’. The value case is strongest when administration, employee experience and reporting all need fixing together.",
     refs: [1, 2, 3],
+    quote: "Ben helped create and manage our perfect platform, and provided such amazing support.",
+    quotePerson: "Mark Cowen",
+    quoteRole: "Head of Colleague Experience, Sigma Connected",
   },
   {
     id: "benifex",
@@ -124,6 +130,9 @@ const vendors: Vendor[] = [
     },
     verdict: "Benifex is a serious option for multinational employers that want a mature, broad employee benefits ecosystem rather than a narrow point solution. I would shortlist it when benefits, reward, wellbeing and employee experience are all part of the same transformation programme.",
     refs: [4, 5, 6],
+    quote: "Placeholder customer quote for Benifex.",
+    quotePerson: "Customer Name",
+    quoteRole: "Job Title, Company",
   },
   {
     id: "darwin",
@@ -162,6 +171,9 @@ const vendors: Vendor[] = [
     },
     verdict: "Darwin belongs on the shortlist when you need serious global benefits infrastructure and you value the wider Mercer Marsh Benefits ecosystem. I would test it hardest on configuration ownership, data movement and the practical difference between what the platform does and what the service team does for you.",
     refs: [7, 8],
+    quote: "Placeholder customer quote for Darwin.",
+    quotePerson: "Customer Name",
+    quoteRole: "Job Title, Company",
   },
   {
     id: "alight",
@@ -200,6 +212,9 @@ const vendors: Vendor[] = [
     },
     verdict: "Alight Worklife is the option I would look at when the benefits estate is huge, interconnected and already stretches well beyond perks or allowances. For a multinational with deep health, wealth and leave complexity, that breadth is a strength. For a simpler brief, it can be more machinery than the job requires.",
     refs: [9, 10],
+    quote: "Placeholder customer quote for Alight Worklife.",
+    quotePerson: "Customer Name",
+    quoteRole: "Job Title, Company",
   },
   {
     id: "forma",
@@ -237,6 +252,9 @@ const vendors: Vendor[] = [
     },
     verdict: "Forma is a strong shortlist choice when global flexibility is the job to be done. If you are trying to give employees meaningful choice across countries and replace scattered reimbursement programmes, it is highly relevant. If you need end-to-end administration of a broad traditional benefits estate, compare it with a different lens.",
     refs: [11, 12],
+    quote: "Placeholder customer quote for Forma.",
+    quotePerson: "Customer Name",
+    quoteRole: "Job Title, Company",
   },
   {
     id: "benepass",
@@ -275,6 +293,9 @@ const vendors: Vendor[] = [
     },
     verdict: "Benepass is compelling when flexible spending is the centre of the benefits strategy. The card-first experience is easy to understand and the rules can carry a lot of operational weight. I would be more cautious if the real requirement is broad multinational administration rather than flexible benefits delivery.",
     refs: [13, 14],
+    quote: "Placeholder customer quote for Benepass.",
+    quotePerson: "Customer Name",
+    quoteRole: "Job Title, Company",
   },
   {
     id: "reward-gateway",
@@ -313,6 +334,9 @@ const vendors: Vendor[] = [
     },
     verdict: "Reward Gateway | Edenred is strongest when the project is about making benefits and the wider EVP visible, useful and frequently visited. If your biggest pain sits in back-office benefits administration, I would pair it against a platform that goes deeper on global operations before deciding.",
     refs: [15, 16],
+    quote: "Placeholder customer quote for Reward Gateway.",
+    quotePerson: "Customer Name",
+    quoteRole: "Job Title, Company",
   },
 ];
 
@@ -975,29 +999,35 @@ export default function BestGlobalEmployeeBenefitsPlatforms2026({
       </div>
 
       <div className="gb-review-logos">
-        <div className="gb-review-logo-row">
-          <img
-            src="/images/sigma-logo.avif"
-            alt="Sigma Connected"
-            className="gb-review-logo"
-            loading="lazy"
-          />
-          <img
-            src="/images/pleo-logo.svg"
-            alt="Pleo"
-            className="gb-review-logo"
-            loading="lazy"
-          />
-        </div>
-
-        <div className="gb-review-quote">
-          <span className="gb-review-quote-mark">“</span>
-          <p>Ben helped create and manage our perfect platform, and provided such amazing support.”</p>
-          <div className="gb-review-quote-author">
-            <strong>Mark Cowen</strong>
-            <span>Head of Colleague Experience, Sigma Connected</span>
+        {v.id === "ben" && (
+          <div className="gb-review-logo-row">
+            <img
+              src="/images/sigma-logo.avif"
+              alt="Sigma Connected"
+              className="gb-review-logo"
+              loading="lazy"
+            />
+            <img
+              src="/images/pleo-logo.svg"
+              alt="Pleo"
+              className="gb-review-logo"
+              loading="lazy"
+            />
           </div>
-        </div>
+        )}
+
+        {v.quote && (
+          <div className="gb-review-quote">
+            <span className="gb-review-quote-mark">“</span>
+            <p>{v.quote}”</p>
+            {v.quotePerson && (
+              <div className="gb-review-quote-author">
+                <strong>{v.quotePerson}</strong>
+                {v.quoteRole && <span>{v.quoteRole}</span>}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
 
