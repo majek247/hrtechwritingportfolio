@@ -103,36 +103,39 @@ const vendors: Vendor[] = [
     priceShort: "Request a quote",
     watch: "Be clear on which OneHub modules you genuinely need, what local configuration sits with your team and what still depends on Benifex services. A broad platform is useful, but only if the operating model does not become harder to manage.",
     intro: [
-      "Benifex is the platform I would put on the shortlist when the brief contains the words ‘global consistency’ about twelve times and nobody is willing to sacrifice local nuance to get it.",
-      "OneHub is broad. Benefits administration sits alongside wallet-based allowances, wellbeing, recognition, discounts, mobile and AI-powered benefits tools. That breadth is useful for enterprises that want one employee destination, but it also means you need to be disciplined about what problem you are buying it to solve.",
-      "The customer evidence is stronger than most. Benifex publishes global rollouts for Salesforce, Microsoft, Snowflake, Baker Hughes and others. The Salesforce story is especially useful because it talks about the awkward reality: global programmes and local programmes living side by side, different IDs and rules by country, and automation improving market by market rather than arriving perfectly on day one."
+      "Benifex is the platform I would put on the shortlist when the brief sounds something like: “we need one global experience, but please do not break what already works locally.”",
+      "That tension runs through most multinational benefits programmes.",
+      "You want enough consistency that employees recognise the same company wherever they work, but not so much that local Reward teams lose the ability to run benefits that actually make sense in their market.",
+      "OneHub is built around that compromise.",
+      "It covers core benefits alongside total reward, wallet allowances, recognition, wellbeing and discounts.  "
     ],
-    features: [
-      ["Global benefits administration", "OneHub supports enrolment, benefit management and workflows across multinational populations."],
-      ["Wallet and flexible allowances", "Card-based allowances give employees more freedom while keeping employer rules around eligible spending."],
-      ["Total reward and insights", "Employees can see total reward while HR teams can analyse spend, take-up and engagement across markets."],
-      ["Broader employee experience", "Wellbeing, recognition, discounts and mobile experiences can live alongside core benefits."],
+       features: [
+      ["Global benefits administration", "OneHub supports benefits management from onboarding and enrolment through to communications, administration, provider reporting and payroll outputs across international populations."],
+      ["Local programme flexibility", "Different countries can retain their own benefits, providers and workflows while employees still access them through a more consistent global experience."],
+      ["Total reward and insights", "Employees can see the wider value of their reward package, while HR teams get real-time visibility into spend, budgeting, engagement and take-up across markets."],
+      ["Broader employee experience", "Benefits can sit alongside wallet allowances, recognition, discounts, wellbeing and mobile access, which gives enterprises the option to consolidate more of the employee experience into one place."],
     ],
     pros: [
-      ["Strong proof at multinational scale", "There is useful customer evidence across large, complex employers rather than only small technology companies."],
-      ["Broad platform coverage", "If your benefits strategy overlaps heavily with wellbeing, recognition and total reward, OneHub can reduce the number of separate employee destinations."],
+      ["Proven multinational scale", "The customer base includes Microsoft, Salesforce, Snowflake, Baker Hughes, Liberty Global and other organisations dealing with genuinely complex global rollouts rather than simple multi-country expansion."],
+      ["Strong rollout model", "The platform suits organisations that need to standardise gradually. Microsoft, for example, launched first across eight countries and 13,500 employees and dependants, with more countries planned."],
+      ["Broader consolidation potential", "If benefits, total reward, recognition and wellbeing currently live in separate systems, OneHub gives you a realistic route to reducing the number of employee destinations without making every module mandatory."],
     ],
     cons: [
-      ["Breadth can make evaluation fuzzy", "Do not let a wide platform demo turn into a tour of everything. Pick the three workflows that are broken today and test those first."],
-      ["Commercial scope needs unpacking", "A full-service global programme can include technology, administration and advisory work. Make sure the quote makes the boundary between those pieces obvious."],
+      ["Scope can sprawl", "OneHub covers a lot of ground. If the buying process is not tightly defined, it is easy to end up evaluating benefits, wallet, wellbeing, recognition and communications all at once instead of fixing the workflows that matter most."],
+      ["Service boundaries matter", "Benifex combines technology with administration, communications, support and consulting services. Make sure you are clear on what your internal team will own, what Benifex will run and how that changes by market."],
     ],
-    pricing: "Benifex does not publish standard enterprise pricing. Ask for a module-by-module view of OneHub, implementation, managed administration, wallet or payment costs, local-market work and any consulting support.",
+    pricing: "There is no public standard price for the full OneHub platform. Enterprise pricing depends on employee numbers, countries, modules and the level of administration or support included. OneHub Wallet is publicly listed from £2 PEPM, excluding certain transaction and FX costs.",
     review: {
       source: 6,
       person: "Snowflake and Salesforce",
       role: "Vendor-published customer stories",
-      body: "Benifex publishes detailed examples of global teams trying to solve a very real problem: one consistent experience without erasing local differences. That is the proof I would dig into on a reference call, especially around how much country-by-country configuration still sits with the internal team."
+      body: "The strongest proof is the breadth of the global rollouts. Microsoft launched OneHub across eight countries and 13,500 employees and dependants in its first wave, while Snowflake uses the platform across a workforce operating in more than 20 countries. "
     },
     verdict: "Benifex is a serious option for multinational employers that want a mature, broad employee benefits ecosystem rather than a narrow point solution. I would shortlist it when benefits, reward, wellbeing and employee experience are all part of the same transformation programme.",
     refs: [4, 5, 6],
-    quote: "Placeholder customer quote for Benifex.",
-    quotePerson: "Customer Name",
-    quoteRole: "Job Title, Company",
+    quote: "Benifex has made our international benefit dreams come true!",
+    quotePerson: "Samantha Sergent",
+    quoteRole: "Director of International Benefits, Microsoft",
   },
   {
     id: "darwin",
