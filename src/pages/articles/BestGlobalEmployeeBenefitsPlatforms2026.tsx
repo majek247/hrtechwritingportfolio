@@ -145,38 +145,37 @@ const vendors: Vendor[] = [
     summary: "Covers enrolment, benefits administration, total reward, automation, governance and global reporting within the wider Mercer Marsh Benefits ecosystem.",
     priceShort: "Request a quote",
     watch: "Ask where Darwin ends and the surrounding service model begins. I would want a very clear view of what your internal team can configure directly, what requires Mercer Marsh Benefits support and how quickly changes can be made across markets.",
-    intro: [
-      "Darwin is one of the names that makes a global benefits shortlist feel immediately more enterprise.",
-      "That is partly scale and partly context. It sits inside Mercer Marsh Benefits, so the proposition is not just software. There is a broader advisory, broking and benefits-management machine around it, which can be a genuine advantage if you want one partner involved in both programme design and technology.",
-      "The product itself is split sensibly: Reward Center for employees, Control Center for administrators and Analytics Center for decision-makers. I like that because it forces a useful demo question: can each audience actually do the job they came to the platform to do?"
+  intro: [
+      "Darwin’s main advantage is that the technology does not sit on its own. The platform covers employee access, benefits administration and analytics, while Mercer Marsh Benefits can support the wider work around provider strategy, broking, programme design and cost management.",
+      "That makes it a strong fit for large employers where the benefits problem extends beyond enrolment or employee experience. If the transformation involves multiple markets, local teams and centralised administration, Darwin gives you both the platform and the surrounding expertise."
     ],
     features: [
-      ["Global enrolment", "Employees can access, enrol in and manage benefits through a consistent digital experience across markets."],
-      ["Administration automation", "Control Center is built to reduce transactional work and manual data handling."],
-      ["Analytics and cost control", "Analytics Center focuses on benefit spend, take-up and decision support for global teams."],
-      ["Governance and security", "Darwin emphasises automated data transfers, audit tracking and enterprise-grade security."],
-      ["Advisory ecosystem", "Mercer Marsh Benefits can support scheme design, broking, cost optimisation and related consulting around the platform."],
+      ["Benefits administration", "Enrolment, eligibility, life events, payroll data and provider processes can be automated across different employee populations and markets."],
+      ["HR and payroll connectivity", "Darwin connects benefits data with HR, payroll and third-party systems, reducing the amount of manual data movement between them."],
+      ["Benefits analytics", "Global and local data can be analysed together, helping Reward teams compare spend, take-up and programme performance across markets."],
+      ["Governance and auditability", "Automated transfers, audit history and enterprise security controls help reduce the risks that come with manual data handling."],
     ],
     pros: [
-      ["A credible choice for complex global estates", "Darwin has long-running multinational deployments and is designed around global administration rather than only flexible allowances."],
-      ["Technology and advisory can sit together", "That can simplify ownership when your benefits transformation involves provider strategy as well as software."],
+      ["Strong enterprise pedigree", "Darwin is already used by eight of the world’s ten largest technology companies, so there is meaningful evidence of the platform operating inside large, complex organisations."],
+      ["Advisory sits nearby", "The Mercer Marsh Benefits relationship can be useful when the transformation involves provider strategy, scheme design and cost management as well as technology."],
+      ["Supports centralisation", "Darwin is well suited to organisations moving benefits administration into a global or regional shared-service model rather than leaving every market to run separately."],
     ],
     cons: [
-      ["The service boundary matters", "Ask what your internal team can configure directly, what requires Mercer support and how changes are priced after go-live."],
-      ["Do not buy heritage instead of fit", "A proven global platform can still be wrong for a team that mainly needs a lightweight flexible-benefits layer. Make the workflow, not the logo, decide."],
+      ["Ownership needs clarity", "The combined technology and advisory model can be a strength, but I would still make the operating boundary explicit: what your team can manage directly, what Mercer runs and what triggers additional support."],
+      ["More than software", "If your requirement is narrowly focused on flexible allowances or a lighter employee-facing layer, the wider Darwin and Mercer model may be more infrastructure than you need."],
     ],
-    pricing: "Darwin does not publish standard enterprise pricing. Ask for platform modules, implementation, integrations, managed services and any Mercer Marsh Benefits advisory or broking work to be shown separately.",
+    pricing: "Darwin does not publish standard enterprise pricing. I would ask for the technology, implementation, integrations, managed administration and any Mercer Marsh Benefits consulting or broking work to be separated so the operating model and commercial model are both clear.",
     review: {
       source: 8,
       person: "Darwin customer base",
       role: "Vendor-published evidence",
-      body: "Mercer says Darwin supports millions of users across more than 100 countries and is used by major global employers. Scale is reassuring, but I would still ask for a reference that looks like your operating model: similar countries, payroll landscape and level of centralisation."
+      body: "Darwin is used by some of the largest employers in the market, including eight of the world’s ten biggest technology companies. One customer example also reports 87% employee usage, with thousands of benefit selections made through the platform."
     },
     verdict: "Darwin belongs on the shortlist when you need serious global benefits infrastructure and you value the wider Mercer Marsh Benefits ecosystem. I would test it hardest on configuration ownership, data movement and the practical difference between what the platform does and what the service team does for you.",
     refs: [7, 8],
-    quote: "Placeholder customer quote for Darwin.",
-    quotePerson: "Customer Name",
-    quoteRole: "Job Title, Company",
+    quote: "87% of employees have now used Darwin to make thousands of benefits selections.",
+    quotePerson: "Ellie Vaughan",
+    quoteRole: "Global Head of Reward and Benefits, Herbert Smith Freehills Kramer",
   },
   {
     id: "alight",
@@ -187,37 +186,36 @@ const vendors: Vendor[] = [
     priceShort: "Request a quote",
     watch: "Test whether the depth matches the problem you are actually solving. If your biggest issue is global benefits coordination rather than end-to-end administration, make sure you are not buying significantly more infrastructure and implementation complexity than you need.",
     intro: [
-      "Alight is playing a slightly different game from several platforms on this list.",
-      "If Ben or Forma can be evaluated around a relatively contained global benefits programme, Alight Worklife can sit across health, wealth, leaves, navigation and administration for employers with genuinely enormous populations.",
-      "That makes it compelling for Fortune-scale complexity and potentially excessive if your actual problem is ‘we need one place to manage flexible benefits in 14 countries’. The important thing is not to confuse capability with fit."
+      "Alight Worklife is built for employers where benefits administration has become a substantial operating environment in its own right.",
+      "The scope is broader than core enrolment. Health, retirement, leave, wellbeing, navigation and employee guidance can sit inside the same platform, with Alight also supporting the administration behind those programmes. That makes it particularly relevant when the benefits estate already spans multiple vendors, processes and employee populations."
     ],
     features: [
-      ["Unified benefits ecosystem", "Worklife connects health, wealth, leaves and other benefits into one employee experience."],
-      ["Large-scale administration", "Alight supports complex plan designs, enrolment and ongoing benefits administration for very large populations."],
-      ["AI personalisation", "LumenAI is used to personalise guidance, content and employee journeys based on workforce data."],
-      ["Integration layer", "Alight says Worklife can integrate hundreds of tools across an employer's HR and benefits ecosystem."],
-      ["Analytics and ROI", "Employer dashboards focus on programme usage, value and operational outcomes."],
+      ["Benefits administration", "Complex enrolment, plan rules, employee changes and ongoing administration can be managed across large employee populations and multiple benefits programmes."],
+      ["Health and wealth", "Healthcare, retirement, financial wellbeing and related guidance can sit within the same broader employee experience rather than across separate destinations."],
+      ["Leave management", "Worklife extends into absence and leave administration, giving larger employers another part of the benefits estate to manage within the same environment."],
+      ["Personalised guidance", "LumenAI uses workforce and benefits data to tailor communications and guidance around enrolment, healthcare, retirement, finances and leave."],
     ],
     pros: [
-      ["Scale is a genuine differentiator", "Alight administers benefits for tens of millions of people and is built for employers where benefits complexity is an operating model in its own right."],
-      ["Strong depth beyond a benefits portal", "Health, wealth, leave and navigation can sit in one broader ecosystem rather than being treated as unrelated destinations."],
+      ["Genuine administration depth", "Alight goes well beyond presenting benefits to employees. The platform and surrounding services are designed to handle the administration behind complex health, wealth and leave programmes."],
+      ["Handles large populations", "The model is built for employers where workforce size, plan complexity and the number of connected benefits programmes make lighter platforms difficult to scale."],
+      ["Strong integration breadth", "Worklife can connect with more than 600 benefits programmes and tools, which matters when replacing every existing provider is neither realistic nor desirable."],
     ],
     cons: [
-      ["It may be more platform than you need", "If your main requirement is flexible benefits or global allowances, a narrower product can be easier to implement and govern."],
-      ["Global does not mean identical everywhere", "Confirm which administration capabilities are available in your priority countries and which elements are strongest in the US versus international markets."],
+      ["Can be oversized", "If the requirement is mainly flexible benefits, allowances or a simpler global employee experience, Alight may introduce more administration depth than the programme actually needs."],
+      ["International depth varies", "The overall platform is broad, but I would still confirm which administration, navigation and health capabilities are available in each priority market rather than assuming the US model translates directly everywhere."],
     ],
-    pricing: "Alight does not publish standard enterprise pricing for Worklife. Expect a scoped commercial model based on population, modules, administration services, integrations and implementation complexity.",
+    pricing: "Alight does not publish standard enterprise pricing for Worklife. Commercial scope depends on employee population, modules, administration services, integrations and implementation requirements.",
     review: {
       source: 9,
       person: "Alight Worklife",
       role: "Vendor-published platform evidence",
-      body: "Alight publishes outcomes around programme utilisation, personalised messaging and healthcare navigation. The numbers are useful, but for this comparison I would care more about whether the same operating model can be delivered in the countries and benefit categories you actually need."
+      body: "The stronger proof is in the financial and operational outcomes. A Forrester Consulting study commissioned by Alight found 112% ROI, $2 million in annual health-cost savings and 25% productivity gains for a global employer with around 20,000 employees using Worklife. "
     },
     verdict: "Alight Worklife is the option I would look at when the benefits estate is huge, interconnected and already stretches well beyond perks or allowances. For a multinational with deep health, wealth and leave complexity, that breadth is a strength. For a simpler brief, it can be more machinery than the job requires.",
     refs: [9, 10],
-    quote: "Placeholder customer quote for Alight Worklife.",
-    quotePerson: "Customer Name",
-    quoteRole: "Job Title, Company",
+    quote: "Alight has helped us streamline and make our day-to-day administrative processes much more efficient.",
+    quotePerson: "Executive Director of Benefits",
+    quoteRole: "Global employer with approximately 20,000 employees",
   },
   {
     id: "forma",
@@ -228,36 +226,36 @@ const vendors: Vendor[] = [
     priceShort: "Request a quote",
     watch: "Separate flexible spending from core benefits administration early. Ask exactly which parts of medical, pension, insurance and statutory benefits remain outside Forma so you understand whether it is the main platform or one layer within a wider benefits stack.",
     intro: [
-      "Forma becomes interesting when ‘global benefits’ really means ‘we want employees in very different markets to get something equally useful without making the programme identical’. That is a slightly different problem from running every insured benefit in one platform.",
-      "Its centre of gravity is Lifestyle Spending Accounts and flexible benefits. The 2026 research is useful here because it shows how global LSA programmes are becoming more common and how country-by-country funding, tax and spending behaviour change the design.",
-      "I would not ask Forma to win a comparison on the number of traditional benefits workflows it can administer. I would ask whether it can replace a mess of reimbursements, point solutions and country-specific allowances with something employees will actually use."
+      "Forma is built around Lifestyle Spending Accounts and flexible benefits rather than full global benefits administration. Employers can run wellbeing, learning, caregiving, home office and other allowances through one platform, while changing funding levels, eligible categories and programme rules by country or employee group.",
+      "That makes Forma particularly useful when flexible benefits are spread across expense claims, local vendors and separate reimbursement processes."
     ],
     features: [
-      ["Lifestyle Spending Accounts", "Employers can build flexible programmes around wellbeing, learning, family support, remote work and other categories."],
-      ["Global programme design", "Forma focuses on currency, country-level nuance and consistent employee access across distributed teams."],
-      ["Flexible funding", "Teams can design multiple account types and rules without giving every employee the same catalogue."],
-      ["Utilisation data", "Admin reporting helps benefits teams see participation and spending patterns across programmes."],
+      ["Flexible spending accounts", "Employers can create multiple accounts for wellbeing, learning, caregiving, meals, remote work and other categories within the same benefits environment."],
+      ["Local market rules", "Programmes can vary by country, employee group and funding level without requiring a separate reimbursement workflow for each population."],
+      ["Global employee access", "Employees get one way to spend, claim and manage their allowances even when the benefit design differs behind the scenes."],
+      ["Utilisation reporting", "Admin teams can see how funds are being used across programmes and markets, making it easier to adjust funding and categories over time."],
     ],
     pros: [
-      ["Very clear use case", "If LSAs and flexible benefits are the problem, Forma is easier to evaluate than a giant benefits suite because the workflow is specific."],
-      ["Strong global LSA research", "Its benchmark data gives benefits leaders useful context for funding, utilisation and country differences rather than relying only on product claims."],
+      ["Purpose is clear", "If the existing problem is reimbursements, fragmented allowances and low-use point solutions, Forma gives you a much cleaner problem to evaluate than a broad benefits suite."],
+      ["Global flexibility works", "The model is well suited to organisations where equity matters more than giving every employee the exact same benefit."],
+      ["Admin can fall sharply", "Forma publishes examples of receipt-review workload falling by more than 80% and admin time dropping from 128 hours a month to 15 minutes."],
     ],
     cons: [
-      ["It is not the same category as a full global administration platform", "Do not assume an excellent LSA layer replaces the system you need for insured benefits, complex enrolment or every local provider workflow."],
-      ["The programme design still matters", "A beautifully flexible wallet will not fix an allowance that is badly funded or irrelevant in a particular market."],
+      ["Scope is narrower", "Forma does not replace every part of the benefits estate. Traditional insured benefits, complex enrolment and certain local-provider workflows may still need another platform."],
+      ["Funding needs judgement", "The technology can make a programme flexible, but it cannot decide whether £500 of wellbeing spend is meaningful in every country. Local funding and category design still need proper thought."],
     ],
-    pricing: "Forma does not publish a simple enterprise list price. Ask for platform fees, card or payment costs, account types, international transaction treatment, implementation and any programme-design support.",
+    pricing: "Forma does not publish standard enterprise pricing. Commercial scope will depend on the accounts you run, employee population, countries, payment methods, implementation and any additional programme support.",
     review: {
       source: 11,
       person: "Forma customer evidence",
       role: "Vendor-published",
-      body: "Forma publishes customer examples showing high participation, lower receipt-review workload and global rollouts. I would test those claims against the thing that matters most in an LSA programme: what employees can actually buy in your priority countries and how much admin remains when a transaction falls outside the happy path."
+      body: "Forma has useful proof around both consolidation and usage. Logitech consolidated more than 30 point solutions and later brought additional benefits onto the platform, while Bitsight built a global LSA programme with more than 87% engagement."
     },
     verdict: "Forma is a strong shortlist choice when global flexibility is the job to be done. If you are trying to give employees meaningful choice across countries and replace scattered reimbursement programmes, it is highly relevant. If you need end-to-end administration of a broad traditional benefits estate, compare it with a different lens.",
     refs: [11, 12],
-    quote: "Placeholder customer quote for Forma.",
-    quotePerson: "Customer Name",
-    quoteRole: "Job Title, Company",
+    quote: "Forma’s not only taking the work off our internal teams to administer, it helps our employees live their best lives.",
+    quotePerson: "Julia",
+    quoteRole: "Global Benefits, Logitech",
   },
   {
     id: "benepass",
@@ -268,37 +266,37 @@ const vendors: Vendor[] = [
     priceShort: "Request a quote",
     watch: "Go country by country on funding, tax treatment and employee access. I would also map what happens outside the spending-account layer, because the important question is whether Benepass replaces complexity or simply sits alongside your existing core-benefits processes.",
     intro: [
-      "Benepass has a very understandable pitch: give employees one card, let the employer define the rules and stop forcing every flexible benefit through an expense process.",
-      "That simplicity is a strength. The platform supports LSAs, wellness, food, family and childcare, professional development, remote work and several US pre-tax accounts. For distributed companies, the card-first model can make a global programme feel much more tangible than another reimbursement portal.",
-      "The question I would keep asking is where the card stops. If your brief includes insured benefits, country-specific enrolment and complex provider administration, you may still need another system around it."
+      "Benepass is built around a simple operating model: fund the benefit, define the rules and let employees spend directly.",
+      "The platform combines physical and virtual cards with Lifestyle Spending Accounts, wellness, food, family, professional development, remote-work programmes and several US pre-tax benefits. Eligible transactions can be approved at the point of purchase, while claims remain available when card payment is not practical.",
+      "For global teams, the advantage is consistency. Employees in different countries can use one benefits experience rather than navigating separate expense processes or local reimbursement tools, while employers still control budgets and eligible spend."
     ],
-    features: [
-      ["Card-first spending", "Physical and virtual cards let employees use employer-funded programmes without submitting every purchase through a traditional expense flow."],
-      ["Configurable rules", "Employers define eligible categories and the platform can approve or decline transactions against those rules."],
-      ["Global programmes", "Benepass supports global teams and says its client base spans more than 90 countries."],
-      ["HRIS and payroll connections", "Integrations can automate enrolment and keep eligibility aligned with workforce data."],
-      ["Engagement analytics", "Admin dashboards show spending and participation so teams can refine programme design."],
+     features: [
+      ["Card-first spending", "Physical and virtual cards let employees use funded benefits directly, with eligible purchases approved against programme rules at the point of transaction."],
+      ["Configurable spending rules", "Employers can control eligible categories, merchants, budgets and employee groups without pushing every exception through a manual reimbursement process."],
+      ["Global programme access", "Employees can spend through the same platform across 90+ countries, while programmes and eligibility can still vary across different workforce populations."],
+      ["Claims and reimbursements", "When card payment is not possible, employees can still submit claims, with Benepass reporting average reimbursement approval times of under one minute."],
     ],
     pros: [
-      ["Easy to explain to employees", "A card and app are more intuitive than a benefits experience that starts with a policy PDF and ends with a reimbursement form."],
-      ["Flexible programme design", "It works well when the company wants one funding mechanism to cover very different employee needs."],
+      ["Reduces reimbursement admin", "The card-first model removes a lot of the work created when employees pay personally, submit receipts and wait for HR or Finance to approve every transaction."],
+      ["Rules stay enforceable", "Flexibility does not mean giving up control. Employers can widen employee choice while still defining exactly what each programme will and will not fund."],
+      ["High card adoption", "Benepass reports that more than 80% of transactions happen on card when employees have both card and reimbursement options, which suggests the payment model is doing real work rather than sitting beside the old process."],
     ],
     cons: [
-      ["Global spending is not the same as global benefits administration", "Make sure the shortlist separates card acceptance from local tax, payroll, provider and insured-benefit workflows."],
-      ["The US pre-tax depth may not translate directly elsewhere", "International teams should test their own country rules rather than assuming every account type works the same way globally."],
+      ["Not full administration", "Card-based flexible benefits are not the same as administering insured benefits, complex enrolment or local provider relationships. Some employers will still need a broader administration platform alongside it."],
+      ["Local rules still matter", "Global card acceptance does not remove tax, payroll or regulatory differences between countries. Test how your highest-risk markets are handled before treating one programme as globally identical."],
     ],
-    pricing: "Benepass does not publish standard enterprise pricing. Ask for platform costs, funding and card economics, international transaction fees, reimbursement handling, integrations and any fees by account type.",
+    pricing: "Benepass does not publish standard enterprise pricing. I would ask for the platform fee, card and funding costs, international transaction treatment, reimbursements, integrations and any charges that vary by benefit programme or country.",
     review: {
       source: 13,
       person: "Benepass customer evidence",
       role: "Vendor-published",
-      body: "Benepass publishes examples of employers reducing LSA administration costs and driving high programme engagement. The best demo test is simple: give the platform five normal purchases and five awkward ones from different countries, then see what gets approved, what gets routed to review and what HR has to touch."
+      body: "Trupanion reports an 80% annual engagement rate and 67% lower LSA admin costs, while The Aspen Group moved thousands of HSA, FSA and commuter accounts to Benepass in 75 days and now processes over 81% of transactions by card."
     },
     verdict: "Benepass is compelling when flexible spending is the centre of the benefits strategy. The card-first experience is easy to understand and the rules can carry a lot of operational weight. I would be more cautious if the real requirement is broad multinational administration rather than flexible benefits delivery.",
     refs: [13, 14],
-    quote: "Placeholder customer quote for Benepass.",
-    quotePerson: "Customer Name",
-    quoteRole: "Job Title, Company",
+    quote: "That proactive, as opposed to reactive approach, is something that has been really impactful to our team.",
+    quotePerson: "Stephanie Brazil",
+    quoteRole: "Director of Benefits and Workforce Support Services, The Aspen Group",
   },
   {
     id: "reward-gateway",
@@ -308,38 +306,38 @@ const vendors: Vendor[] = [
     summary: "Stronger emphasis on the wider employee engagement experience, bringing benefits together with recognition, discounts, wellbeing and communication tools.",
     priceShort: "Request a quote",
     watch: "Ask how far the platform goes into actual benefits administration in your priority markets. If the core problem is eligibility, provider management, payroll reconciliation or global benefits governance, make sure those workflows are not sitting elsewhere behind the employee experience.",
-    intro: [
-      "Reward Gateway | Edenred is the one I would bring into the conversation when the benefits problem is partly an engagement problem.",
-      "Its platform goes wider than benefits administration into recognition, discounts, wellbeing, communications and surveys. For a company trying to make the EVP visible every week rather than only during enrolment, that can be a much better fit than a platform optimised mainly for back-office benefits operations.",
-      "The trade-off is equally clear: a brilliant engagement layer is not automatically the system you want running every complex eligibility, provider and payroll workflow. Decide which side of that line your project sits on."
+     intro: [
+      "Reward Gateway | Edenred is a global employee engagement platform that brings benefits, discounts, recognition, wellbeing and communications into one branded employee experience.",
+      "The platform is designed to give large, distributed workforces one place to access employer programmes, while allowing discounts, rewards, content and communications to remain locally relevant across different countries.",
+      "It supports multinational programmes across 65+ countries, with multi-language and multi-currency capabilities for global teams."
     ],
-    features: [
-      ["Global employee hub", "Benefits, recognition, communications and other employee programmes can sit inside one branded, mobile-first destination."],
-      ["Discounts and savings", "The platform offers local and global discounts across dozens of countries, with multi-currency and multilingual support."],
-      ["Recognition and reward", "Peer and manager recognition can be combined with locally relevant reward options."],
-      ["Communications and segmentation", "Teams can target different employee groups and regions with tailored content."],
-      ["Engagement analytics", "Usage and engagement data help HR teams see which programmes employees are actually using."],
+     features: [
+      ["Employee engagement hub", "Benefits, recognition, wellbeing, communications and surveys can sit inside one branded destination that employees can access across desktop and mobile."],
+      ["Discounts and savings", "Employees can access discounts and cashback across thousands of brands, with programmes designed to support multiple countries, currencies and languages."],
+      ["Recognition and reward", "Peer and manager recognition can be tied to company values, service milestones and rewards, with employees able to choose from a broad range of redemption options."],
+      ["Targeted communications", "HR teams can use the same platform to surface benefits, company updates and campaigns to different employee groups rather than relying on separate communication channels."],
     ],
     pros: [
-      ["Strong everyday employee proposition", "Discounts, recognition and communications give employees reasons to return outside annual benefits enrolment."],
-      ["Good fit for a global EVP programme", "Regional content and local reward options can sit inside a more consistent global experience."],
+      ["Drives repeat engagement", "The platform gives employees reasons to return throughout the year through discounts, recognition, wellbeing and communications rather than only during benefits enrolment."],
+      ["Works for frontline teams", "Customer examples show strong adoption among employees without regular access to company devices or email, which matters for retail, transport and field-based workforces."],
+      ["Strong adoption proof", "Reward Gateway | Edenred publishes examples including 94% active usage at Chubb Fire & Security and Southeastern, alongside 95% active usage at Knight Frank."],
     ],
     cons: [
-      ["It is broader than a benefits administration tool", "If the buying brief is mainly payroll reconciliation, complex eligibility and provider operations, make sure those needs are not being overshadowed by engagement features."],
-      ["Module scope can expand quickly", "Recognition, wellbeing, communications, discounts and benefits can all be bought into the story. Keep the commercial case tied to the outcomes you actually need."],
+      ["Not deep administration", "The platform is strongest around engagement, recognition and employee access. Employers with complex eligibility, payroll reconciliation or provider administration may still need deeper benefits infrastructure alongside it."],
+      ["Scope can expand", "Benefits, recognition, wellbeing, discounts and communications can all sit in the same programme. Keep the buying scope tied to the outcomes you actually need rather than adding modules simply because they are available."],
     ],
-    pricing: "Reward Gateway | Edenred does not publish standard enterprise pricing. Ask for pricing by module, implementation, regional coverage, integrations, reward economics and support for the countries in your rollout.",
+    pricing: "Reward Gateway | Edenred does not publish standard enterprise pricing. Commercial scope depends on the modules selected, employee population, countries, integrations, implementation and the reward or discount programmes included.",
     review: {
       source: 15,
       person: "Reward Gateway | Edenred",
       role: "Vendor-published customer evidence",
-      body: "Reward Gateway | Edenred publishes customer examples around platform activity, employee savings and recognition adoption. I would ask for a reference where benefits are part of a genuinely multinational EVP programme, not only a domestic discounts rollout."
+      body: "The strongest proof is around adoption and measurable employee value. Southeastern reached 94% active usage, generated £83,000 in employee savings and saved £500,000 in National Insurance contributions, while Chubb Fire & Security increased active usage from 33% to 94% and reduced attrition by 33%."
     },
     verdict: "Reward Gateway | Edenred is strongest when the project is about making benefits and the wider EVP visible, useful and frequently visited. If your biggest pain sits in back-office benefits administration, I would pair it against a platform that goes deeper on global operations before deciding.",
     refs: [15, 16],
-    quote: "Placeholder customer quote for Reward Gateway.",
-    quotePerson: "Customer Name",
-    quoteRole: "Job Title, Company",
+    quote: "Engagement with the platform has been incredible, 95% of our people are active on it.",
+    quotePerson: "Kristin",
+    quoteRole: "Knight Frank",
   },
 ];
 
@@ -911,7 +909,7 @@ export default function BestGlobalEmployeeBenefitsPlatforms2026({
       <div className="gb-balance-card is-caution">
         <div className="gb-balance-heading">
           <h3 id={`${v.id}-cons`}>
-            Cons
+          Limitations
           </h3>
         </div>
 
