@@ -59,9 +59,9 @@ export default function App() {
           element={
             <>
               <Seo
-                 title="Fintech Comparison Article Sample: AI Note-Taking Tools | GrowUp"
-                description="A fintech writing sample by GrowUp: a comparison of five AI note-taking tools for UK financial advisers, written as an example of content for Aveni."
-                path="/articles/best-ai-note-taking-tools"
+                title="HR Tech Writing Sample: 7 Best Global Employee Benefits Platforms | GrowUp"
+                description="An HR tech writing sample by GrowUp: a practical comparison of seven global employee benefits platforms across administration, local flexibility, payroll controls and reporting, written as an example of content for Ben."
+                path="/articles/best-global-employee-benefits-platform"
               />
               <BestGlobalEmployeeBenefitsPlatforms2026 />
             </>

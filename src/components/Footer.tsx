@@ -74,7 +74,7 @@ export default function Footer() {
               Let&rsquo;s talk
             </p>
             <h3 className="mt-6 max-w-[340px] font-serif text-[30px] font-normal leading-[1.2] tracking-[-.02em] text-[#f6f2e8]">
-              Have a fintech content project in mind?
+     Have an HR tech content project in mind?
             </h3>
             <a
               href="https://www.seo-growup.com/get-in-touch"

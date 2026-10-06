@@ -46,6 +46,7 @@ type Vendor = {
   quote?: string;
   quotePerson?: string;
   quoteRole?: string;
+  image?: string;
 };
 
 
@@ -90,6 +91,7 @@ const vendors: Vendor[] = [
     },
     verdict: "Ben is the one I would start with when the problem is not simply ‘employees need a nicer benefits portal’ but ‘our global programme is held together by spreadsheets, tickets and local workarounds’. The value case is strongest when administration, employee experience and reporting all need fixing together.",
     refs: [1, 2, 3],
+    image: "/images/benefits-utilisation.webp",
     quote: "Ben helped create and manage our perfect platform, and provided such amazing support.",
     quotePerson: "Mark Cowen",
     quoteRole: "Head of Colleague Experience, Sigma Connected",
@@ -133,6 +135,7 @@ const vendors: Vendor[] = [
     },
     verdict: "Benifex is a serious option for multinational employers that want a mature, broad employee benefits ecosystem rather than a narrow point solution. I would shortlist it when benefits, reward, wellbeing and employee experience are all part of the same transformation programme.",
     refs: [4, 5, 6],
+    image: "/images/benefix.webp",
     quote: "Benifex has made our international benefit dreams come true!",
     quotePerson: "Samantha Sergent",
     quoteRole: "Director of International Benefits, Microsoft",
@@ -173,6 +176,7 @@ const vendors: Vendor[] = [
     },
     verdict: "Darwin belongs on the shortlist when you need serious global benefits infrastructure and you value the wider Mercer Marsh Benefits ecosystem. I would test it hardest on configuration ownership, data movement and the practical difference between what the platform does and what the service team does for you.",
     refs: [7, 8],
+    image: "/images/darwin.png",
     quote: "87% of employees have now used Darwin to make thousands of benefits selections.",
     quotePerson: "Ellie Vaughan",
     quoteRole: "Global Head of Reward and Benefits, Herbert Smith Freehills Kramer",
@@ -213,6 +217,7 @@ const vendors: Vendor[] = [
     },
     verdict: "Alight Worklife is the option I would look at when the benefits estate is huge, interconnected and already stretches well beyond perks or allowances. For a multinational with deep health, wealth and leave complexity, that breadth is a strength. For a simpler brief, it can be more machinery than the job requires.",
     refs: [9, 10],
+    image: "/images/alight.png",
     quote: "Alight has helped us streamline and make our day-to-day administrative processes much more efficient.",
     quotePerson: "Executive Director of Benefits",
     quoteRole: "Global employer with approximately 20,000 employees",
@@ -253,6 +258,7 @@ const vendors: Vendor[] = [
     },
     verdict: "Forma is a strong shortlist choice when global flexibility is the job to be done. If you are trying to give employees meaningful choice across countries and replace scattered reimbursement programmes, it is highly relevant. If you need end-to-end administration of a broad traditional benefits estate, compare it with a different lens.",
     refs: [11, 12],
+    image: "/images/forma.jpg",
     quote: "Forma’s not only taking the work off our internal teams to administer, it helps our employees live their best lives.",
     quotePerson: "Julia",
     quoteRole: "Global Benefits, Logitech",
@@ -294,6 +300,7 @@ const vendors: Vendor[] = [
     },
     verdict: "Benepass is compelling when flexible spending is the centre of the benefits strategy. The card-first experience is easy to understand and the rules can carry a lot of operational weight. I would be more cautious if the real requirement is broad multinational administration rather than flexible benefits delivery.",
     refs: [13, 14],
+    image: "/images/benepass.webp",
     quote: "That proactive, as opposed to reactive approach, is something that has been really impactful to our team.",
     quotePerson: "Stephanie Brazil",
     quoteRole: "Director of Benefits and Workforce Support Services, The Aspen Group",
@@ -335,6 +342,7 @@ const vendors: Vendor[] = [
     },
     verdict: "Reward Gateway | Edenred is strongest when the project is about making benefits and the wider EVP visible, useful and frequently visited. If your biggest pain sits in back-office benefits administration, I would pair it against a platform that goes deeper on global operations before deciding.",
     refs: [15, 16],
+    image: "/images/reward-gateway.webp",
     quote: "Engagement with the platform has been incredible, 95% of our people are active on it.",
     quotePerson: "Kristin",
     quoteRole: "Knight Frank",
@@ -384,13 +392,13 @@ const criteria = [
 
 
 const choices = [
-  ["Global benefits operations are held together by spreadsheets, tickets and manual payroll checks", "Ben", "Change an eligibility rule mid-cycle, move an employee between entities and show exactly how the provider and payroll records reconcile."],
-  ["You want a mature global benefits and reward ecosystem with a long enterprise track record", "Benifex", "Show the same global benefit in three markets with different local rules, then show what the internal team can configure without professional services."],
-  ["You want benefits technology and global consulting or broking in the same wider relationship", "Darwin", "Separate the platform workflow from the Mercer service layer so you can see who owns configuration, data and day-to-day change."],
-  ["You are operating at Fortune-scale across health, wealth, leave and benefits administration", "Alight Worklife", "Map one complex employee journey across enrolment, leave and health support, including every system and handoff."],
-  ["Your main problem is global lifestyle benefits, LSAs and equitable flexible funding", "Forma", "Build the same allowance in three countries and compare employee choice, tax treatment, utilisation reporting and exception handling."],
-  ["You want a card-first flexible benefits experience for a distributed workforce", "Benepass", "Run normal and edge-case transactions in multiple countries and show which rules are automatic versus manually reviewed."],
-  ["You want benefits to sit inside a broader engagement, recognition and EVP destination", "Reward Gateway | Edenred", "Show how benefits, discounts, recognition and communications work for one global campaign without creating separate regional experiences."],
+  ["Bringing fragmented global benefits administration into one operating model", "Ben", "Strongest fit when the problem is spread across local processes, payroll, eligibility and reporting rather than employee access alone."],
+  ["Standardising a broad benefits and reward experience across a large multinational", "Benifex", "Best suited to organisations that want global consistency across benefits, total reward, wellbeing and recognition while keeping local programmes intact."],
+  ["Combining benefits technology with consulting, broking and programme support", "Darwin", "The surrounding Mercer Marsh Benefits relationship makes more sense when the transformation includes providers, design and cost management as well as software."],
+  ["Running complex health, wealth, leave and administration at very large scale", "Alight Worklife", "The deepest administration proposition in the group, particularly for employers with large populations and several connected benefits programmes."],
+  ["Replacing fragmented LSAs, allowances and reimbursement programmes globally", "Forma", "A clearer fit when the core problem is flexible-benefits design and administration rather than traditional insured-benefit workflows."],
+  ["Moving flexible benefits from reimbursement to direct employee spending", "Benepass", "Strongest where card-based access, transaction controls and simpler employee spending are the main requirements."],
+  ["Increasing benefits visibility, recognition and engagement across the workforce", "Reward Gateway | Edenred", "Best suited to organisations where the employee-facing experience and programme adoption matter more than deep benefits administration."],
 ] as const;
 
 const iconPaths: Record<string, string[]> = {
@@ -416,69 +424,19 @@ function Icon({ name, size = 20 }: { name: string; size?: number }) {
     </svg>
   );
 }
-
 function HeroControlRoom() {
-  const markets = [
-    ["UK", "2,180", "Ready", "orange"],
-    ["DE", "1,040", "Ready", "teal"],
-    ["SG", "620", "2 checks", "pink"],
-    ["US", "2,160", "Ready", "orange"],
-  ] as const;
-
   return (
-    <figure className="gb-hero-art" aria-label="Illustrative global employee benefits control room showing country populations, payroll checks and global spend visibility">
-      <div className="gb-orbit-card gb-orbit-a"><span>18 markets</span><strong>One benefits view</strong></div>
-      <div className="gb-orbit-card gb-orbit-b"><span>Payroll</span><strong>3 checks before close</strong></div>
-      <div className="gb-control">
-        <div className="gb-control-top">
-          <div>
-            <span className="gb-ben-switch">B</span>
-            <div><small>GLOBAL BENEFITS</small><strong>Operations overview</strong></div>
-          </div>
-          <span className="gb-live"><i /> Live data</span>
-        </div>
-        <div className="gb-control-body">
-          <div className="gb-control-kpis">
-            <div><small>Employees</small><strong>6,000</strong><span>18 countries</span></div>
-            <div><small>Monthly spend</small><strong>£1.42m</strong><span>+3.4% vs plan</span></div>
-            <div><small>Utilisation</small><strong>78%</strong><span>Global average</span></div>
-          </div>
-          <div className="gb-map-shell">
-            <div className="gb-map-head"><span>Market readiness</span><span>Payroll closes in 2d</span></div>
-            <svg className="gb-map-lines" viewBox="0 0 520 180" aria-hidden="true">
-              <path d="M260 86 C205 35 140 38 88 58" />
-              <path d="M260 86 C230 55 210 65 184 70" />
-              <path d="M260 86 C305 45 356 42 416 61" />
-              <path d="M260 86 C330 112 382 124 445 134" />
-              <circle cx="260" cy="86" r="8" />
-              <circle cx="88" cy="58" r="5" />
-              <circle cx="184" cy="70" r="5" />
-              <circle cx="416" cy="61" r="5" />
-              <circle cx="445" cy="134" r="5" />
-            </svg>
-            <div className="gb-map-core"><span>HQ</span><strong>Rules synced</strong><small>17 / 18 markets</small></div>
-          </div>
-          <div className="gb-market-grid">
-            {markets.map(([country, people, status, tone]) => (
-              <div className="gb-market" key={country}>
-                <span className={`gb-dot is-${tone}`} />
-                <div><strong>{country}</strong><small>{people} employees</small></div>
-                <b>{status}</b>
-              </div>
-            ))}
-          </div>
-          <div className="gb-control-alert">
-            <Icon name="alert" size={16} />
-            <div><strong>Singapore payroll mismatch</strong><span>12 employees changed eligibility after provider file cut-off.</span></div>
-            <button type="button">Review</button>
-          </div>
-        </div>
-      </div>
+    <figure className="gb-hero-art" aria-label="Ben global benefits platform interface">
+      <img
+        src="/images/ben-hero-img.png"
+        alt="Ben global benefits platform showing operations overview"
+        width={1200}
+        height={900}
+        fetchPriority="high"
+      />
     </figure>
   );
 }
-
-
 
 export type Props = {
   portfolioHref?: string;
@@ -699,102 +657,113 @@ export default function BestGlobalEmployeeBenefitsPlatforms2026({
           Replace this whole div with the real screenshot later */}
       <div
         className="gb-vendor-preview"
-        aria-label={`${v.name} product interface placeholder`}
+        aria-label={`${v.name} product interface`}
       >
-        <div className="gb-preview-window">
-          <div className="gb-preview-browser">
-            <span />
-            <span />
-            <span />
-            <strong>{v.name}</strong>
-          </div>
-
-          <div className="gb-preview-app">
-            <aside className="gb-preview-nav" aria-hidden="true">
-              <b>{v.name.charAt(0)}</b>
-              <span className="is-active" />
-              <span />
-              <span />
-              <span />
-              <span />
-            </aside>
-
-            <div className="gb-preview-main">
-              <div className="gb-preview-title">
-                <div>
-                  <small>GLOBAL BENEFITS</small>
-                  <strong>Operations overview</strong>
-                </div>
-                <i />
-              </div>
-
-              <div className="gb-preview-kpis" aria-hidden="true">
-                <div>
-                  <small>Employees</small>
-                  <strong>2,842</strong>
-                  <span>↑ 12%</span>
-                </div>
-                <div>
-                  <small>Countries</small>
-                  <strong>18</strong>
-                  <span>+2</span>
-                </div>
-                <div>
-                  <small>Benefits</small>
-                  <strong>24</strong>
-                  <span>Active</span>
-                </div>
-              </div>
-
-              <div className="gb-preview-dashboard" aria-hidden="true">
-                <div className="gb-preview-chart">
-                  <div className="gb-preview-chart-top">
-                    <span>Benefits spend</span>
-                    <b>£12.4M</b>
-                  </div>
-
-                  <div className="gb-preview-bars">
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                    <i className="is-last" />
-                  </div>
-                </div>
-
-                <div className="gb-preview-sidecard">
-                  <small>Coverage</small>
-                  <strong>96%</strong>
-                  <span>Global workforce</span>
-
-                  <div className="gb-preview-mini-row">
-                    <i />
-                    <div />
-                  </div>
-                  <div className="gb-preview-mini-row">
-                    <i />
-                    <div />
-                  </div>
-                  <div className="gb-preview-mini-row">
-                    <i />
-                    <div />
-                  </div>
-                </div>
-              </div>
-
-              <div className="gb-preview-footer" aria-hidden="true">
+        {v.image ? (
+          <img
+            src={v.image}
+            alt={`${v.name} product screenshot`}
+            className="gb-vendor-preview-image"
+            loading="lazy"
+          />
+        ) : (
+          <>
+            <div className="gb-preview-window">
+              <div className="gb-preview-browser">
                 <span />
                 <span />
                 <span />
+                <strong>{v.name}</strong>
+              </div>
+
+              <div className="gb-preview-app">
+                <aside className="gb-preview-nav" aria-hidden="true">
+                  <b>{v.name.charAt(0)}</b>
+                  <span className="is-active" />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </aside>
+
+                <div className="gb-preview-main">
+                  <div className="gb-preview-title">
+                    <div>
+                      <small>GLOBAL BENEFITS</small>
+                      <strong>Operations overview</strong>
+                    </div>
+                    <i />
+                  </div>
+
+                  <div className="gb-preview-kpis" aria-hidden="true">
+                    <div>
+                      <small>Employees</small>
+                      <strong>2,842</strong>
+                      <span>↑ 12%</span>
+                    </div>
+                    <div>
+                      <small>Countries</small>
+                      <strong>18</strong>
+                      <span>+2</span>
+                    </div>
+                    <div>
+                      <small>Benefits</small>
+                      <strong>24</strong>
+                      <span>Active</span>
+                    </div>
+                  </div>
+
+                  <div className="gb-preview-dashboard" aria-hidden="true">
+                    <div className="gb-preview-chart">
+                      <div className="gb-preview-chart-top">
+                        <span>Benefits spend</span>
+                        <b>£12.4M</b>
+                      </div>
+
+                      <div className="gb-preview-bars">
+                        <i />
+                        <i />
+                        <i />
+                        <i />
+                        <i />
+                        <i className="is-last" />
+                      </div>
+                    </div>
+
+                    <div className="gb-preview-sidecard">
+                      <small>Coverage</small>
+                      <strong>96%</strong>
+                      <span>Global workforce</span>
+
+                      <div className="gb-preview-mini-row">
+                        <i />
+                        <div />
+                      </div>
+                      <div className="gb-preview-mini-row">
+                        <i />
+                        <div />
+                      </div>
+                      <div className="gb-preview-mini-row">
+                        <i />
+                        <div />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="gb-preview-footer" aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div className="gb-preview-label">
-          Product screenshot placeholder
-        </div>
+            <div className="gb-preview-label">
+              Product screenshot placeholder
+            </div>
+          </>
+        )}
       </div>
 
       <div className="gb-vendor-summary">
@@ -1044,24 +1013,19 @@ export default function BestGlobalEmployeeBenefitsPlatforms2026({
 
               <section id="choose">
                 <h2>Which global employee benefits platform should you choose?</h2>
-                <p>I would narrow the list by the operational problem you need the platform to own. That gives you a much better first demo than asking seven vendors to walk through the same generic feature checklist.</p>
+                <p>I would not choose from this list by asking who has the longest feature set. I would start with the part of your current benefits operation that creates the most work, risk or confusion, then make the vendor prove they can remove it. That usually gets you to a much shorter shortlist very quickly.</p>
                 <div className="gb-table-shell gb-clean-shell">
                   <div className="gb-table-scroll" role="region" aria-label="Shortlist global employee benefits platforms by business need" tabIndex={0}>
                     <table className="gb-table gb-clean gb-choose-table">
-                      <thead><tr><th scope="col">Where the friction shows up</th><th scope="col">Start with</th><th scope="col">What I would make them show you</th></tr></thead>
+                      <thead><tr><th scope="col">If your priority is...</th><th scope="col">Start with</th><th scope="col">Why</th></tr></thead>
                       <tbody>{choices.map(([problem, tool, test]) => <tr key={problem}><td><strong>{problem}</strong></td><td>{tool}</td><td>{test}</td></tr>)}</tbody>
                     </table>
                   </div>
                 </div>
 
-                <div className="gb-ending">
-                  <span className="gb-eyebrow">The bit I would not compromise on</span>
-                  <p>A global benefits platform should make the programme easier to run when the data is late, the country rules differ and somebody changes eligibility two days before payroll. If the value only appears in the employee homepage, you are probably still buying yourself a lot of work behind it.</p>
-                </div>
-
                 <div className="gb-author">
                   <div className="gb-author-mark" aria-hidden="true"><span>G</span></div>
-                  <div className="gb-author-body"><div className="gb-author-eyebrow">Written by</div><div className="gb-author-name">GrowUp</div><p className="gb-author-bio">GrowUp writes research-led content for complex B2B SaaS and HR technology products. This is a portfolio sample written for Ben; it is not published by or affiliated with Ben.</p></div>
+                  <div className="gb-author-body"><div className="gb-author-eyebrow">Written by</div><div className="gb-author-name">GrowUp</div><p className="gb-author-bio">GrowUp writes content for HR technology brands. This guide is a portfolio sample created to demonstrate the kind of work GrowUp would produce for Ben. It is not published by or affiliated with Ben.</p></div>
                 </div>
               </section>
 
@@ -1074,8 +1038,14 @@ export default function BestGlobalEmployeeBenefitsPlatforms2026({
           </div>
 
           <section className="gb-cta">
-            <div><div className="gb-eyebrow">GrowUp · HR tech content writing</div><h2>Content for complex HR technology.</h2><p>Buyer guides, research pieces and customer stories that explain the product properly, answer real buying questions and support search, sales and pipeline.</p></div>
-            <div><a href={contactHref}>Commission an article like this <span>↗</span></a></div>
+            <div>
+              <div className="gb-eyebrow">GrowUp · HR tech content writing</div>
+              <h2>High-intent content for acquisition, sales enablement and pipeline growth.</h2>
+              <p>From search-led articles to comparison pages and customer stories, we create content that brings buyers in, helps sales move deals forward and supports pipeline growth.</p>
+            </div>
+            <div>
+              <a href={contactHref}>Commission an article like this <span>↗</span></a>
+            </div>
           </section>
         </main>
 
@@ -1086,9 +1056,10 @@ export default function BestGlobalEmployeeBenefitsPlatforms2026({
 }
 
 const styles = String.raw`
-.gb-page{--ink:#002924;--ink-2:#05382F;--muted:#596a65;--line:#d9dfd7;--paper:#FFFFFF;--paper-2:#F2F4EA;--orange:#FF6635;--pink:#FFA2A8;--teal:#6BB8A8;--teal-dark:#26797E;font-family:Inter,Arial,Helvetica,sans-serif;background:#FFFFFF;color:var(--ink);line-height:1.72;font-size:17px;-webkit-font-smoothing:antialiased}.gb-page *{box-sizing:border-box}.gb-page h1,.gb-page h2,.gb-page h3,.gb-page p,.gb-page figure,.gb-page blockquote{margin:0}.gb-page a{color:inherit;text-underline-offset:4px}.gb-page button,.gb-page input{font:inherit}.gb-page button,.gb-page summary{cursor:pointer}.gb-page :focus-visible{outline:3px solid var(--orange);outline-offset:5px}.gb-wrap{width:min(1320px,calc(100% - 96px));margin:auto}.gb-skip{position:fixed;left:18px;top:12px;z-index:90;background:#fff;padding:11px 16px;transform:translateY(-180%)}.gb-skip:focus{transform:none}.gb-progress{position:fixed;top:0;left:0;height:3px;background:var(--orange);z-index:80;transition:width .08s linear}.gb-eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:11px;font-weight:750;line-height:1.6}
+.gb-page{--ink:#002924;--ink-2:#05382F;--muted:#596a65;--line:#d9dfd7;--paper:#FFFFFF;--paper-2:#F2F4EA;--orange:#1F9FA1;--pink:#FFA2A8;--teal:#6BB8A8;--teal-dark:#26797E;font-family:Inter,Arial,Helvetica,sans-serif;background:#FFFFFF;color:var(--ink);line-height:1.72;font-size:17px;-webkit-font-smoothing:antialiased}.gb-page *{box-sizing:border-box}.gb-page h1,.gb-page h2,.gb-page h3,.gb-page p,.gb-page figure,.gb-page blockquote{margin:0}.gb-page a{color:inherit;text-underline-offset:4px}.gb-page button,.gb-page input{font:inherit}.gb-page button,.gb-page summary{cursor:pointer}.gb-page :focus-visible{outline:3px solid var(--orange);outline-offset:5px}.gb-wrap{width:min(1320px,calc(100% - 96px));margin:auto}.gb-skip{position:fixed;left:18px;top:12px;z-index:90;background:#fff;padding:11px 16px;transform:translateY(-180%)}.gb-skip:focus{transform:none}.gb-progress{position:fixed;top:0;left:0;height:3px;background:var(--orange);z-index:80;transition:width .08s linear}.gb-eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:11px;font-weight:750;line-height:1.6}
 
-.gb-hero{background:#041b1c;color:#f5f8f2;overflow:hidden;width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;padding-top:96px}.gb-hero:before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:54px 54px;mask-image:linear-gradient(to right,transparent,black 38%,black);pointer-events:none}.gb-container{width:min(1320px,calc(100% - 96px));margin:auto}.gb-hero-main{min-height:680px;display:grid;grid-template-columns:1.02fr .98fr;gap:34px;align-items:center;padding-block:44px 62px;position:relative;z-index:2}.gb-hero-copy{position:relative;z-index:2}.gb-hero .gb-eyebrow{color:var(--orange)}.gb-hero h1{color:#F7F9F2;font-size:clamp(39px,4.1vw,62px);line-height:1.06;font-weight:650;letter-spacing:-.052em;margin:20px 0 24px;max-width:720px}.gb-hero h1 span{display:block;color:#F7F9F2}.gb-deck{font-size:18px;line-height:1.65;max-width:650px;color:#eef2ea}.gb-meta{display:flex;gap:15px;flex-wrap:wrap;margin-top:27px;font-size:12px;color:#9db1a5}.gb-jump{display:inline-flex;gap:26px;align-items:center;text-decoration:none;margin-top:27px;font-size:14px;font-weight:750;border-bottom:1px solid var(--orange);padding:4px 0;color:var(--orange)!important}.gb-hero-art{position:relative;min-width:0;width:100%;padding:24px 4px 24px 22px}.gb-control{background:#F7F9F2;color:#002924;border:1px solid rgba(255,255,255,.25);box-shadow:0 36px 80px rgba(0,0,0,.28);border-radius:16px;overflow:hidden;transform:rotate(.35deg)}.gb-control-top{height:58px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #dfe5dc;background:#F2F4EA}.gb-control-top>div{display:flex;align-items:center;gap:11px}.gb-ben-switch{display:inline-flex;width:31px;height:31px;border-radius:50%;align-items:center;justify-content:center;background:#002924;color:#F7F9F2;font-weight:900;font-size:14px;box-shadow:inset 0 0 0 5px #05382F}.gb-control-top small{display:block;font-size:7px;letter-spacing:.15em;color:#6f7f79}.gb-control-top strong{display:block;font-size:11px;margin-top:1px}.gb-live{font-size:8px;text-transform:uppercase;letter-spacing:.12em;color:#4E7A70;display:flex;align-items:center;gap:6px}.gb-live i{width:6px;height:6px;background:#6BB8A8;border-radius:50%}.gb-control-body{padding:18px}.gb-control-kpis{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #dfe5dc;border-radius:10px;overflow:hidden;background:#fff}.gb-control-kpis>div{padding:14px 15px}.gb-control-kpis>div+div{border-left:1px solid #dfe5dc}.gb-control-kpis small{display:block;font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#83908b}.gb-control-kpis strong{display:block;font-size:22px;line-height:1.1;margin:5px 0 3px;letter-spacing:-.04em}.gb-control-kpis span{font-size:8px;color:#66766f}.gb-map-shell{height:188px;position:relative;margin-top:14px;background:#002924;border-radius:11px;overflow:hidden}.gb-map-head{height:38px;padding:0 13px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.1);font-size:8px;color:#dbe6df}.gb-map-head span:last-child{color:#FFA2A8}.gb-map-lines{position:absolute;inset:40px 0 0;width:100%;height:148px}.gb-map-lines path{fill:none;stroke:#6BB8A8;stroke-width:1;stroke-dasharray:4 6;opacity:.55}.gb-map-lines circle{fill:#FF6635}.gb-map-lines circle:not(:first-of-type){fill:#F7F9F2}.gb-map-core{position:absolute;left:50%;top:53%;transform:translate(-50%,-50%);width:98px;height:76px;background:#F7F9F2;border:4px solid #05382F;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 9px 24px rgba(0,0,0,.25)}.gb-map-core span{font-size:7px;letter-spacing:.14em;color:#6f7f79}.gb-map-core strong{font-size:10px;margin:3px 0}.gb-map-core small{font-size:7px;color:#26797E}.gb-market-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.gb-market{display:grid;grid-template-columns:8px 1fr auto;gap:8px;align-items:center;padding:9px 10px;border:1px solid #dfe5dc;border-radius:8px;background:#fff}.gb-dot{width:7px;height:7px;border-radius:50%}.gb-dot.is-orange{background:#FF6635}.gb-dot.is-teal{background:#6BB8A8}.gb-dot.is-pink{background:#FFA2A8}.gb-market strong{display:block;font-size:9px}.gb-market small{display:block;font-size:7px;color:#88948f}.gb-market b{font-size:7px;font-weight:700;color:#4E7A70}.gb-control-alert{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;margin-top:10px;padding:11px 12px;background:#FFF4F0;border:1px solid #FFD5C8;border-radius:9px;color:#CA3A0C}.gb-control-alert strong{display:block;font-size:9px}.gb-control-alert span{display:block;font-size:7px;line-height:1.45;color:#8f4b39;margin-top:2px}.gb-control-alert button{border:0;background:#FF6635;color:#fff;border-radius:20px;font-size:7px;font-weight:800;padding:6px 9px}.gb-orbit-card{position:absolute;z-index:4;padding:10px 12px;border-radius:9px;box-shadow:0 16px 30px rgba(0,0,0,.22);min-width:122px}.gb-orbit-card span{display:block;font-size:7px;text-transform:uppercase;letter-spacing:.13em}.gb-orbit-card strong{display:block;font-size:9px;margin-top:2px}.gb-orbit-a{left:-5px;top:4px;background:#FF6635;color:#fff;transform:rotate(-3deg)}.gb-orbit-b{right:-17px;bottom:5px;background:#FFA2A8;color:#002924;transform:rotate(2.5deg)}
+.gb-hero{background:#041b1c;color:#f5f8f2;overflow:hidden;width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;padding-top:96px}.gb-hero:before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:54px 54px;mask-image:linear-gradient(to right,transparent,black 38%,black);pointer-events:none}.gb-container{width:min(1320px,calc(100% - 96px));margin:auto}.gb-hero-main{min-height:680px;display:grid;grid-template-columns:.8fr 1.2fr;gap:20px;align-items:center;padding-block:44px 62px;position:relative;z-index:2}.gb-hero-copy{position:relative;z-index:2}.gb-hero .gb-eyebrow{color:var(--orange)}.gb-hero h1{color:#F7F9F2;font-size:clamp(36px,3.5vw,56px);line-height:1.06;font-weight:650;letter-spacing:-.052em;margin:20px 0 24px;max-width:720px}.gb-hero h1 span{display:block;color:#F7F9F2}.gb-deck{font-size:18px;line-height:1.65;max-width:650px;color:#eef2ea}.gb-meta{display:flex;gap:15px;flex-wrap:wrap;margin-top:27px;font-size:12px;color:#9db1a5}.gb-jump{display:inline-flex;gap:26px;align-items:center;text-decoration:none;margin-top:27px;font-size:14px;font-weight:750;border-bottom:1px solid var(--orange);padding:4px 0;color:var(--orange)!important}.gb-hero-art{position:relative;min-width:0;width:100%;padding:24px 4px 24px 22px;margin:0}
+.gb-hero-art img{display:block;width:100%;height:auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,.3))}.gb-control{background:#F7F9F2;color:#002924;border:1px solid rgba(255,255,255,.25);box-shadow:0 36px 80px rgba(0,0,0,.28);border-radius:16px;overflow:hidden;transform:rotate(.35deg)}.gb-control-top{height:58px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #dfe5dc;background:#F2F4EA}.gb-control-top>div{display:flex;align-items:center;gap:11px}.gb-ben-switch{display:inline-flex;width:31px;height:31px;border-radius:50%;align-items:center;justify-content:center;background:#002924;color:#F7F9F2;font-weight:900;font-size:14px;box-shadow:inset 0 0 0 5px #05382F}.gb-control-top small{display:block;font-size:7px;letter-spacing:.15em;color:#6f7f79}.gb-control-top strong{display:block;font-size:11px;margin-top:1px}.gb-live{font-size:8px;text-transform:uppercase;letter-spacing:.12em;color:#4E7A70;display:flex;align-items:center;gap:6px}.gb-live i{width:6px;height:6px;background:#6BB8A8;border-radius:50%}.gb-control-body{padding:18px}.gb-control-kpis{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #dfe5dc;border-radius:10px;overflow:hidden;background:#fff}.gb-control-kpis>div{padding:14px 15px}.gb-control-kpis>div+div{border-left:1px solid #dfe5dc}.gb-control-kpis small{display:block;font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#83908b}.gb-control-kpis strong{display:block;font-size:22px;line-height:1.1;margin:5px 0 3px;letter-spacing:-.04em}.gb-control-kpis span{font-size:8px;color:#66766f}.gb-map-shell{height:188px;position:relative;margin-top:14px;background:#002924;border-radius:11px;overflow:hidden}.gb-map-head{height:38px;padding:0 13px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.1);font-size:8px;color:#dbe6df}.gb-map-head span:last-child{color:#FFA2A8}.gb-map-lines{position:absolute;inset:40px 0 0;width:100%;height:148px}.gb-map-lines path{fill:none;stroke:#6BB8A8;stroke-width:1;stroke-dasharray:4 6;opacity:.55}.gb-map-lines circle{fill:#1F9FA1}.gb-map-lines circle:not(:first-of-type){fill:#F7F9F2}.gb-map-core{position:absolute;left:50%;top:53%;transform:translate(-50%,-50%);width:98px;height:76px;background:#F7F9F2;border:4px solid #05382F;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 9px 24px rgba(0,0,0,.25)}.gb-map-core span{font-size:7px;letter-spacing:.14em;color:#6f7f79}.gb-map-core strong{font-size:10px;margin:3px 0}.gb-map-core small{font-size:7px;color:#26797E}.gb-market-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.gb-market{display:grid;grid-template-columns:8px 1fr auto;gap:8px;align-items:center;padding:9px 10px;border:1px solid #dfe5dc;border-radius:8px;background:#fff}.gb-dot{width:7px;height:7px;border-radius:50%}.gb-dot.is-orange{background:#FF6635}.gb-dot.is-teal{background:#6BB8A8}.gb-dot.is-pink{background:#FFA2A8}.gb-market strong{display:block;font-size:9px}.gb-market small{display:block;font-size:7px;color:#88948f}.gb-market b{font-size:7px;font-weight:700;color:#4E7A70}.gb-control-alert{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;margin-top:10px;padding:11px 12px;background:#FFF4F0;border:1px solid #FFD5C8;border-radius:9px;color:#CA3A0C}.gb-control-alert strong{display:block;font-size:9px}.gb-control-alert span{display:block;font-size:7px;line-height:1.45;color:#8f4b39;margin-top:2px}.gb-control-alert button{border:0;background:#1F9FA1;color:#fff;border-radius:20px;font-size:7px;font-weight:800;padding:6px 9px}.gb-orbit-card{position:absolute;z-index:4;padding:10px 12px;border-radius:9px;box-shadow:0 16px 30px rgba(0,0,0,.22);min-width:122px}.gb-orbit-card span{display:block;font-size:7px;text-transform:uppercase;letter-spacing:.13em}.gb-orbit-card strong{display:block;font-size:9px;margin-top:2px}.gb-orbit-a{left:-5px;top:4px;background:#1F9FA1;color:#fff;transform:rotate(-3deg)}.gb-orbit-b{right:-17px;bottom:5px;background:#FFA2A8;color:#002924;transform:rotate(2.5deg)}
 
 .gb-strip{display:flex;align-items:center;gap:24px;padding:23px 0;border-block:1px solid var(--line);font-size:14px;flex-wrap:wrap}.gb-strip .gb-eyebrow{color:#66766f;margin-right:auto}.gb-strip a{font-weight:750;text-decoration:none}.gb-layout{display:grid;grid-template-columns:235px minmax(0,850px);gap:75px;justify-content:space-between;padding-top:60px;align-items:start}.gb-toc{position:sticky;top:26px;max-height:calc(100vh - 52px);overflow-y:auto;padding-right:16px}.gb-toc>.gb-eyebrow{color:var(--muted);margin-bottom:17px}.gb-toc nav>a,.gb-toc summary{display:block;text-decoration:none;font-size:13px;padding:9px 0;line-height:1.5}.gb-toc details{border-bottom:1px solid var(--line)}.gb-toc summary{font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:10px}.gb-toc summary::after{content:'+';font-weight:400;color:#4E7A70}.gb-toc details[open] summary::after{content:'−'}.gb-toc details a{display:block;font-size:12px;color:var(--muted);padding:5px 0 5px 14px;text-decoration:none}.gb-toc a[aria-current='location']{color:#26797E;font-weight:850}.gb-toc-foot{font-size:12px;border-top:1px solid var(--line);margin-top:25px;padding-top:18px;color:var(--muted)}.gb-copy-button{display:block;background:transparent;border:0;color:#26797E;padding:12px 0 0;font-size:12px;font-weight:750}.gb-sr-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.gb-mobile-toc{display:none}.gb-article{min-width:0}.gb-article p{margin-bottom:21px}.gb-article section{scroll-margin-top:35px;padding-top:60px}.gb-intro p:first-child{font-size:29px;line-height:1.3;font-weight:650;letter-spacing:-.035em}.gb-article h2{font-size:36px;line-height:1.2;letter-spacing:-.045em;font-weight:650;margin-bottom:24px;text-wrap:balance}.gb-article h3{font-size:22px;line-height:1.3;letter-spacing:-.025em;margin:35px 0 18px;scroll-margin-top:35px}
 
@@ -2002,9 +1973,13 @@ const styles = String.raw`
 }
 
 
-.gb-choose-table{font-size:15px}.gb-choose-table th{width:auto!important}.gb-ending{margin-top:36px;padding:28px 30px;background:#FFDDDF;border-left:4px solid #FF6635;border-radius:8px}.gb-ending .gb-eyebrow{font-size:9px;color:#A4433D}.gb-ending p{font-size:18px;line-height:1.65;margin:10px 0 0;color:#5d332f}.gb-author{margin-top:48px;padding:28px 30px;background:#fff;border:1px solid #e0e5df;border-radius:14px;display:flex;gap:28px;align-items:center}.gb-author-mark{flex:none;width:64px;height:64px;border-radius:50%;background:#002924;color:#F7F9F2;display:flex;align-items:center;justify-content:center}.gb-author-mark span{font-size:26px;font-weight:900}.gb-author-body{min-width:0;padding-left:28px;border-left:1px solid #e0e5df}.gb-author-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#7e8a85;font-weight:700}.gb-author-name{font-size:18px;font-weight:800;margin-top:4px}.gb-author-bio{font-size:13px!important;line-height:1.65!important;color:#697771;margin:6px 0 0!important}.gb-source-list{padding-left:23px}.gb-source-list li{padding:8px 0;font-size:13px;color:#50635b}.gb-source-list a{word-break:break-word}
+.gb-choose-table{font-size:17px}.gb-choose-table th{width:auto!important}.gb-ending{margin-top:36px;padding:28px 30px;background:#FFDDDF;border-left:4px solid #FF6635;border-radius:8px}.gb-ending .gb-eyebrow{font-size:9px;color:#A4433D}.gb-ending p{font-size:18px;line-height:1.65;margin:10px 0 0;color:#5d332f}.gb-author{margin-top:48px;padding:28px 30px;background:#fff;border:1px solid #e0e5df;border-radius:14px;display:flex;gap:28px;align-items:center}.gb-author-mark{flex:none;width:64px;height:64px;border-radius:50%;background:#002924;color:#F7F9F2;display:flex;align-items:center;justify-content:center}.gb-author-mark span{font-size:26px;font-weight:900}.gb-author-body{min-width:0;padding-left:28px;border-left:1px solid #e0e5df}.gb-author-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#7e8a85;font-weight:700}.gb-author-name{font-size:18px;font-weight:800;margin-top:4px}.gb-author-bio{font-size:13px!important;line-height:1.65!important;color:#697771;margin:6px 0 0!important}.gb-source-list{padding-left:23px}.gb-source-list li{padding:8px 0;font-size:13px;color:#50635b}.gb-source-list a{word-break:break-word}
 
-.gb-cta{margin:80px 0 0;background:#002924;color:#F7F9F2;padding:48px 50px;border-radius:12px;display:grid;grid-template-columns:1.35fr .65fr;gap:50px;align-items:end}.gb-cta .gb-eyebrow{color:#FF6635}.gb-cta h2{font-size:38px;line-height:1.1;letter-spacing:-.045em;margin:10px 0 16px}.gb-cta p{font-size:15px;line-height:1.75;color:#d9e4df;max-width:650px}.gb-cta a{display:flex;align-items:center;justify-content:space-between;gap:24px;background:#FF6635;color:#fff;text-decoration:none;border-radius:100px;padding:17px 20px 17px 24px;font-size:13px;font-weight:800}.gb-footer{display:flex;justify-content:space-between;gap:30px;padding:28px 0 42px;font-size:13px}.gb-footer a{text-decoration:none}
+.gb-cta{margin:75px 0 35px;background:#041b1c;color:#fff;padding:50px;border-radius:5px;display:grid;grid-template-columns:1.5fr 1fr;gap:65px;align-items:center}
+.gb-cta .gb-eyebrow{color:#167273}
+.gb-cta h2{font-size:39px;line-height:1.13;letter-spacing:-.04em;margin:16px 0}
+.gb-cta p{font-size:15px;line-height:1.75;color:#cad7c9;max-width:630px}
+.gb-cta a{display:flex;align-items:center;justify-content:space-between;gap:24px;background:#167273;color:#fff;text-decoration:none;border-radius:0;padding:18px 23px;font-size:14px;font-weight:700}.gb-footer{display:flex;justify-content:space-between;gap:30px;padding:28px 0 42px;font-size:13px}.gb-footer a{text-decoration:none}
 
 .lc-maya-search{margin:30px 0}
 .lc-maya-search img{display:block;width:100%;height:auto}
