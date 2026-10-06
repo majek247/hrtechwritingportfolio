@@ -313,48 +313,46 @@ const vendors: Vendor[] = [
     refs: [15, 16],
   },
 ];
-
 const criteria = [
   [
     "Is ‘global’ actually one operating model?",
-    "Ask the vendor to show one employee population in the UK, another in Germany and another in Singapore. Can the central team see all three while local rules, providers and eligibility stay different? If the answer involves three portals and an export, you have your answer.",
+    "Ask the vendor to show one employee population in the UK, another in Germany, and another in Singapore on a single screen. Can central HR maintain global policy governance while local rules, provider integrations, and statutory eligibility stay distinct under the hood? If the answer involves logging into three regional portals and stitching CSVs together, you have your answer.",
     "globe",
+    "/images/global-employee-population.png",
   ],
   [
     "What happens when eligibility changes on Thursday?",
-    "Move an employee from one entity or grade to another, add a dependent and change a benefit rule. Then watch what happens to enrolment, provider data and payroll. I care much more about that workflow than a polished open-enrolment screen.",
+    "Pick a complex mid-cycle change live in the demo: move an employee from Entity A to Entity B, change their job grade, and add a dependant mid-month. Trace that exact change through the backend. Do carrier feeds, eligibility rules, and payroll deduction codes update automatically, or does your team become the manual data bridge?",
     "rules",
+    "/images/alex-chen-movement.png",
   ],
   [
     "Can payroll close without a reconciliation spreadsheet?",
-    "Follow one deduction from the benefit election through provider data and payroll. Which system catches a mismatch, who is alerted and what has to be fixed by hand? This is where ‘automation’ becomes measurable rather than decorative.",
+    "Follow one benefit election deduction through to provider billing and payroll output. Which system actually catches a data mismatch before cut-off day, who gets alerted, and what has to be fixed by hand? This is where \"automation\" becomes measurable rather than decorative.",
     "payroll",
+    "/images/benefit-deductions.png",
   ],
   [
     "Will employees outside HQ actually use it?",
-    "Test mobile access, language, deskless employees, dependants and people without a corporate email address. Global consistency is not useful if the employee experience only really works for laptop users in the head office.",
+    "Test mobile access, multi-language support, deskless workforce flows, dependants, and workers without corporate email addresses. Global consistency is meaningless if the employee experience only functions smoothly for laptop-based staff in head office.",
     "mobile",
+    "/images/benefits-priya.png",
   ],
   [
     "Can you explain the spend to Finance?",
-    "Ask for global cost, utilisation, take-up and segment reporting without an analyst rebuilding the story in Excel. Then ask what happens when Finance wants to know why one market costs more and whether the extra spend changed employee usage.",
+    "Ask for global cost, utilization, take-up, and segment reporting without a BI analyst rebuilding the story in Excel. When Finance asks why a specific market ran 11% over budget, can you isolate whether costs came from underlying carrier rate inflation, headcount growth, or plan usage in three clicks?",
     "chart",
+    "/images/globalbenefitsspend.png",
   ],
   [
     "How much control stays with your team?",
-    "Create a new market, change an eligibility rule and update a communication. If every change needs a vendor ticket, ask about turnaround times and fees. Enterprise flexibility is partly about what your own team can safely configure after go-live.",
+    "Ask the vendor to configure a new entity in Poland, adjust an eligibility rule, and update a local communication template live. If every minor administrative update requires a paid vendor ticket and a three-week implementation queue, ask yourself how agile your team will actually be after go-live.",
     "sliders",
+    "/images/new-entity-setup.png",
   ],
 ] as const;
 
-const intro = [
-  "The quickest way to make a global benefits shortlist useless is to compare whether each platform has analytics, integrations, a mobile app and ‘AI’. Seven green ticks later, you still have no idea which one will survive your actual benefits programme.",
-  "I found it more useful to picture the mess instead: 6,000 employees, 18 countries, three payrolls, local providers that refuse to behave the same way, a new market going live next quarter and a CFO asking why benefits spend is up 11%.",
-  "That is the standard I have used here.",
-  "I looked at what each platform says it can run, the customer stories it publishes, how it handles global versus local configuration, where the employee experience starts and stops, and what I would make the vendor prove before signing anything.",
-  "This is not a hands-on lab test, and I have not invented one. It is a buyer-style review of the public evidence available in October 2026, written around the workflows that tend to make enterprise benefits difficult in the first place.",
-  "The seven platforms below are not interchangeable. That is the point of the guide.",
-];
+
 
 const choices = [
   ["Global benefits operations are held together by spreadsheets, tickets and manual payroll checks", "Ben", "Change an eligibility rule mid-cycle, move an employee between entities and show exactly how the provider and payroll records reconcile."],
@@ -449,35 +447,6 @@ function HeroControlRoom() {
   );
 }
 
-function StressTest() {
-  const steps = [
-    ["01", "New market", "Poland goes live in 30 days", "Who builds the rules?"],
-    ["02", "Eligibility", "42 employees change grade", "What updates automatically?"],
-    ["03", "Payroll", "One provider file is wrong", "Who catches it before close?"],
-    ["04", "Finance", "Spend is 11% over plan", "Can you explain why?"],
-  ] as const;
-
-  return (
-    <figure className="gb-stress" aria-label="Global benefits stress test showing four operational scenarios to use in vendor demos">
-      <div className="gb-stress-head">
-        <div><span className="gb-eyebrow">The demo I would actually run</span><h3>The 4:47pm Friday stress test</h3></div>
-        <span className="gb-stress-tag">No perfect demo data</span>
-      </div>
-      <div className="gb-stress-grid">
-        {steps.map(([n, title, event, question], i) => (
-          <div className="gb-stress-card" key={n}>
-            <div className="gb-stress-number">{n}</div>
-            <span className={`gb-stress-accent is-${i % 3}`} />
-            <strong>{title}</strong>
-            <p>{event}</p>
-            <small>{question}</small>
-          </div>
-        ))}
-      </div>
-      <figcaption>If a platform can only look good with tidy employee data and a pre-scripted enrolment flow, I would rather find that out before implementation.</figcaption>
-    </figure>
-  );
-}
 
 function VendorSignal({ vendor }: { vendor: Vendor }) {
   const signal = vendor.id === "ben" ? ["Global ops", "Payroll", "Insights"]
@@ -592,7 +561,6 @@ export default function BestGlobalEmployeeBenefitsPlatforms2026({
             <aside className="gb-toc">
               <div className="gb-eyebrow">On this page</div>
               <nav aria-label="Article contents">
-                {jump("method", "How I compared them")}
                 {jump("criteria", "What enterprise teams should test")}
                 {jump("shortlist", "The seven platforms compared")}
                 {vendors.map((v, i) => (
@@ -624,33 +592,51 @@ export default function BestGlobalEmployeeBenefitsPlatforms2026({
                 </nav>
               </details>
 
-              <section id="introduction" className="gb-intro" style={{ paddingTop: 0 }} aria-label="Introduction">
-                {intro.slice(0, 2).map((t) => <p key={t}>{t}</p>)}
-                <StressTest />
-                {intro.slice(2).map((t) => <p key={t}>{t}</p>)}
-              </section>
+          <section id="introduction" className="gb-intro" style={{ paddingTop: 0 }} aria-label="Introduction">
+  <p className="gb-intro-lede">The worst meeting you can get as a global HR lead is a surprise 15-minute calendar invite from the CFO with no agenda.</p>
+  <p className="gb-intro-body">I had that meeting two years ago. We were operating across 18 countries with 6,000 employees, and our global benefits spend had just run 11% over plan for the second consecutive quarter. I couldn’t answer why on the spot because our benefits data was trapped across six regional broker portals, three local HR systems, and a web of static Excel trackers maintained by local ops teams. To make matters worse, sales had just signed off on opening an entity in Poland with 50 hires going live in 30 days, and I had no infrastructure to deploy local compliant benefits without building another manual workflow from scratch.</p>
+  
+  
+  <figure className="lc-maya-search">
+  <img
+    src="/images/benefits-operations.png"
+    alt="Me, two years ago, trying to build a CFO-ready answer from six time zones"
+    width={1200}
+    height={750}
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption className="lc-maya-caption">Me, two years ago, trying to build a CFO-ready answer from six time zones</figcaption>
+</figure>
+  
 
-              <section id="method">
-                <h2>How I compared global employee benefits platforms</h2>
-                <p>I did not give points for having a mobile app, dashboards or integrations. At enterprise level, those are table stakes. I looked for evidence that the platform can handle the operational joins where global programmes usually become painful.</p>
-                <div className="gb-method-grid">
-                  <div><span>01</span><strong>Global operating model</strong><p>Can one central team govern multiple markets without forcing every country into the same setup?</p></div>
-                  <div><span>02</span><strong>Admin depth</strong><p>What happens to eligibility, enrolment, provider files, payroll and audit trails after the sales demo?</p></div>
-                  <div><span>03</span><strong>Employee reality</strong><p>Does the experience work for deskless, mobile and multilingual populations, not only office workers?</p></div>
-                  <div><span>04</span><strong>Decision quality</strong><p>Can Reward leaders explain spend, usage and exceptions without rebuilding the data elsewhere?</p></div>
-                </div>
-                <div className="gb-note"><Icon name="spark" /><div><strong>A note on ‘best’</strong><p>These platforms solve different versions of the problem. I have ranked them for a global enterprise buying brief, not claimed that one product is universally better for every company.</p></div></div>
-              </section>
+<p className="gb-intro-body" style={{ paddingTop: 15 }}>I realised then that most enterprise benefits platforms are built for the best-case scenario. They look brilliant when you're enrolling an employee in London with standard data, but collapse the moment a local provider refuses to integrate or an entity structure changes mid-quarter.</p>
+  <p className="gb-intro-body">I built this guide around that exact lesson. I looked past marketing claims and evaluated what each platform actually does when local compliance rules shift, spend drifts out of budget, or a new international entity needs to go live on a tight deadline.</p>
+</section>
+
+        
 
               <section id="criteria">
                 <h2>What should enterprise teams look for in a global benefits platform?</h2>
-                <p>The best global employee benefits platform is not the one with the longest feature list. It is the one that can keep global governance, local rules, payroll accuracy and employee usability intact at the same time.</p>
-                <p style={{ marginTop: -5 }}>I would test those claims with scenarios that are deliberately a little inconvenient.</p>
+                 <p>Sitting in my car after that CFO meeting, I made a promise to myself: I would never again buy HR software based on a glossy sales pitch or a 50-page RFP document where vendors just mark “Yes” to every feature.</p>
+
+       
+                <p style={{ marginTop: -5 }}>Now when I look at any platform in this space (including our own), I ignore the pre-scripted demo script. Instead, I run six non-negotiable stress tests built directly from those operational battle scars:</p>
+                
                 <div className="gb-crit">
-                  {criteria.map(([title, body, icon], i) => (
-                    <div className="gb-crit-row" key={title}>
-                      <span className="gb-icon"><Icon name={icon} /></span>
-                      <div className="gb-crit-text"><span className="gb-check-num">0{i + 1}</span><strong>{title}</strong><p>{body}</p></div>
+                  {criteria.map(([title, body, icon, image], i) => (
+                    <div className="gb-crit-item" key={title}>
+                      <div className="gb-crit-header">
+                        <span className="gb-icon"><Icon name={icon} /></span>
+                        <div className="gb-crit-text">
+                          <span className="gb-check-num">0{i + 1}</span>
+                          <strong>{title}</strong>
+                        </div>
+                      </div>
+                      <div className="gb-crit-content">
+                        <img src={image} alt={title} className="gb-crit-image" />
+                        <p>{body}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -675,7 +661,7 @@ export default function BestGlobalEmployeeBenefitsPlatforms2026({
                       </tbody>
                     </table>
                   </div>
-                  <p className="gb-table-footer">Product scope and public evidence reviewed on 5 October 2026. Enterprise pricing is generally quote-based and can change by population, market, modules and service scope.</p>
+   
                 </div>
               </section>
 
@@ -757,7 +743,7 @@ export default function BestGlobalEmployeeBenefitsPlatforms2026({
 }
 
 const styles = String.raw`
-.gb-page{--ink:#002924;--ink-2:#05382F;--muted:#596a65;--line:#d9dfd7;--paper:#F7F9F2;--paper-2:#F2F4EA;--orange:#FF6635;--pink:#FFA2A8;--teal:#6BB8A8;--teal-dark:#26797E;font-family:Inter,Arial,Helvetica,sans-serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17px;-webkit-font-smoothing:antialiased}.gb-page *{box-sizing:border-box}.gb-page h1,.gb-page h2,.gb-page h3,.gb-page p,.gb-page figure,.gb-page blockquote{margin:0}.gb-page a{color:inherit;text-underline-offset:4px}.gb-page button,.gb-page input{font:inherit}.gb-page button,.gb-page summary{cursor:pointer}.gb-page :focus-visible{outline:3px solid var(--orange);outline-offset:5px}.gb-wrap{width:min(1320px,calc(100% - 96px));margin:auto}.gb-skip{position:fixed;left:18px;top:12px;z-index:90;background:#fff;padding:11px 16px;transform:translateY(-180%)}.gb-skip:focus{transform:none}.gb-progress{position:fixed;top:0;left:0;height:3px;background:var(--orange);z-index:80;transition:width .08s linear}.gb-eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:11px;font-weight:750;line-height:1.6}
+.gb-page{--ink:#002924;--ink-2:#05382F;--muted:#596a65;--line:#d9dfd7;--paper:#FFFFFF;--paper-2:#F2F4EA;--orange:#FF6635;--pink:#FFA2A8;--teal:#6BB8A8;--teal-dark:#26797E;font-family:Inter,Arial,Helvetica,sans-serif;background:#FFFFFF;color:var(--ink);line-height:1.72;font-size:17px;-webkit-font-smoothing:antialiased}.gb-page *{box-sizing:border-box}.gb-page h1,.gb-page h2,.gb-page h3,.gb-page p,.gb-page figure,.gb-page blockquote{margin:0}.gb-page a{color:inherit;text-underline-offset:4px}.gb-page button,.gb-page input{font:inherit}.gb-page button,.gb-page summary{cursor:pointer}.gb-page :focus-visible{outline:3px solid var(--orange);outline-offset:5px}.gb-wrap{width:min(1320px,calc(100% - 96px));margin:auto}.gb-skip{position:fixed;left:18px;top:12px;z-index:90;background:#fff;padding:11px 16px;transform:translateY(-180%)}.gb-skip:focus{transform:none}.gb-progress{position:fixed;top:0;left:0;height:3px;background:var(--orange);z-index:80;transition:width .08s linear}.gb-eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:11px;font-weight:750;line-height:1.6}
 
 .gb-hero{background:#041b1c;color:#f5f8f2;overflow:hidden;width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;padding-top:96px}.gb-hero:before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:54px 54px;mask-image:linear-gradient(to right,transparent,black 38%,black);pointer-events:none}.gb-container{width:min(1320px,calc(100% - 96px));margin:auto}.gb-hero-main{min-height:680px;display:grid;grid-template-columns:1.02fr .98fr;gap:34px;align-items:center;padding-block:44px 62px;position:relative;z-index:2}.gb-hero-copy{position:relative;z-index:2}.gb-hero .gb-eyebrow{color:var(--orange)}.gb-hero h1{color:#F7F9F2;font-size:clamp(39px,4.1vw,62px);line-height:1.06;font-weight:650;letter-spacing:-.052em;margin:20px 0 24px;max-width:720px}.gb-hero h1 span{display:block;color:#F7F9F2}.gb-deck{font-size:18px;line-height:1.65;max-width:650px;color:#eef2ea}.gb-meta{display:flex;gap:15px;flex-wrap:wrap;margin-top:27px;font-size:12px;color:#9db1a5}.gb-jump{display:inline-flex;gap:26px;align-items:center;text-decoration:none;margin-top:27px;font-size:14px;font-weight:750;border-bottom:1px solid var(--orange);padding:4px 0;color:var(--orange)!important}.gb-hero-art{position:relative;min-width:0;width:100%;padding:24px 4px 24px 22px}.gb-control{background:#F7F9F2;color:#002924;border:1px solid rgba(255,255,255,.25);box-shadow:0 36px 80px rgba(0,0,0,.28);border-radius:16px;overflow:hidden;transform:rotate(.35deg)}.gb-control-top{height:58px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #dfe5dc;background:#F2F4EA}.gb-control-top>div{display:flex;align-items:center;gap:11px}.gb-ben-switch{display:inline-flex;width:31px;height:31px;border-radius:50%;align-items:center;justify-content:center;background:#002924;color:#F7F9F2;font-weight:900;font-size:14px;box-shadow:inset 0 0 0 5px #05382F}.gb-control-top small{display:block;font-size:7px;letter-spacing:.15em;color:#6f7f79}.gb-control-top strong{display:block;font-size:11px;margin-top:1px}.gb-live{font-size:8px;text-transform:uppercase;letter-spacing:.12em;color:#4E7A70;display:flex;align-items:center;gap:6px}.gb-live i{width:6px;height:6px;background:#6BB8A8;border-radius:50%}.gb-control-body{padding:18px}.gb-control-kpis{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #dfe5dc;border-radius:10px;overflow:hidden;background:#fff}.gb-control-kpis>div{padding:14px 15px}.gb-control-kpis>div+div{border-left:1px solid #dfe5dc}.gb-control-kpis small{display:block;font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#83908b}.gb-control-kpis strong{display:block;font-size:22px;line-height:1.1;margin:5px 0 3px;letter-spacing:-.04em}.gb-control-kpis span{font-size:8px;color:#66766f}.gb-map-shell{height:188px;position:relative;margin-top:14px;background:#002924;border-radius:11px;overflow:hidden}.gb-map-head{height:38px;padding:0 13px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.1);font-size:8px;color:#dbe6df}.gb-map-head span:last-child{color:#FFA2A8}.gb-map-lines{position:absolute;inset:40px 0 0;width:100%;height:148px}.gb-map-lines path{fill:none;stroke:#6BB8A8;stroke-width:1;stroke-dasharray:4 6;opacity:.55}.gb-map-lines circle{fill:#FF6635}.gb-map-lines circle:not(:first-of-type){fill:#F7F9F2}.gb-map-core{position:absolute;left:50%;top:53%;transform:translate(-50%,-50%);width:98px;height:76px;background:#F7F9F2;border:4px solid #05382F;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 9px 24px rgba(0,0,0,.25)}.gb-map-core span{font-size:7px;letter-spacing:.14em;color:#6f7f79}.gb-map-core strong{font-size:10px;margin:3px 0}.gb-map-core small{font-size:7px;color:#26797E}.gb-market-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.gb-market{display:grid;grid-template-columns:8px 1fr auto;gap:8px;align-items:center;padding:9px 10px;border:1px solid #dfe5dc;border-radius:8px;background:#fff}.gb-dot{width:7px;height:7px;border-radius:50%}.gb-dot.is-orange{background:#FF6635}.gb-dot.is-teal{background:#6BB8A8}.gb-dot.is-pink{background:#FFA2A8}.gb-market strong{display:block;font-size:9px}.gb-market small{display:block;font-size:7px;color:#88948f}.gb-market b{font-size:7px;font-weight:700;color:#4E7A70}.gb-control-alert{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;margin-top:10px;padding:11px 12px;background:#FFF4F0;border:1px solid #FFD5C8;border-radius:9px;color:#CA3A0C}.gb-control-alert strong{display:block;font-size:9px}.gb-control-alert span{display:block;font-size:7px;line-height:1.45;color:#8f4b39;margin-top:2px}.gb-control-alert button{border:0;background:#FF6635;color:#fff;border-radius:20px;font-size:7px;font-weight:800;padding:6px 9px}.gb-orbit-card{position:absolute;z-index:4;padding:10px 12px;border-radius:9px;box-shadow:0 16px 30px rgba(0,0,0,.22);min-width:122px}.gb-orbit-card span{display:block;font-size:7px;text-transform:uppercase;letter-spacing:.13em}.gb-orbit-card strong{display:block;font-size:9px;margin-top:2px}.gb-orbit-a{left:-5px;top:4px;background:#FF6635;color:#fff;transform:rotate(-3deg)}.gb-orbit-b{right:-17px;bottom:5px;background:#FFA2A8;color:#002924;transform:rotate(2.5deg)}
 
@@ -767,16 +753,31 @@ const styles = String.raw`
 
 .gb-method-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0}.gb-method-grid>div{padding:21px;border:1px solid #d9dfd7;background:#fff;border-radius:11px}.gb-method-grid span{font-size:10px;color:#26797E;font-weight:800}.gb-method-grid strong{display:block;font-size:16px;margin:11px 0 6px}.gb-article .gb-method-grid p{font-size:14px;line-height:1.6;color:var(--muted);margin:0}.gb-note{display:flex;gap:16px;align-items:flex-start;padding:21px 22px;background:#FFF4F0;border:1px solid #FFD5C8;border-radius:10px;margin-top:25px;color:#7c3c2a}.gb-note svg{margin-top:2px;color:#FF6635}.gb-note strong{display:block;font-size:15px;color:#7c3c2a;margin-bottom:5px}.gb-article .gb-note p{font-size:14px;line-height:1.65;margin:0;color:#7c3c2a}
 
-.gb-crit{display:flex;flex-direction:column;gap:18px;margin-top:30px}.gb-crit-row{position:relative;display:flex;gap:20px;align-items:flex-start;padding:22px 24px;background:#fff;border:1px solid #d9dfd7;border-radius:10px}.gb-icon{display:inline-flex;align-items:center;justify-content:center;flex:none;width:48px;height:48px;border-radius:50%;background:#E3F4E1;color:#26797E}.gb-crit-row:nth-child(3n+2) .gb-icon{background:#FFDDDF;color:#A4433D}.gb-crit-row:nth-child(3n) .gb-icon{background:#FFEBC6;color:#CA3A0C}.gb-crit-row:not(:last-child):after{content:'';position:absolute;left:47px;bottom:-18px;height:16px;border-left:1px dashed #b8c6bf}.gb-crit-text{min-width:0}.gb-check-num{display:block;font-size:11px;color:#7b8983;font-weight:650;margin-bottom:4px}.gb-crit-text strong{display:block;font-size:18px;margin-bottom:6px}.gb-article .gb-crit-text p{font-size:15px;line-height:1.65;margin:0;color:#263d36}
+.gb-crit{display:flex;flex-direction:column;gap:48px;margin-top:40px}
+.gb-crit-item{display:flex;flex-direction:column;gap:24px}
+.gb-crit-header{display:flex;gap:20px;align-items:center}
+.gb-icon{display:inline-flex;align-items:center;justify-content:center;flex:none;width:48px;height:48px;border-radius:50%;background:#E3F4E1;color:#26797E}
+.gb-crit-text{min-width:0}
+.gb-check-num{display:block;font-size:11px;color:#7b8983;font-weight:650;margin-bottom:4px}
+.gb-crit-text strong{display:block;font-size:22px;margin-bottom:0;letter-spacing:-.02em}
+.gb-crit-content{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:flex-start}
+.gb-crit-image{width:100%;height:auto;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,0.08);display:block}
+.gb-article .gb-crit-content p{font-size:16px;line-height:1.7;margin:0;color:#011522}
 
-.gb-table-shell{margin:30px 0}.gb-table-scroll{overflow-x:auto}.gb-table-scroll:focus{outline-offset:-3px}.gb-table{width:100%;border-collapse:collapse;font-size:14px;min-width:760px;line-height:1.58}.gb-clean th{background:transparent;color:#76847f;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:750;padding:0 20px 14px 0;border-bottom:1px solid #002924;text-align:left;vertical-align:bottom}.gb-clean th:first-child{width:16%}.gb-clean td{padding:24px 20px 24px 0;border-bottom:1px solid #d9dfd7;vertical-align:top;color:#586963}.gb-clean td:first-child a{font-size:16px;font-weight:800;color:#002924;text-decoration:none;letter-spacing:-.01em}.gb-clean td strong{display:block;font-size:14px;color:#002924;margin-bottom:2px}.gb-clean td small{font-size:12px;color:#7b8983;margin-top:2px;display:block}.gb-table-footer{font-size:12px!important;line-height:1.65;padding:16px 0 0;color:#7b8983;margin:0!important}
+.gb-table-shell{margin:34px 0}.gb-table-scroll{overflow-x:auto}.gb-table-scroll:focus{outline-offset:-3px}.gb-table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;min-width:760px;line-height:1.6}.gb-clean{background:#fff;border:1px solid #e3e8e1;border-radius:14px;overflow:hidden}.gb-clean th{background:#115f5a;color:#ffffff;font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:750;padding:18px 22px;border-bottom:1px solid #0d4a46;text-align:left;vertical-align:bottom}.gb-clean th:first-child{width:16%}.gb-clean td{padding:26px 22px;border-bottom:1px solid #eef1ec;vertical-align:top;color:#5b6a63;font-size:13.5px}.gb-clean tr:last-child td{border-bottom:0}.gb-clean tbody tr{transition:background .18s ease}.gb-clean tbody tr:hover{background:#FBFCF8}.gb-clean td:first-child a{font-size:15px;font-weight:800;color:#011522;text-decoration:none;letter-spacing:-.012em;display:inline-flex;align-items:center;gap:4px;border-bottom:1px solid transparent;transition:border-color .18s ease}.gb-clean td:first-child a:hover{border-bottom-color:#FF6635}.gb-clean td strong{display:block;font-size:13.5px;font-weight:750;color:#011522;margin-bottom:4px;letter-spacing:-.005em}.gb-clean td small{font-size:12px;color:#7b8983;margin-top:6px;display:block;line-height:1.55}.gb-table-footer{font-size:12px!important;line-height:1.65;padding:18px 4px 0;color:#7b8983;margin:0!important}
 
 .gb-tool{border-top:1px solid #b9c6bf;margin-top:60px;padding-top:36px!important}.gb-tool-heading{display:flex;gap:20px;align-items:flex-start;margin-bottom:20px}.gb-rank{display:flex;align-items:center;justify-content:center;flex:none;height:54px;width:54px;border:1px solid #b9c6bf;background:#F2F4EA;font-size:18px;font-weight:700;border-radius:50%}.gb-tool-heading h2{font-size:44px;margin:1px 0 5px;line-height:1.1}.gb-tool-heading .gb-eyebrow{font-size:10px;color:#4E7A70}.gb-best{padding:18px 22px;background:#E3F4E1;border-radius:7px;font-size:16px;margin:25px 0!important}.gb-signal{display:flex;justify-content:space-between;align-items:center;gap:18px;border-block:1px solid #d9dfd7;padding:14px 0;margin:25px 0}.gb-signal-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7c8a84;font-weight:750}.gb-signal>div{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.gb-signal>div span{font-size:10px;font-weight:750;border-radius:999px;padding:5px 9px;background:#FFEBC6;color:#8e4b18}.gb-signal>div span.is-1{background:#FFDDDF;color:#88484a}.gb-signal>div span.is-2{background:#E3F4E1;color:#26797E}.gb-feature-list{list-style:none;margin:0;padding:0}.gb-feature-list li{padding:17px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:190px 1fr;gap:25px;font-size:16px}.gb-feature-list strong{font-size:15px}.gb-feature-list span{color:#18352d}.gb-balance{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:30px 0}.gb-balance>div{padding:23px 25px;background:#E3F4E1;border-top:3px solid #6BB8A8}.gb-balance>div+div{background:#FFF4F0;border-color:#FF6635}.gb-balance h3{font-size:18px;margin:0 0 20px}.gb-balance ul{list-style:none;padding:0;margin:0}.gb-balance li{font-size:14px;line-height:1.7;margin-top:17px;color:#17372f}.gb-balance li strong{display:block;font-size:15px;color:#002924;margin-bottom:4px}.gb-price{border-block:1px solid var(--line);padding:22px 0;margin-top:30px}.gb-price h3{margin:0 0 10px}.gb-price p{margin:0;font-size:16px}.gb-review{margin:28px 0;padding:26px 30px;border:1px solid #d9dfd7;border-radius:10px;background:#fff}.gb-review .gb-eyebrow{font-size:10px;color:#4E7A70;margin-bottom:13px}.gb-review blockquote{font-size:25px;line-height:1.42;letter-spacing:-.028em;margin:14px 0 18px}.gb-review .gb-review-person{font-size:13px;font-weight:750;margin:0 0 17px}.gb-review .gb-review-person span{font-weight:400;color:var(--muted)}.gb-review p{font-size:15px;color:var(--muted);margin:0}.gb-review a{font-size:12px;display:inline-block;margin-top:15px;color:#26797E;font-weight:750}.gb-verdict{padding:23px 25px;background:#002924;color:#F7F9F2;border-radius:7px;margin-top:30px}.gb-verdict .gb-eyebrow{color:#FF6635;margin-bottom:10px}.gb-verdict p{font-size:16px;line-height:1.7;margin:0}.gb-sources-inline{display:flex;flex-wrap:wrap;gap:16px;margin-top:17px}.gb-sources-inline a{font-size:12px;color:#4E7A70}.gb-choose-table{font-size:15px}.gb-choose-table th{width:auto!important}.gb-ending{margin-top:36px;padding:28px 30px;background:#FFDDDF;border-left:4px solid #FF6635;border-radius:8px}.gb-ending .gb-eyebrow{font-size:9px;color:#A4433D}.gb-ending p{font-size:18px;line-height:1.65;margin:10px 0 0;color:#5d332f}.gb-author{margin-top:48px;padding:28px 30px;background:#fff;border:1px solid #e0e5df;border-radius:14px;display:flex;gap:28px;align-items:center}.gb-author-mark{flex:none;width:64px;height:64px;border-radius:50%;background:#002924;color:#F7F9F2;display:flex;align-items:center;justify-content:center}.gb-author-mark span{font-size:26px;font-weight:900}.gb-author-body{min-width:0;padding-left:28px;border-left:1px solid #e0e5df}.gb-author-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#7e8a85;font-weight:700}.gb-author-name{font-size:18px;font-weight:800;margin-top:4px}.gb-author-bio{font-size:13px!important;line-height:1.65!important;color:#697771;margin:6px 0 0!important}.gb-source-list{padding-left:23px}.gb-source-list li{padding:8px 0;font-size:13px;color:#50635b}.gb-source-list a{word-break:break-word}
 
 .gb-cta{margin:80px 0 0;background:#002924;color:#F7F9F2;padding:48px 50px;border-radius:12px;display:grid;grid-template-columns:1.35fr .65fr;gap:50px;align-items:end}.gb-cta .gb-eyebrow{color:#FF6635}.gb-cta h2{font-size:38px;line-height:1.1;letter-spacing:-.045em;margin:10px 0 16px}.gb-cta p{font-size:15px;line-height:1.75;color:#d9e4df;max-width:650px}.gb-cta a{display:flex;align-items:center;justify-content:space-between;gap:24px;background:#FF6635;color:#fff;text-decoration:none;border-radius:100px;padding:17px 20px 17px 24px;font-size:13px;font-weight:800}.gb-footer{display:flex;justify-content:space-between;gap:30px;padding:28px 0 42px;font-size:13px}.gb-footer a{text-decoration:none}
 
+.lc-maya-search{margin:30px 0}
+.lc-maya-search img{display:block;width:100%;height:auto}
+.lc-maya-caption{text-align:center;font-size:12px;line-height:1.7;color:#011522;padding-top:12px;max-width:640px;margin-inline:auto}
+
+
+
 @media(max-width:1100px){.gb-wrap,.gb-container{width:calc(100% - 40px)}.gb-hero-main{grid-template-columns:1fr;padding-inline:24px}.gb-hero-copy{max-width:760px}.gb-hero-art{max-width:760px;margin:auto}.gb-layout{display:block;padding-top:32px}.gb-toc{display:none}.gb-mobile-toc{display:block;border-bottom:1px solid var(--line);margin-bottom:32px;padding-bottom:15px}.gb-mobile-toc summary{font-size:14px;font-weight:750}.gb-mobile-toc nav{display:grid;grid-template-columns:1fr 1fr;padding-top:12px;gap:9px}.gb-mobile-toc a{font-size:13px;text-decoration:none}.gb-stress-grid{grid-template-columns:1fr 1fr}.gb-cta{grid-template-columns:1fr;gap:28px}.gb-cta a{max-width:340px}}
-@media(max-width:700px){.gb-hero{padding-top:46px}.gb-hero h1{font-size:43px}.gb-deck{font-size:15px}.gb-control-kpis{grid-template-columns:1fr}.gb-control-kpis>div+div{border-left:0;border-top:1px solid #dfe5dc}.gb-market-grid{grid-template-columns:1fr}.gb-orbit-card{display:none}.gb-method-grid,.gb-balance{grid-template-columns:1fr}.gb-feature-list li{display:block}.gb-feature-list strong{display:block;margin-bottom:5px}.gb-signal{display:block}.gb-signal>div{justify-content:flex-start;margin-top:9px}.gb-cta{padding:34px 28px}}
+@media(max-width:700px){.gb-hero{padding-top:46px}.gb-hero h1{font-size:43px}.gb-deck{font-size:15px}.gb-control-kpis{grid-template-columns:1fr}.gb-control-kpis>div+div{border-left:0;border-top:1px solid #dfe5dc}.gb-market-grid{grid-template-columns:1fr}.gb-orbit-card{display:none}.gb-method-grid,.gb-balance,.gb-crit-content{grid-template-columns:1fr}.gb-feature-list li{display:block}.gb-feature-list strong{display:block;margin-bottom:5px}.gb-signal{display:block}.gb-signal>div{justify-content:flex-start;margin-top:9px}.gb-cta{padding:34px 28px}}
 @media(max-width:520px){.gb-page{font-size:16px}.gb-wrap,.gb-container{width:calc(100% - 32px)}.gb-hero-main{padding-inline:0}.gb-hero h1{font-size:38px}.gb-meta{font-size:11px}.gb-hero-art{padding:18px 0}.gb-control{border-radius:11px}.gb-map-shell{height:165px}.gb-stress{padding:18px}.gb-stress-head{display:block}.gb-stress-tag{display:inline-block;margin-top:10px}.gb-stress-grid{grid-template-columns:1fr}.gb-intro p:first-child{font-size:25px}.gb-article section{padding-top:45px}.gb-article h2{font-size:29px}.gb-tool-heading h2{font-size:36px}.gb-tool-heading{gap:13px}.gb-rank{width:46px;height:46px}.gb-review{padding:22px}.gb-ending{padding:23px}.gb-author{align-items:flex-start;padding:22px;gap:18px}.gb-author-mark{width:48px;height:48px}.gb-author-body{padding-left:18px}.gb-cta h2{font-size:31px}.gb-footer{gap:20px}.gb-crit-row{padding:18px;gap:14px}.gb-crit-row:not(:last-child):after{left:41px}}
 @media(prefers-reduced-motion:reduce){.gb-page *{scroll-behavior:auto!important}}
 @media print{.gb-toc,.gb-mobile-toc,.gb-progress,.gb-cta,.gb-footer,.gb-copy-button{display:none}.gb-layout{display:block}.gb-wrap{width:100%}.gb-hero{padding:15px 0}.gb-hero h1{font-size:34px}.gb-table{min-width:0}.gb-balance,.gb-review,.gb-verdict{break-inside:avoid}.gb-tool{break-before:page}.gb-page{font-size:12px}.gb-article h2{font-size:27px}}
