@@ -24,6 +24,55 @@ function Arrow({ back = false }: { back?: boolean }) {
   );
 }
 
+const flowStages = [
+  {
+    n: "1",
+    title: "Initial screening",
+    sub: "Broad assessment at scale",
+    items: [
+      ["Technical skills", <path key="a" d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14" />],
+      ["Cognitive ability", <path key="a" d="M12 4v16M8.5 5.5A3 3 0 0 0 5.5 9a3 3 0 0 0-.5 5.5A3 3 0 0 0 8.5 19 3 3 0 0 0 12 20M15.5 5.5A3 3 0 0 1 18.5 9a3 3 0 0 1 .5 5.5A3 3 0 0 1 15.5 19 3 3 0 0 1 12 20" />],
+      ["Language proficiency", <g key="a"><path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-8l-4 3.5V16H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" /><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01" /></g>],
+    ],
+  },
+  {
+    n: "2",
+    title: "In-depth assessment",
+    sub: "Role-specific evaluation",
+    items: [
+      ["Functional competencies", <path key="a" d="M4 20h16M7 20v-6M12 20V8M17 20v-9" />],
+      ["Behavioural traits", <g key="a"><circle cx="9" cy="8" r="3" /><path d="M3.5 19c.5-3 2.7-5 5.5-5s5 2 5.5 5" /><circle cx="17" cy="9" r="2.3" /><path d="M16.5 14c2.3 0 3.6 1.7 4 4.5" /></g>],
+      ["Situational judgement", <g key="a"><path d="M7 3h7l4 4v14H7z" /><path d="M14 3v4h4M10 12h5M10 16h5" /></g>],
+    ],
+  },
+] as const;
+
+function SolutionFlow() {
+  return (
+    <div className="flow" role="img" aria-label="Two-stage assessment: initial screening then in-depth assessment">
+      {flowStages.map((stage, i) => (
+        <div className="flow-fragment" key={stage.n} style={{ display: "contents" }}>
+          {i === 1 && (
+            <div className="flow-link"><i><Arrow /></i></div>
+          )}
+          <div className="flow-stage">
+            <div className="flow-head">
+              <span className="flow-num">{stage.n}</span>
+              <div><strong>{stage.title}</strong><small>{stage.sub}</small></div>
+            </div>
+            {stage.items.map(([label, icon]) => (
+              <div className="flow-row" key={label as string}>
+                <span className="flow-ico"><svg viewBox="0 0 24 24" aria-hidden="true">{icon}</svg></span>
+                {label}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function MakiCapgeminiCaseStudy({
   demoHref = "https://www.makipeople.com/",
   sourceHref = "https://www.makipeople.com/customers/capgemini",
@@ -123,18 +172,16 @@ export default function MakiCapgeminiCaseStudy({
 
       <main>
         <section className="section white" id="challenge">
-          <div className="wrap split-top">
-            <div data-reveal>
+          <div className="wrap challenge-grid">
+            <div className="challenge-copy" data-reveal>
               <p className="eyebrow">01 / THE CHALLENGE</p>
               <h2>Global hiring demand. Fragmented processes.</h2>
-            </div>
-            <div className="body-copy" data-reveal>
               <p>In France alone, Capgemini was receiving roughly 8,000–10,000 applications every month, with around 90% of applicants not qualified for the role they had applied to.</p>
               <p>Manual screening, technical interviews and siloed assessment tools made it harder to identify strong candidates quickly. At enterprise volume, every extra handoff added more time, more admin and more inconsistency.</p>
             </div>
-          </div>
-          <div className="wrap visual-card wide" data-reveal>
-            <img src={asset("challenge-flow.png")} alt="Hiring challenge flow showing high application volume, manual screening, siloed tools and delayed feedback" />
+            <div className="challenge-visual" data-reveal>
+              <img src={asset("challenge-image.png")} alt="Hiring challenge flow showing high application volume, manual screening, siloed tools and delayed feedback" />
+            </div>
           </div>
         </section>
 
@@ -147,104 +194,193 @@ export default function MakiCapgeminiCaseStudy({
               <p className="dark-copy">The important change was not simply adding another assessment. It was bringing different signals into one experience so recruiters could compare candidates consistently and make decisions earlier.</p>
               <a className="button" href={demoHref} target="_blank" rel="noreferrer">Explore the product <Arrow /></a>
             </div>
-            <div className="visual-card dark-card" data-reveal>
-              <img src={asset("solution-journey.png")} alt="Two-stage MakiPeople assessment journey" />
-            </div>
-          </div>
-        </section>
-
-        <section className="section white" id="impact">
-          <div className="wrap split-top">
             <div data-reveal>
-              <p className="eyebrow">03 / THE IMPACT</p>
-              <h2>Faster hiring. Happier candidates. Stronger employer brand.</h2>
-            </div>
-            <div className="body-copy" data-reveal>
-              <p>The hiring cycle moved from several weeks to under ten days. Candidate satisfaction stayed high at 95%, completion reached 96% at the in-depth assessment stage, and Capgemini reported a 94% improvement in brand perception among applicants.</p>
-            </div>
-          </div>
-
-          <div className="wrap impact-grid">
-            {[
-              ["<10 days", "Time to hire", "Reduced from several weeks."],
-              ["95%", "Candidate satisfaction", "Candidates rated the experience highly."],
-              ["96%", "Completion rate", "Candidates completed the in-depth assessment."],
-              ["94%", "Improved brand perception", "Applicants left with a stronger view of Capgemini."],
-            ].map(([value, title, copy]) => (
-              <div className="impact-card" key={title} data-reveal>
-                <span>{value}</span><strong>{title}</strong><p>{copy}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="quote-band">
-          <div className="wrap quote-grid">
-            <blockquote data-reveal>
-              <span className="quote-mark">“</span>
-              <p>Assessing different competencies and skills through a single assessment is very important for us. We can pick and choose whatever assessments we need in a very agile way while having something that looks like our experience.</p>
-              <cite><strong>Jihane Baciocchini</strong><span>Global Head of Talent Acquisition, Capgemini</span></cite>
-            </blockquote>
-            <div className="quote-image" data-reveal>
-              <img src={asset("capgemini-building.png")} alt="Capgemini office building" />
+              <SolutionFlow />
             </div>
           </div>
         </section>
 
-        <section className="section white" id="candidate-experience">
-          <div className="wrap two-col reverse-on-mobile">
-            <div data-reveal>
-              <p className="eyebrow">04 / CANDIDATE EXPERIENCE</p>
-              <h2>Instant feedback replaced a 48-hour wait.</h2>
-              <p className="body-copy solo">Candidates received feedback immediately after completing the assessment rather than waiting around two days. They could see where they performed well and where they could improve, making the process more useful even for people who were not selected.</p>
-            </div>
-            <div className="visual-card" data-reveal>
-              <img src={asset("assessment-results.png")} alt="Candidate assessment results interface with score, strengths and development areas" />
-            </div>
-          </div>
-        </section>
+<section className="impact-section" id="impact">
+  <div className="wrap impact-top">
+    <div className="impact-copy" data-reveal>
+      <p className="eyebrow">03 / THE IMPACT</p>
 
-        <section className="section soft" id="recruiter-experience">
-          <div className="wrap two-col recruiter-grid">
-            <div className="recruiter-board" data-reveal>
-              <div className="board-head"><span>Recruiter view</span><strong>Software Engineer Assessment</strong></div>
-              {[
-                ["Marie Dupont","92%","Strong match"],
-                ["Thomas Bernard","78%","Review"],
-                ["Sofia Almeida","66%","Developing"],
-                ["James Okafor","88%","Strong match"],
-              ].map(([name, score, label]) => (
-                <div className="candidate-row" key={name}>
-                  <div className="avatar">{name.split(" ").map((n) => n[0]).join("")}</div>
-                  <strong>{name}</strong>
-                  <i><span style={{ width: score }} /></i>
-                  <b>{score}</b><em>{label}</em>
-                </div>
-              ))}
-            </div>
-            <div data-reveal>
-              <p className="eyebrow">05 / RECRUITER EXPERIENCE</p>
-              <h2>From admin work to higher-value decisions.</h2>
-              <p className="body-copy solo">Recruiters gained one structured view of candidate performance instead of piecing together evidence from separate tools and manual interviews. Maki reports that this shifted more recruiter time away from repetitive administration and towards deciding who should move forward.</p>
-            </div>
-          </div>
-        </section>
+      <h2>
+        Faster hiring.
+        <br />
+        Happier candidates.
+        <br />
+        A stronger employer brand.
+      </h2>
 
-        <section className="section white" id="global-impact">
-          <div className="wrap two-col">
-            <div data-reveal>
-              <p className="eyebrow">06 / GLOBAL IMPACT</p>
-              <h2>Live in France. Expanding to 50+ countries.</h2>
-              <p className="body-copy solo">Following the rollout in France, Capgemini said it planned to expand MakiPeople’s assessment platform across more than 50 countries by 2026. That is the enterprise test: whether one assessment model can scale across roles, business lines and hiring volumes without recreating the process market by market.</p>
-              <a className="text-link" href={sourceHref} target="_blank" rel="noreferrer">Read the original story <Arrow /></a>
-            </div>
-            <div className="map-wrap" data-reveal>
-              <img src={asset("global-map.png")} alt="Global rollout map" />
-              <div className="map-stat a"><strong>1</strong><span>Country live</span><small>France</small></div>
-              <div className="map-stat b"><strong>50+</strong><span>Countries planned</span><small>by 2026</small></div>
-            </div>
-          </div>
-        </section>
+      <p className="impact-intro">
+        By streamlining assessment and screening with MakiPeople,
+        Capgemini significantly reduced time to hire, improved candidate
+        satisfaction and gave recruiters more time to focus on
+        higher-value, strategic work.
+      </p>
+    </div>
+
+    <div className="impact-grid">
+      <div className="impact-card" data-reveal>
+        <div className="impact-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="5" y="6" width="14" height="13" rx="2" />
+            <path d="M8 3v5M16 3v5M5 10h14" />
+          </svg>
+        </div>
+
+        <div className="impact-card-copy">
+          <strong className="impact-value">&lt;10 days</strong>
+          <span className="impact-label">Time to hire</span>
+          <p>From several weeks</p>
+        </div>
+
+        <div className="impact-wave" />
+      </div>
+
+      <div className="impact-card" data-reveal>
+        <div className="impact-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="9" cy="8" r="3" />
+            <circle cx="16.5" cy="9" r="2.4" />
+            <path d="M3.5 19c.7-3.5 2.8-5.5 5.5-5.5s4.8 2 5.5 5.5" />
+            <path d="M14.5 14.5c2.8 0 4.8 1.7 5.7 4.5" />
+          </svg>
+        </div>
+
+        <div className="impact-card-copy">
+          <strong className="impact-value">95%</strong>
+          <span className="impact-label">Candidate satisfaction</span>
+          <p>Candidates rate their experience highly</p>
+        </div>
+
+        <div className="impact-wave" />
+      </div>
+
+      <div className="impact-card" data-reveal>
+        <div className="impact-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 6h11M8 12h11M8 18h11" />
+            <path d="M4 6h.01M4 12h.01M4 18h.01" />
+          </svg>
+        </div>
+
+        <div className="impact-card-copy">
+          <strong className="impact-value">96%</strong>
+          <span className="impact-label">Completion rate</span>
+          <p>Candidates complete the assessment</p>
+        </div>
+
+        <div className="impact-wave" />
+      </div>
+
+      <div className="impact-card" data-reveal>
+        <div className="impact-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m12 3 2.7 5.5 6 .9-4.4 4.2 1 6-5.3-2.8-5.3 2.8 1-6-4.4-4.2 6-.9L12 3z" />
+          </svg>
+        </div>
+
+        <div className="impact-card-copy">
+          <strong className="impact-value">94%</strong>
+          <span className="impact-label">Improved brand perception</span>
+          <p>Candidates have a more positive view of Capgemini</p>
+        </div>
+
+        <div className="impact-wave" />
+      </div>
+    </div>
+  </div>
+
+  <div className="impact-quote-row">
+    <div className="wrap impact-quote-inner">
+      <div className="quote-person" data-reveal>
+        <div className="quote-avatar">
+          <img
+            src={asset("jihane-baciocchini.png")}
+            alt="Jihane Baciocchini"
+          />
+        </div>
+      </div>
+
+      <blockquote className="impact-quote" data-reveal>
+        <span className="quote-mark">“</span>
+
+        <p>
+          Assessing different competencies and skills through a single
+          assessment is very important for us. We can pick and choose
+          whatever assessments we need in a very agile way, while having
+          something that looks like our experience.
+        </p>
+
+        <cite>
+          <strong>Jihane Baciocchini</strong>
+          <span>Global Head of Talent Acquisition, Capgemini</span>
+        </cite>
+      </blockquote>
+
+      <div className="quote-building" data-reveal>
+        <img
+          src={asset("capgemini-building.png")}
+          alt="Capgemini office building"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+  
+
+
+<section className="global-impact" id="global-impact">
+  <div className="wrap global-impact-grid">
+    <div className="global-impact-copy" data-reveal>
+      <p className="eyebrow">GLOBAL IMPACT</p>
+
+      <h2>
+        Live in France.
+        <br />
+        Expanding to 50+ countries.
+      </h2>
+
+      <p>
+        Following a successful rollout in France, Capgemini plans to expand
+        MakiPeople’s assessment platform to more than 50 countries by 2026.
+      </p>
+
+      <a
+        className="global-story-link"
+        href={sourceHref}
+        target="_blank"
+        rel="noreferrer"
+      >
+        Read the original story <Arrow />
+      </a>
+    </div>
+
+    <div className="global-map" data-reveal>
+      <img
+        src={asset("global-map.png")}
+        alt="Map showing MakiPeople's planned global rollout across Capgemini"
+      />
+    </div>
+
+    <div className="global-stats" data-reveal>
+      <div className="global-stat">
+        <strong>1</strong>
+        <span>Country live</span>
+        <small>France</small>
+      </div>
+
+      <div className="global-stat">
+        <strong>50+</strong>
+        <span>Countries planned</span>
+        <small>by 2026</small>
+      </div>
+    </div>
+  </div>
+</section>
 
         <section className="closing">
           <div className="wrap closing-inner" data-reveal>
@@ -272,10 +408,7 @@ const styles = `
   position:relative;
   z-index:2;
   overflow:hidden;
-  background:
-    radial-gradient(circle at 79% 20%,rgba(65,188,136,.15),transparent 31%),
-    radial-gradient(circle at 94% 65%,rgba(21,105,76,.12),transparent 28%),
-    linear-gradient(120deg,#020705 0%,#06100c 55%,#091710 100%);
+  background:#041b1c;
   color:#fff;
 }
 
@@ -392,7 +525,418 @@ const styles = `
   padding-top:0;
   border-bottom:1px solid var(--line);
   background:#fff;
-}.metric-grid{display:grid;grid-template-columns:repeat(4,1fr)}.metric{min-height:118px;display:grid;align-content:center;padding:26px 30px;border-left:1px solid var(--line)}.metric:first-child{border-left:0}.metric strong{font-family:Georgia,"Times New Roman",serif;font-size:30px;font-weight:400;letter-spacing:-.045em;line-height:1.05}.metric span{margin-top:7px;color:#6c7771;font-size:11px}.split-top{display:grid;grid-template-columns:.88fr 1.12fr;gap:78px;align-items:end}.body-copy{max-width:650px;color:var(--muted)}.body-copy p+ p{margin-top:18px}.body-copy p,.body-copy.solo{font-size:15px;line-height:1.82}.body-copy.solo{margin-top:24px}.visual-card{overflow:hidden;border:1px solid var(--line);border-radius:16px;background:#f9fbf9;box-shadow:0 28px 80px rgba(22,49,38,.08)}.visual-card.wide{margin-top:42px}.dark{background:radial-gradient(circle at 72% 45%,rgba(67,188,137,.12),transparent 30%),var(--black);color:#fff}.dark h2{color:#fff}.two-col{display:grid;grid-template-columns:.86fr 1.14fr;gap:72px;align-items:center}.dark-copy{margin-top:20px!important;color:#aebbb5!important;font-size:14px;line-height:1.82}.dark-card{border-color:rgba(255,255,255,.1);background:#0b1712;box-shadow:0 35px 90px rgba(0,0,0,.35)}.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}.impact-card{position:relative;overflow:hidden;min-height:190px;padding:28px;border:1px solid var(--line);border-radius:14px;background:#fff}.impact-card:after{content:"";position:absolute;left:-10%;right:-10%;bottom:-48px;height:100px;border-radius:50%;background:linear-gradient(180deg,rgba(217,250,232,0),rgba(191,244,216,.72))}.impact-card span{display:block;color:#11251d;font-size:34px;font-weight:800;letter-spacing:-.05em}.impact-card strong{display:block;margin-top:16px;font-size:13px}.impact-card p{margin-top:6px!important;color:#6c7771;font-size:11px;line-height:1.55}.quote-band{border-block:1px solid var(--line);background:#fbfcfb}.quote-grid{min-height:320px;display:grid;grid-template-columns:1.08fr .92fr}.quote-grid blockquote{position:relative;align-self:center;padding:54px 64px 54px 0}.quote-mark{position:absolute;left:-5px;top:40px;color:var(--green);font-family:Georgia,serif;font-size:58px;line-height:1}.quote-grid blockquote p{padding-left:46px;color:#17211d;font-family:Georgia,serif;font-size:clamp(24px,2.2vw,34px);line-height:1.22;letter-spacing:-.035em}.quote-grid cite{display:grid;gap:2px;margin:22px 0 0 46px;font-style:normal}.quote-grid cite strong{font-size:12px}.quote-grid cite span{color:#748079;font-size:10px}.quote-image{overflow:hidden;min-height:320px}.quote-image img{height:100%;object-fit:cover}.recruiter-grid{grid-template-columns:1.12fr .88fr}.recruiter-board{padding:28px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 30px 80px rgba(23,54,42,.08)}.board-head{display:grid;gap:3px;margin-bottom:18px}.board-head span{color:#718078;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.board-head strong{font-family:Georgia,serif;font-size:25px;font-weight:400;letter-spacing:-.03em}.candidate-row{display:grid;grid-template-columns:34px minmax(120px,1fr) 1.4fr 48px 92px;gap:12px;align-items:center;padding:13px 0;border-top:1px solid var(--line);font-size:11px}.avatar{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:var(--mint);color:#0b5a40;font-size:9px;font-weight:800}.candidate-row i{height:6px;overflow:hidden;border-radius:999px;background:#edf1ee}.candidate-row i span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#0b6a4c,#79d6ae)}.candidate-row em{color:#607068;font-size:9px;font-style:normal;text-align:right}.map-wrap{position:relative}.map-wrap>img{border:1px solid var(--line);border-radius:16px;background:#fff}.map-stat{position:absolute;right:-20px;min-width:130px;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 16px 50px rgba(0,0,0,.08)}.map-stat.a{top:24%}.map-stat.b{top:56%}.map-stat strong{display:block;font-size:26px;letter-spacing:-.05em}.map-stat span,.map-stat small{display:block;color:#68736d;font-size:9px}.closing{background:radial-gradient(circle at 83% 70%,rgba(99,227,166,.11),transparent 25%),var(--black);color:#fff}.closing-inner{display:flex;align-items:end;justify-content:space-between;gap:50px;padding:72px 0}.closing h2{max-width:700px;color:#fff}.footer{padding:24px 0 36px;border-top:1px solid rgba(255,255,255,.09)}.footer>p{max-width:760px;color:#708078;font-size:10px}.footer>div{display:flex;gap:30px;margin-top:22px}.footer a{display:inline-flex;align-items:center;gap:8px;color:#c7d6cf;font-size:11px}[data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1)}[data-reveal].is-in{opacity:1;transform:translateY(0)}@media(max-width:1050px){
+}.metric-grid{display:grid;grid-template-columns:repeat(4,1fr)}.metric{min-height:118px;display:grid;align-content:center;padding:26px 30px;border-left:1px solid var(--line)}.metric:first-child{border-left:0}.metric strong{font-family:Georgia,"Times New Roman",serif;font-size:30px;font-weight:400;letter-spacing:-.045em;line-height:1.05}.metric span{margin-top:7px;color:#6c7771;font-size:11px}.split-top{display:grid;grid-template-columns:.88fr 1.12fr;gap:78px;align-items:end}.challenge-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:50px;align-items:center}.challenge-copy p{font-size:15px;line-height:1.82;color:var(--muted);margin-top:18px}.challenge-visual img{width:120%;max-width:none;height:auto;background:transparent;border:none;box-shadow:none;margin-left:-10%}.body-copy{max-width:650px;color:var(--muted)}.body-copy p+ p{margin-top:18px}.body-copy p,.body-copy.solo{font-size:15px;line-height:1.82}.body-copy.solo{margin-top:24px}.visual-card{overflow:hidden;border:1px solid var(--line);border-radius:16px;background:#f9fbf9;box-shadow:0 28px 80px rgba(22,49,38,.08)}.visual-card.wide{margin-top:42px}.dark{background:radial-gradient(circle at 72% 45%,rgba(67,188,137,.12),transparent 30%),var(--black);color:#fff}.dark h2{color:#fff}.two-col{display:grid;grid-template-columns:.86fr 1.14fr;gap:72px;align-items:center}.dark-copy{margin-top:20px!important;color:#aebbb5!important;font-size:14px;line-height:1.82}.dark-card{border-color:rgba(255,255,255,.1);background:#0b1712;box-shadow:0 35px 90px rgba(0,0,0,.35)}
+.flow{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 64px 1fr;align-items:center;padding:28px;border:1px solid rgba(255,255,255,.1);border-radius:20px;background:linear-gradient(160deg,#10211a,#09130f);box-shadow:0 35px 90px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06)}
+.flow:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 80% 20%,rgba(67,188,137,.14),transparent 45%)}
+.flow-stage{position:relative;padding:22px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(255,255,255,.025)}
+.flow-head{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.flow-num{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:50%;background:var(--mint);color:#06281c;font-size:14px;font-weight:800;box-shadow:0 0 0 5px rgba(217,250,232,.08)}
+.flow-head strong{display:block;color:#fff;font-size:15px;line-height:1.25}
+.flow-head small{color:#8fa39a;font-size:11px}
+.flow-row{display:flex;align-items:center;gap:14px;margin-top:10px;padding:13px 14px;border:1px solid rgba(255,255,255,.06);border-radius:10px;background:rgba(255,255,255,.035);color:#e4efe9;font-size:13px;font-weight:500;transition:.2s ease}
+.flow-row:hover{transform:translateX(3px);border-color:rgba(167,232,200,.4);background:rgba(217,250,232,.06)}
+.flow-ico{width:34px;height:34px;flex:none;display:grid;place-items:center;border-radius:8px;background:rgba(191,244,216,.1);color:#a7e8c8}
+.flow-ico svg{width:18px;height:18px}
+.flow-link{position:relative;display:grid;place-items:center;align-self:stretch}
+.flow-link:before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(90deg,transparent,rgba(167,232,200,.45),transparent)}
+.flow-link i{position:relative;width:42px;height:42px;display:grid;place-items:center;border:1px solid rgba(167,232,200,.55);border-radius:50%;background:#09130f;color:#d9fae8}
+@media(max-width:1050px){.flow{grid-template-columns:1fr;gap:0}.flow-link{height:56px}.flow-link:before{left:50%;right:auto;top:0;bottom:0;width:1px;height:auto;background:linear-gradient(180deg,transparent,rgba(167,232,200,.45),transparent)}.flow-link i svg{transform:rotate(90deg)}}
+@media(max-width:620px){.flow{padding:16px}.flow-stage{padding:16px}}.impact-section{
+  background:#fff;
+  overflow:hidden;
+}
+
+.impact-top{
+  display:grid;
+  grid-template-columns:.82fr 1.18fr;
+  gap:82px;
+  align-items:start;
+  padding:92px 0 74px;
+}
+
+.impact-copy{
+  max-width:500px;
+  padding-top:12px;
+}
+
+.impact-copy h2{
+  max-width:490px;
+  font-size:clamp(42px,3.8vw,58px);
+  line-height:1.01;
+}
+
+.impact-intro{
+  max-width:470px;
+  margin-top:24px!important;
+  color:#606b66;
+  font-size:15px;
+  line-height:1.75;
+}
+
+.impact-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+  margin:0;
+}
+
+.impact-card{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  min-height:148px;
+  display:grid;
+  grid-template-columns:58px 1fr;
+  gap:20px;
+  align-items:start;
+  padding:24px 25px;
+  border:1px solid #e0e7e3;
+  border-radius:12px;
+  background:#fff;
+  box-shadow:
+    0 1px 2px rgba(10,31,23,.02),
+    0 12px 34px rgba(10,31,23,.025);
+}
+
+.impact-card:after{
+  display:none;
+}
+
+.impact-icon{
+  position:relative;
+  z-index:2;
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:#dcf8e9;
+  color:#18372b;
+}
+
+.impact-icon svg{
+  width:23px;
+  height:23px;
+  stroke-width:1.65;
+}
+
+.impact-card-copy{
+  position:relative;
+  z-index:2;
+  min-width:0;
+}
+
+.impact-value{
+  display:block!important;
+  margin:0!important;
+  color:#101714;
+  font-size:31px!important;
+  font-weight:800!important;
+  line-height:1;
+  letter-spacing:-.05em;
+}
+
+.impact-label{
+  display:block!important;
+  margin-top:8px;
+  color:#25312c!important;
+  font-size:13px!important;
+  font-weight:750;
+  line-height:1.25;
+  letter-spacing:0!important;
+}
+
+.impact-card p{
+  max-width:210px;
+  margin-top:5px!important;
+  color:#6e7973;
+  font-size:11px;
+  line-height:1.45;
+}
+
+.impact-wave{
+  position:absolute;
+  z-index:0;
+  left:43%;
+  right:-9%;
+  bottom:-42px;
+  height:88px;
+  border:2px solid rgba(81,183,137,.25);
+  border-left-color:transparent;
+  border-bottom-color:transparent;
+  border-radius:58% 50% 0 0;
+  transform:rotate(-3deg);
+}
+
+.impact-wave:after{
+  content:"";
+  position:absolute;
+  inset:10px -20px -15px 12px;
+  border-radius:50%;
+  background:linear-gradient(
+    180deg,
+    rgba(217,250,232,.08),
+    rgba(217,250,232,.62)
+  );
+}
+
+.impact-quote-row{
+  position:relative;
+  overflow:hidden;
+  min-height:288px;
+  border-top:1px solid #edf0ee;
+  background:
+    linear-gradient(
+      90deg,
+      #fbfcfb 0%,
+      #fbfcfb 54%,
+      #f3f8f8 72%,
+      #e4f1f7 100%
+    );
+}
+
+.impact-quote-inner{
+  min-height:288px;
+  display:grid;
+  grid-template-columns:150px minmax(0,1.1fr) minmax(330px,.9fr);
+  gap:28px;
+  align-items:center;
+}
+
+.quote-person{
+  position:relative;
+  z-index:3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.quote-avatar{
+  width:126px;
+  height:126px;
+  overflow:hidden;
+  border-radius:50%;
+  background:#e9ecea;
+  box-shadow:0 0 0 10px rgba(255,255,255,.55);
+}
+
+.quote-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center top;
+}
+
+.impact-quote{
+  position:relative;
+  z-index:3;
+  padding:42px 0 38px;
+}
+
+.impact-quote .quote-mark{
+  position:absolute;
+  left:-34px;
+  top:35px;
+  color:#145f48;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:46px;
+  line-height:1;
+}
+
+.impact-quote p{
+  max-width:650px;
+  color:#16201c;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(22px,2vw,30px);
+  line-height:1.25;
+  letter-spacing:-.035em;
+}
+
+.impact-quote cite{
+  display:grid;
+  gap:2px;
+  margin-top:18px;
+  font-style:normal;
+}
+
+.impact-quote cite strong{
+  color:#27312d;
+  font-size:11px;
+  font-weight:800;
+}
+
+.impact-quote cite span{
+  color:#727d77;
+  font-size:9px;
+}
+
+.quote-building{
+  position:relative;
+  align-self:stretch;
+  min-height:288px;
+}
+
+.quote-building:before{
+  content:"";
+  position:absolute;
+  z-index:2;
+  top:0;
+  bottom:0;
+  left:-2px;
+  width:120px;
+  background:linear-gradient(
+    90deg,
+    #f7faf9 0%,
+    rgba(247,250,249,.74) 34%,
+    rgba(247,250,249,0) 100%
+  );
+  pointer-events:none;
+}
+
+.quote-building img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 42%;
+}.global-impact{
+  position:relative;
+  overflow:hidden;
+  border-top:1px solid #edf0ee;
+  background:#fff;
+}
+
+.global-impact-grid{
+  min-height:360px;
+  display:grid;
+  grid-template-columns:
+    minmax(300px,.84fr)
+    minmax(480px,1.35fr)
+    150px;
+  gap:46px;
+  align-items:center;
+  padding:66px 0 56px;
+}
+
+.global-impact-copy{
+  position:relative;
+  z-index:3;
+  max-width:430px;
+}
+
+.global-impact-copy .eyebrow{
+  margin-bottom:15px!important;
+}
+
+.global-impact-copy h2{
+  max-width:430px;
+  font-size:clamp(38px,3.3vw,51px);
+  line-height:1.03;
+}
+
+.global-impact-copy>p:not(.eyebrow){
+  max-width:400px;
+  margin-top:20px!important;
+  color:#69736e;
+  font-size:14px;
+  line-height:1.72;
+}
+
+.global-story-link{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  margin-top:18px;
+  color:#17231e;
+  font-size:11px;
+  font-weight:750;
+}
+
+.global-story-link svg{
+  width:15px;
+  height:15px;
+  transition:transform .2s ease;
+}
+
+.global-story-link:hover svg{
+  transform:translateX(3px);
+}
+
+.global-map{
+  position:relative;
+  z-index:1;
+  min-width:0;
+  align-self:stretch;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.global-map:before{
+  content:"";
+  position:absolute;
+  inset:12% 3%;
+  pointer-events:none;
+  background:radial-gradient(
+    ellipse at center,
+    rgba(62,167,122,.07) 0%,
+    rgba(62,167,122,.025) 44%,
+    transparent 73%
+  );
+  filter:blur(14px);
+}
+
+.global-map img{
+  position:relative;
+  z-index:2;
+  width:112%;
+  max-width:none;
+  height:auto;
+  object-fit:contain;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+}
+
+.global-stats{
+  position:relative;
+  z-index:3;
+  align-self:center;
+  display:grid;
+  gap:48px;
+  padding-left:12px;
+}
+
+.global-stat{
+  display:grid;
+  gap:1px;
+}
+
+.global-stat strong{
+  color:#101714;
+  font-family:Inter,"Helvetica Neue",Arial,sans-serif;
+  font-size:31px;
+  font-weight:800;
+  line-height:1;
+  letter-spacing:-.05em;
+}
+
+.global-stat span{
+  margin-top:7px;
+  color:#24302b;
+  font-size:11px;
+  font-weight:700;
+  line-height:1.25;
+}
+
+.global-stat small{
+  margin-top:2px;
+  color:#78817c;
+  font-size:10px;
+  line-height:1.3;
+}.closing{background:radial-gradient(circle at 83% 70%,rgba(99,227,166,.11),transparent 25%),var(--black);color:#fff}.closing-inner{display:flex;align-items:end;justify-content:space-between;gap:50px;padding:72px 0}.closing h2{max-width:700px;color:#fff}.footer{padding:24px 0 36px;border-top:1px solid rgba(255,255,255,.09)}.footer>p{max-width:760px;color:#708078;font-size:10px}.footer>div{display:flex;gap:30px;margin-top:22px}.footer a{display:inline-flex;align-items:center;gap:8px;color:#c7d6cf;font-size:11px}[data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1)}[data-reveal].is-in{opacity:1;transform:translateY(0)}@media(max-width:1050px){
   .wrap{
     width:calc(100% - 64px);
   }
@@ -400,8 +944,14 @@ const styles = `
   .hero-grid,
   .split-top,
   .two-col,
-  .quote-grid{
+  .quote-grid,
+  .challenge-grid{
     grid-template-columns:1fr;
+  }
+
+  .challenge-visual img{
+    width:100%;
+    margin-left:0;
   }
 
   .hero-grid{
