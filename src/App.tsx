@@ -6,7 +6,7 @@ import { Seo } from "./components/Seo";
 import Home from "./pages/Home";
 import AIEmployeeLifecycle2026 from "./pages/articles/AIEmployeeLifecycle2026";
 import BestGlobalEmployeeBenefitsPlatforms2026 from "./pages/articles/BestGlobalEmployeeBenefitsPlatforms2026";
-import MakiCapgeminiCaseStudy from "./pages/articles/MakiCapgeminiCaseStudy";
+import MakiBusinessCase from "./pages/articles/MakiBusinessCase";
 
 function ScrollTop() {
   const { pathname } = useLocation();
@@ -69,16 +69,19 @@ export default function App() {
         />
 
         <Route
-          path="/articles/maki-capgemini-case-study"
+          path="/articles/maki-business-case"
           element={
             <>
-              <Seo
-                title="Fintech Case Study Copywriting Sample | GrowUp"
-                description="A fintech copywriting portfolio sample showing how GrowUp rewrote and redesigned Adfin’s Stubbs Parkin case study for clearer, more persuasive storytelling."
-                path="/articles/adfin-stubbs-parkin-case-study"
-                image="/images/stubbs-parkin-og.png"
+<Seo
+                title="HR Tech Business Case Builder | GrowUp"
+                description="An HR tech portfolio sample showing how GrowUp designed an interactive business case builder for Maki, turning hiring inputs into a defensible executive summary."
+                path="/articles/maki-business-case"
+                image="/images/maki-business-case-og.png"
               />
-              <MakiCapgeminiCaseStudy />
+
+
+
+              <MakiBusinessCase />
             </>
           }
         />

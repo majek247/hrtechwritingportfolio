@@ -114,24 +114,36 @@ const trusted = [
 
 const faqs = [
   [
-    "How should I estimate recruiter time savings?",
-    "Start with what you can measure: applications per year multiplied by the minutes a recruiter spends on each first screen. Then apply a conservative share of that time that assessment would remove. Use the Conservative scenario for finance, and replace the placeholder minutes with figures from your ATS or a two-week time sample.",
+    "How reliable are the projected savings?",
+    "The projections are most reliable when the model uses current hiring data rather than broad assumptions. Application volume, screening time, time to hire, attrition and vacancy cost have the biggest influence on the result. Where those figures are well understood, the estimate is stronger. Where they are not, the model should stay conservative until a pilot provides better evidence.",
   ],
   [
-    "What if our hiring volumes change?",
-    "Change the application and hire inputs and every figure updates. If volumes are seasonal, model the annual total and note the peak months separately, because the benefit is usually biggest when volume spikes.",
+    "What happens if hiring demand changes?",
+    "The projected impact changes with hiring volume. If applications and hires increase, the value of faster screening and shorter time to hire usually increases as well. If demand falls, the projected benefit reduces. The model can be updated whenever hiring plans change, as long as the same roles, markets and business units remain in scope.",
   ],
   [
-    "How do I avoid overstating ROI?",
-    "Use the Conservative scenario first, count only benefits you can trace to a budget line, and subtract the full annual cost of Maki. Customer results on this page are theirs, so treat them as reference points rather than promises.",
+    "Which benefits should we treat as financial savings?",
+    "Financial savings should be limited to costs that would genuinely fall as a result of using Maki. Recruiter time, for example, creates valuable capacity but only becomes a cash saving if it reduces headcount or external spend. Faster hiring is similar: the value can be significant, but it is better presented separately from direct cost reduction.",
   ],
   [
-    "What about implementation time and resources?",
-    "This page can't answer that for you, and the model doesn't include it. Ask Maki for a rollout plan on a demo call, and add internal time for integration, role set-up and recruiter training to your own cost line.",
+    "What would implementation require from our team?",
+    "Implementation effort depends on the systems involved, the roles in scope and how hiring works today. Maki would typically work with recruiting, hiring managers, HR, IT and, where needed, procurement or security. The main areas to plan for are integration, role set-up, testing, ownership and adoption, with the exact effort becoming clearer once the rollout scope is defined.",
   ],
   [
-    "Can we run a pilot first?",
-    "Yes, and it's the safest ask. Capgemini went live in France first, with plans to expand to 50+ countries by 2026. Pick a few roles or one market, agree the success metrics up front, and use the pilot to replace the placeholders here with real data.",
+    "How could we validate the case before scaling?",
+    "A focused pilot is the clearest way to test whether the model holds up in practice. One role group, market or business unit can be used to compare screening effort, time to hire and candidate experience against the current baseline. Those results can then replace assumptions in the model before any broader rollout decision is made.",
+  ],
+  [
+    "Which assumptions should we validate first?",
+    "The first assumptions to validate are the ones that have the biggest effect on the result: application volume, recruiter screening time, time to hire, early attrition and vacancy cost. These figures drive most of the model, so getting them right matters more than refining smaller inputs that have relatively little influence on the final outcome.",
+  ],
+  [
+    "How should we compare the model with actual results?",
+    "The comparison should use the same baseline and measures that were agreed before the pilot. If the model projects lower screening effort or shorter time to hire, those exact measures should be tracked after launch. The aim is to see whether the real-world result falls within a credible range, rather than expecting every assumption to match perfectly.",
+  ],
+  [
+    "What should procurement and IT review early?",
+    "Procurement and IT should review anything that could affect approval, timing or rollout. That usually includes security, data handling, integrations, commercial terms, implementation ownership and internal governance requirements. Bringing those checks forward helps surface practical blockers early and gives the wider business case a more realistic view of what is required to move ahead.",
   ],
 ];
 
@@ -299,7 +311,8 @@ type Slide = {
 };
 
 const deckAssets = {
-  logo: "/images/maki-logo-black.png",
+  logo: "/images/logos/maki.svg",
+  logoWhite: "/images/logos/maki-white.svg",
   cover: "/images/make-hero-slide.png",
   current: "/images/02-current-state.png",
   impact: "/images/03-project-impact.png",
@@ -500,6 +513,7 @@ function Field({
             tabIndex={0}
             role="button"
             aria-label={`${label}: ${help}`}
+            onClick={(e) => e.preventDefault()}
           >
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="12" cy="12" r="9" />
@@ -571,6 +585,7 @@ export default function MakiBusinessCaseBuilder({
 
   const [picked, setPicked] = useState<string[]>(["cap", "del", "asos"]);
   const [active, setActive] = useState(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [titles, setTitles] = useState<Record<number, string>>({});
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -618,7 +633,7 @@ export default function MakiBusinessCaseBuilder({
   const c = useMemo(() => {
     const hours = ((apps * mins) / 60) * (s.screen / 100);
     const capacity = hours * rate;
-    const daysSaved = days * (s.time / 100);
+    const daysSaved = Math.round(days * (s.time / 100));
     const vacancy = hires * daysSaved * vac;
     const attrition = hires * (attr / 100) * (s.attr / 100) * replace;
     const annual = capacity + vacancy + attrition;
@@ -644,24 +659,26 @@ export default function MakiBusinessCaseBuilder({
   const nextSteps: Array<{
     title: string;
     detail: string;
+    url?: string;
     icon: IconName;
     href?: string;
   }> = [
     {
-      title: "Approve a focused pilot",
-      detail: "for a defined role group or market.",
+      title: "Start with one priority area",
+      detail: "Choose a defined role group or priority market.",
       icon: "hires",
     },
     {
-      title: "Agree success measures",
-      detail: "before launch.",
+      title: "Set the measures upfront",
+      detail: "Agree what success should look like before launch.",
       icon: "chart",
     },
     {
-      title: "Request a Maki demo",
-      detail: demoHref.replace("https://", ""),
-      icon: "link",
+      title: "Review the approach with Maki",
+      detail: "Book a demo to discuss scope and next steps.",
+      url: demoHref.replace("https://", ""),
       href: demoHref,
+      icon: "link",
     },
   ];
 
@@ -696,11 +713,11 @@ export default function MakiBusinessCaseBuilder({
     {
       layout: "cover",
       kicker: "Executive summary",
-      title: "The case for assessing first.",
-      sub: `Maki business case · ${s.label.toLowerCase()} scenario`,
+      title: "A business case for improving hiring efficiency.",
+            sub: `Maki Business Case · ${s.label} Scenario`,
       bullets: [
         `Across ${num(units)} markets or business units`,
-        "Built from your hiring inputs and selected customer evidence",
+        "Covers current performance, projected impact and supporting evidence",
       ],
       bulletIcons: ["globe", "chart"] as IconName[],
       visual: deckAssets.cover,
@@ -726,7 +743,7 @@ export default function MakiBusinessCaseBuilder({
       sub: "estimated annual benefit",
       bullets: [
         `${num(c.hours)} recruiter hours returned per year`,
-        `${Math.round(c.daysSaved)} fewer days to hire`,
+        `${c.daysSaved} fewer days to hire`,
         cost > 0
           ? `${gbp(c.net3)} net estimated benefit over three years`
           : `${gbp(c.three)} estimated benefit over three years before Maki cost`,
@@ -744,8 +761,8 @@ export default function MakiBusinessCaseBuilder({
     {
       layout: "proof",
       kicker: "Customer evidence",
-      title: "Evidence your VP can point to.",
-      sub: "Selected Maki customer outcomes",
+      title: "Proven outcomes from Maki customers.",
+      sub: "Evidence from large-scale hiring transformations.",
       bullets: chosen.length
         ? chosen.map((p) => `${p.name}: ${p.stat} ${p.line}`)
         : ["Select customer examples in the builder"],
@@ -753,21 +770,21 @@ export default function MakiBusinessCaseBuilder({
     },
     {
       layout: "risks",
-      kicker: "Validation",
-      title: "What needs validating before rollout.",
+      kicker: "Before rollout",
+      title: "Validation priorities and criteria",
       bullets: [
-        "Benefits: replace illustrative assumptions with pilot data",
-        "Candidate experience: track completion and feedback",
-        "Adoption: involve recruiters and hiring managers in role set-up",
-        "Rollout effort: agree implementation ownership and resourcing",
+        "Expected impact: confirm the projected gains with pilot results",
+        "Candidate experience: measure completion rates and candidate feedback",
+        "Team readiness: involve recruiters and hiring managers early",
+        "Implementation: confirm ownership, timing and required resources",
       ],
       visual: deckAssets.risks,
     },
     {
       layout: "next",
       kicker: "Recommended next step",
-      title: "Move from estimate to evidence.",
-      sub: "Pilot → measure → expand",
+      title: "Prove the case with a focused pilot.",
+
       bullets: [
         "Approve a focused pilot for a defined role group or market",
         "Agree success measures before launch",
@@ -875,34 +892,15 @@ export default function MakiBusinessCaseBuilder({
         slideNumber: number,
         dark = false,
       ) => {
-        if (dark) {
-          d.addShape(p.ShapeType.roundRect, {
-            x: 0.68,
-            y: 0.43,
-            w: 1.28,
-            h: 0.46,
-            rectRadius: 0.06,
-            line: { color: C.white, transparency: 100 },
-            fill: { color: C.white },
-          });
-          d.addImage({
-            data: assets.logo,
-            x: 0.82,
-            y: 0.53,
-            w: 0.98,
-            h: 0.295,
-          });
-        } else {
-          d.addImage({
-            data: assets.logo,
-            x: 0.7,
-            y: 0.5,
-            w: 1.05,
-            h: 0.316,
-          });
-        }
+        d.addImage({
+          data: dark ? assets.logoWhite : assets.logo,
+          x: dark ? 0.72 : 0.7,
+          y: dark ? 0.5 : 0.5,
+          w: dark ? 1.05 : 1.05,
+          h: dark ? 0.316 : 0.316,
+        });
 
-        d.addText("CONFIDENTIAL · ILLUSTRATIVE", {
+        d.addText("CONFIDENTIAL", {
           x: 9.8,
           y: 0.55,
           w: 2.1,
@@ -1111,47 +1109,104 @@ export default function MakiBusinessCaseBuilder({
         if (x.layout === "current") {
           d.addText(titles[i] ?? x.title, {
             x: 0.72,
-            y: 1.68,
-            w: 5.3,
-            h: 0.8,
+            y: 1.55,
+            w: 6.0,
+            h: 1.9,
             fontFace: "Georgia",
-            fontSize: 32,
+            fontSize: 56,
             bold: true,
             color: C.ink,
             margin: 0,
+            valign: "top",
           });
 
-          d.addText(x.big ?? "", {
-            x: 0.72,
-            y: 2.72,
-            w: 3.8,
-            h: 0.72,
-            fontFace: "Georgia",
-            fontSize: 46,
-            bold: true,
-            color: C.teal,
-            margin: 0,
-          });
+          d.addText(
+            "The current model captures screening effort, hiring volume, time to hire and early attrition across the roles in scope.",
+            {
+              x: 0.74,
+              y: 3.45,
+              w: 5.6,
+              h: 1.4,
+              fontFace: "Arial",
+              fontSize: 16,
+              color: "4B625F",
+              margin: 0,
+              valign: "top",
+            },
+          );
 
-          d.addText(x.sub ?? "", {
-            x: 0.74,
-            y: 3.5,
-            w: 3.4,
-            h: 0.28,
-            fontFace: "Arial",
-            fontSize: 13,
-            color: C.muted,
-            margin: 0,
-          });
+          const cardGap = 0.3;
+          const cardW = (5.9 - cardGap) / 2;
+          const cardH = 2.1;
 
-          addBullets(d, x.bullets, 0.76, 4.12, 5.0, false, 12.2);
+          const statCards: Array<[string, string, string]> = [
+            [
+              "Screening effort",
+              num(Math.round((apps * mins) / 60)),
+              "recruiter hours per year",
+            ],
+            ["Hires", num(hires), "across the roles in scope"],
+            [
+              "Time to hire",
+              `${num(days)} days`,
+              "from role open to accepted offer",
+            ],
+            ["Early attrition", `${attr}%`, "of new hires leave early"],
+          ];
 
-          d.addImage({
-            data: assets.current,
-            x: 6.15,
-            y: 1.35,
-            w: 6.2,
-            h: 5.1,
+          statCards.forEach(([label, value, note], index) => {
+            const col = index % 2;
+            const row = Math.floor(index / 2);
+            const cx = 6.9 + col * (cardW + cardGap);
+            const cy = 1.55 + row * (cardH + 0.25);
+
+            d.addShape(p.ShapeType.roundRect, {
+              x: cx,
+              y: cy,
+              w: cardW,
+              h: cardH,
+              rectRadius: 0.1,
+              line: { color: "FFFFFF", transparency: 100 },
+              fill: { color: "EAF3F0" },
+            });
+
+            d.addText(label, {
+              x: cx + 0.28,
+              y: cy + 0.35,
+              w: cardW - 0.56,
+              h: 0.3,
+              fontFace: "Arial",
+              fontSize: 13,
+              bold: true,
+              color: "0A2728",
+              margin: 0,
+            });
+
+            d.addText(value, {
+              x: cx + 0.28,
+              y: cy + 0.75,
+              w: cardW - 0.56,
+              h: 0.7,
+              fontFace: "Georgia",
+              fontSize: 30,
+              bold: true,
+              color: "0A2728",
+              margin: 0,
+              valign: "mid",
+              fit: "shrink",
+            });
+
+            d.addText(note, {
+              x: cx + 0.28,
+              y: cy + 1.55,
+              w: cardW - 0.56,
+              h: 0.4,
+              fontFace: "Arial",
+              fontSize: 11.5,
+              color: "011522",
+              margin: 0,
+              valign: "top",
+            });
           });
         }
 
@@ -1168,7 +1223,7 @@ export default function MakiBusinessCaseBuilder({
             margin: 0,
           });
 
-          d.addText("Based on your inputs, scenario and selected customer evidence.", {
+          d.addText("Based on the assumptions and scenario used in your model.", {
             x: 0.74,
             y: 2.67,
             w: 9,
@@ -1737,33 +1792,32 @@ export default function MakiBusinessCaseBuilder({
               valign: "mid",
             });
 
-            d.addText(
-              item.detail,
-              item.href
-                ? {
-                    x: cx + 0.3,
-                    y: cy + 1.65,
-                    w: cw - 0.6,
-                    h: 0.6,
-                    fontFace: "Arial",
-                    fontSize: 11.5,
-                    color: C.mint,
-                    margin: 0,
-                    valign: "top",
-                    hyperlink: { url: item.href, tooltip: item.title },
-                  }
-                : {
-                    x: cx + 0.3,
-                    y: cy + 1.65,
-                    w: cw - 0.6,
-                    h: 0.6,
-                    fontFace: "Arial",
-                    fontSize: 11.5,
-                    color: "B5CECB",
-                    margin: 0,
-                    valign: "top",
-                  },
-            );
+            d.addText(item.detail, {
+              x: cx + 0.3,
+              y: cy + 1.65,
+              w: cw - 0.6,
+              h: 0.4,
+              fontFace: "Arial",
+              fontSize: 11.5,
+              color: "B5CECB",
+              margin: 0,
+              valign: "top",
+            });
+
+            if (item.href && item.url) {
+              d.addText(item.url, {
+                x: cx + 0.3,
+                y: cy + 2.05,
+                w: cw - 0.6,
+                h: 0.35,
+                fontFace: "Arial",
+                fontSize: 11.5,
+                color: C.mint,
+                margin: 0,
+                valign: "top",
+                hyperlink: { url: item.href, tooltip: item.title },
+              });
+            }
 
             d.addShape(p.ShapeType.line, {
               x: cx + 0.3,
@@ -1808,10 +1862,20 @@ export default function MakiBusinessCaseBuilder({
       style={{ transform: `scale(${scale})` }}
     >
       <div className="dsTop">
-        <img className="dsLogo" src={deckAssets.logo} alt="Maki" />
+        <img
+          className="dsLogo"
+          src={
+            sl.layout === "impact" ||
+            sl.layout === "proof" ||
+            sl.layout === "next"
+              ? deckAssets.logoWhite
+              : deckAssets.logo
+          }
+          alt="Maki"
+        />
 
         <div className="dsTopRight">
-          <span>Confidential · Illustrative</span>
+          <span>CONFIDENTIAL</span>
           <span>{active + 1} / {slides.length}</span>
         </div>
       </div>
@@ -1835,13 +1899,13 @@ export default function MakiBusinessCaseBuilder({
 
           {sl.layout === "impact" && (
             <p className="dsSub">
-              Based on your inputs, scenario and selected customer evidence.
+              Based on the assumptions and scenario used in your model.
             </p>
           )}
 
           {sl.layout === "current" && (
             <p className="dsLead">
-              Hiring isn&apos;t just recruitment fees. It&apos;s team time, slow time to fill and the cost of lost productivity.
+    The current model captures screening effort, hiring volume, time to hire and early attrition across the roles in scope.
             </p>
           )}
 
@@ -1929,16 +1993,15 @@ export default function MakiBusinessCaseBuilder({
                     <Icon name={item.icon} />
                   </div>
                   <strong>{item.title}</strong>
-                  {item.href ? (
+                  <p>{item.detail}</p>
+                  {item.href && item.url && (
                     <a
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {item.detail}
+                      {item.url}
                     </a>
-                  ) : (
-                    <p>{item.detail}</p>
                   )}
                 </div>
               ))}
@@ -2021,20 +2084,23 @@ export default function MakiBusinessCaseBuilder({
       <header className="hero">
         <div className="wrap hgrid">
           <div className="hcopy">
-            <p className="eye">01 / BUSINESS CASE BUILDER</p>
-            <h1>Pitching Maki to your VP: the ultimate budget justification builder.</h1>
+            <p className="eye">WHAT COULD FASTER HIRING BE WORTH?</p>
+            <h1>Build a defensible business case for hiring transformation.</h1>
             <p className="deck">
-              Turn hiring friction into a clear, executive-ready business case.
-              Use real customer results and your own assumptions to estimate the
-              impact Maki could deliver for your organisation.
+       Give Finance and leadership a more credible case for change, with a clearer view of potential savings, operational capacity and the business value of faster hiring outcomes.
             </p>
             <div className="btns">
               <a className="btn" href="#model">
                 Build your business case <Arrow />
               </a>
-              <a className="btn ghost" href="#proof">
-                See customer results
-              </a>
+           <a
+  className="btn ghost"
+  href="https://www.makipeople.com/demo"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Book a demo
+</a>
             </div>
  
           </div>
@@ -2078,17 +2144,18 @@ export default function MakiBusinessCaseBuilder({
         <div className="wrap">
           <div className="modelTop" data-r>
             <div className="modelIntro">
-              <div className="modelTitleRow">
-                <span className="modelNumber">02</span>
-                <h2>
-                  Model the impact for
-                  <br />
-                  your organisation.
-                </h2>
-              </div>
+           
+           
+       <div className="modelTitleRow">
+  <h2>
+ Establish the baseline for
+    <br />
+ your hiring business case.
+  </h2>
+</div>
+           
               <p>
-                Answer a few questions about your current hiring process. We’ll
-                estimate the time, cost and capacity gains Maki could deliver.
+Enter the core operating data behind your current hiring process. We’ll use it to model the potential impact on capacity, hiring speed and associated costs.
               </p>
             </div>
 
@@ -2270,7 +2337,7 @@ export default function MakiBusinessCaseBuilder({
               {step === 4 && (
                 <div className="stepPanel reviewPanel" key="step-4">
                   <div className="stepHeading">
-                    <h3>Review your model</h3>
+                    <h3>Review Your Model</h3>
                     <p>Check the assumptions before using the numbers internally.</p>
                   </div>
 
@@ -2399,7 +2466,7 @@ export default function MakiBusinessCaseBuilder({
 <aside className="impactPanel">
   <div className="impactHead">
     <div>
-      <h3>Your potential impact</h3>
+      <h3>Your Potential Impact</h3>
       <p>
         Based on your inputs, here’s what Maki could deliver for your organisation.
       </p>
@@ -2429,7 +2496,11 @@ export default function MakiBusinessCaseBuilder({
             <path d="M12 11v5M12 7.5v.01" />
           </svg>
       <span className="tipBubble" role="tooltip">
-  Estimated recruiter capacity returned each year. Calculated as {num(apps)} applications × {mins} minutes of screening ÷ 60, then reduced by {s.screen}% under the {s.label} scenario.
+  <b>What it measures:</b> recruiter time freed up each year once Maki handles first-pass screening.
+  <br /><br />
+  <b>How it&apos;s calculated:</b> {num(apps)} applications × {mins} minutes per screen ÷ 60 = {num(Math.round((apps * mins) / 60))} hours of screening today. Under the {s.label} scenario, Maki removes {s.screen}% of that work.
+  <br /><br />
+  <b>Result:</b> {num(Math.round((apps * mins) / 60))} × {s.screen}% = {num(c.hours)} hours.
 </span>
         </span>
       </span>
@@ -2454,7 +2525,11 @@ export default function MakiBusinessCaseBuilder({
             <path d="M12 11v5M12 7.5v.01" />
           </svg>
    <span className="tipBubble" role="tooltip">
-  Estimated value created by filling roles sooner. Calculated as {num(hires)} hires × {Math.round(c.daysSaved)} fewer vacant days × {gbp(vac)} per vacant day. This represents business capacity created, not guaranteed cash savings.
+  <b>What it measures:</b> the value created by filling roles faster and restoring productive capacity sooner. This represents additional operating capacity, rather than direct cost savings.
+  <br /><br />
+  <b>How it&apos;s calculated:</b> your time-to-hire of {num(days)} days × {s.time}% faster under the {s.label} scenario = {c.daysSaved} fewer vacant days per hire. {num(hires)} hires × {c.daysSaved} days × {gbp(vac)} per vacant day.
+  <br /><br />
+  <b>Result:</b> {gbp(c.vacancy)}.
 </span>
         </span>
       </span>
@@ -2478,8 +2553,12 @@ export default function MakiBusinessCaseBuilder({
             <circle cx="12" cy="12" r="9" />
             <path d="M12 11v5M12 7.5v.01" />
           </svg>
-     <span className="tipBubble" role="tooltip">
-  Estimated reduction in your hiring cycle. The {s.label} scenario applies a {s.time}% improvement to your current {num(days)}-day time-to-hire, reducing it to about {num(Math.round(c.after))} days.
+        <span className="tipBubble" role="tooltip">
+  <b>What it measures:</b> how much shorter your hiring cycle becomes.
+  <br /><br />
+  <b>How it&apos;s calculated:</b> your current time-to-hire of {num(days)} days × {s.time}% faster under the {s.label} scenario = {c.daysSaved} days saved. {num(days)} − {c.daysSaved} = {c.after} days.
+  <br /><br />
+  <b>Result:</b> {Math.round((c.daysSaved / days) * 100)}% faster, or {num(days)} days down to {c.after} days.
 </span>
         </span>
       </span>
@@ -2492,7 +2571,7 @@ export default function MakiBusinessCaseBuilder({
         Faster time-to-hire
         <br />
         <span>
-          {num(days)} → {num(Math.round(c.after))} days.
+          {num(days)} → {num(c.after)} days.
         </span>
       </p>
     </div>
@@ -2505,10 +2584,24 @@ export default function MakiBusinessCaseBuilder({
             <circle cx="12" cy="12" r="9" />
             <path d="M12 11v5M12 7.5v.01" />
           </svg>
-      <span className="tipBubble" role="tooltip">
-  {cost > 0
-    ? `Three-year estimated benefit from recruiter capacity, fewer vacancy days and reduced early attrition. The annual benefit is multiplied by three, then ${gbp(cost)} of Maki cost per year is deducted across the same period.`
-    : `Three-year estimated benefit from recruiter capacity, fewer vacancy days and reduced early attrition. The annual benefit is multiplied by three. Maki cost is not deducted because no annual cost has been entered.`}
+         <span className="tipBubble" role="tooltip">
+  <b>What it measures:</b> the combined financial impact across recruiter capacity, vacancy days and reduced early attrition, over three years.
+  <br /><br />
+  <b>How it&apos;s calculated:</b> {gbp(c.capacity)} recruiter capacity + {gbp(c.vacancy)} vacancy capacity + {gbp(c.attrition)} early attrition = {gbp(c.annual)} per year. × 3 years.
+  {cost > 0 && (
+    <>
+      <br /><br />
+      <b>Maki cost:</b> {gbp(cost)} per year × 3 = {gbp(cost * 3)} deducted.
+      <br /><br />
+      <b>Result:</b> {gbp(c.three)} − {gbp(cost * 3)} = {gbp(c.net3)} net.
+    </>
+  )}
+  {cost === 0 && (
+    <>
+      <br /><br />
+      <b>Result:</b> {gbp(c.three)} before Maki cost. Add your annual Maki cost in Step 3 to see the net figure.
+    </>
+  )}
 </span>
         </span>
       </span>
@@ -2527,13 +2620,58 @@ export default function MakiBusinessCaseBuilder({
 
   <div className="impactChartArea">
     <div className="chartTitleRow">
-      <p>Illustrative annual financial impact</p>
+      <p>Annual Financial Impact</p>
 
       <span
-        className="infoDot"
-        title="Estimated from the inputs and scenario assumptions above"
+        className="tipIcon"
+        tabIndex={0}
+        role="button"
+        aria-label="How the annual financial impact chart is calculated"
       >
-        i
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 11v5M12 7.5v.01" />
+        </svg>
+        <span className="tipBubble" role="tooltip">
+          <b>How each bar is calculated</b>
+          <br />
+          All figures use the {s.label.toLowerCase()} scenario.
+          <br /><br />
+
+          <b>1. Recruiter capacity: {short(c.capacity)}</b>
+          <br />
+          {num(apps)} applications × {mins} min screening ÷ 60 ={" "}
+          {num(Math.round((apps * mins) / 60))} hrs today. Maki removes{" "}
+          {s.screen}% → {num(c.hours)} hrs × {gbp(rate)}/hr ={" "}
+          {gbp(c.capacity)}.
+          <br /><br />
+
+          <b>2. Faster time to hire: {short(c.vacancy)}</b>
+          <br />
+          {num(days)} days × {s.time}% faster = {c.daysSaved} days saved per
+          hire. {num(hires)} hires × {c.daysSaved} days × {gbp(vac)}/day ={" "}
+          {gbp(c.vacancy)}.
+          <br /><br />
+
+          <b>3. Early attrition: {short(c.attrition)}</b>
+          <br />
+          {num(hires)} hires × {attr}% leave early ={" "}
+          {num(Math.round(hires * (attr / 100)))} leavers. Maki avoids{" "}
+          {s.attr}% → {num(Math.round(hires * (attr / 100) * (s.attr / 100)))}{" "}
+          × {gbp(replace)} = {gbp(c.attrition)}.
+          <br /><br />
+
+          <b>Total annual benefit: {short(c.annual)}</b>
+          <br />
+          {short(c.capacity)} + {short(c.vacancy)} + {short(c.attrition)} ={" "}
+          {short(c.annual)} per year. × 3 years = {short(c.three)}.
+          <br /><br />
+
+          <b>Note:</b>
+          <br />
+          The third bar shows the total, including early attrition. Attrition
+          is not drawn as a separate bar.
+        </span>
       </span>
     </div>
 
@@ -2594,10 +2732,7 @@ export default function MakiBusinessCaseBuilder({
       <span className="impactNoteMark" aria-hidden="true" />
 
       <p>
-        Conservative and Base discount Maki&apos;s published averages
-        (45% faster hiring, 50% lower turnover). Ambitious mirrors
-        them. Savings are annual, flat for three years, and exclude
-        implementation effort.
+Conservative and Base use lower estimates than Maki’s published results of 45% faster hiring and 50% lower turnover. Ambitious uses those results in full. Benefits are shown annually for three years and exclude implementation effort.
       </p>
     </div>
   </div>
@@ -2616,17 +2751,14 @@ export default function MakiBusinessCaseBuilder({
       <section className="sec summarySec" id="summary">
         <div className="wrap">
             <div className="sectionEyebrow" data-r>
-            <span>03</span>
             <i />
             EXECUTIVE SUMMARY
           </div>
 
           <div className="summaryHead" data-r>
-            <h2>Finish with a deck you can actually send.</h2>
+            <h2>Present your business case in a format leadership can review.</h2>
             <p>
-              Your inputs, scenario and selected customer evidence are turned into
-              a six-slide executive summary. Edit the slide titles here, then
-              generate the native PowerPoint when you&apos;re ready.
+We turn your inputs and selected scenario into a six-slide executive summary, with the key numbers, supporting evidence and next steps ready for internal review.
             </p>
           </div>
 
@@ -2754,14 +2886,12 @@ export default function MakiBusinessCaseBuilder({
         <div className="wrap faqLayout">
           <div className="faqIntro" data-r>
             <div className="sectionEyebrow lightEye">
-              <span>04</span>
               <i />
               FAQ
             </div>
-            <h2>Questions Finance is likely to ask next.</h2>
+            <h2>Questions to resolve before taking the case forward.</h2>
             <p>
-              Use these as the checks around the model before you circulate it
-              internally.
+         Use these to challenge the assumptions, understand what could change the outcome and prepare for the practical questions that come up internally.
             </p>
             <a className="textAction darkLink" href={demoHref} target="_blank" rel="noreferrer">
               Ask Maki about your rollout <Arrow />
@@ -2770,10 +2900,15 @@ export default function MakiBusinessCaseBuilder({
 
           <div className="faq" data-r>
             {faqs.map(([question, answer], index) => (
-              <details key={question} open={index === 0}>
-                <summary>
+              <details key={question} open={openFaq === index}>
+                <summary
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenFaq(openFaq === index ? null : index);
+                  }}
+                >
                   <em className="faqNum">{String(index + 1).padStart(2, "0")}</em>
-<span>{question}</span>
+                  <span>{question}</span>
                   <i />
                 </summary>
                 <p>{answer}</p>
@@ -2784,51 +2919,66 @@ export default function MakiBusinessCaseBuilder({
       </section>
 
       <section className="final">
-        <div className="wrap finalCard" data-r>
-          <div className="finalCopy">
-            <p className="eye">READY TO MAKE YOUR CASE?</p>
-            <h2>Take the model into the meeting.</h2>
-            <p>
-              Replace the placeholders with your own data, choose the scenario
-              you can defend, and walk in with an executive summary built around
-              the questions Finance will actually ask.
+        <div className="wrap finalCard ctaCard" data-r>
+          <div className="ctaCopy">
+            <p className="ctaEyebrow">
+              NEXT STEP <i />
             </p>
-            <div className="btns">
-              <a className="btn" href="#model">
-                Refine the business case <Arrow />
+            <h2>
+              Decide how to move 
+              <br />
+ forward with Maki.
+            </h2>
+            <p className="ctaText">
+Give stakeholders a clear view of the case, the potential value and what needs to happen before moving forward.
+            </p>
+            <div className="ctaBtns">
+              <a
+                className="ctaBtn primary"
+                href={demoHref}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Request a Maki demo <Arrow />
               </a>
-              <a className="btn ghost" href={demoHref} target="_blank" rel="noreferrer">
-                Request a Maki demo
-              </a>
+              <button
+                type="button"
+                className="ctaBtn ghost"
+                onClick={download}
+                disabled={busy}
+              >
+                {busy ? "Building your deck…" : "Download executive summary"}
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 4v11M7 11l5 5 5-5M5 20h14" />
+                </svg>
+              </button>
             </div>
           </div>
 
-          <div className="finalImpact">
-            <div className="finalImpactTop">
-              <span>{s.label} scenario</span>
-              <Icon name="chart" />
-            </div>
-            <strong>{gbp(cost > 0 ? c.net3 : c.three)}</strong>
-            <p>{cost > 0 ? "Net estimated benefit" : "Estimated benefit"} over 3 years</p>
-            <div className="finalStats">
-              <span>
-                <b>{num(c.hours)}</b>
-                recruiter hours / year
-              </span>
-              <span>
-                <b>{num(Math.round(c.after))} days</b>
-                projected time-to-hire
-              </span>
-            </div>
-          </div>
+          <ol className="ctaSteps">
+            {[
+              ["calendar", "Review the case", "Discuss the numbers with Maki."],
+              ["hires", "Share internally", "Use the deck with stakeholders."],
+              ["people", "Agree next steps", "Decide whether to start with a pilot."],
+            ].map(([icon, title, text], i) => (
+              <li className="ctaStep" key={title}>
+                <div className="ctaIconRow">
+                  <span className="ctaIcon">
+                    <Icon name={icon as IconName} />
+                  </span>
+                </div>
+                <span className="ctaNum">{String(i + 1).padStart(2, "0")}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </li>
+            ))}
+          </ol>
         </div>
 
         <div className="wrap note">
           <p>
             <b>Portfolio note.</b> An independent concept by GrowUp, not
-            published by or affiliated with Maki. Customer results come from
-            Maki&apos;s public customers page. Inputs and scenario assumptions are
-            illustrative placeholders.
+            published by or affiliated with Maki. 
           </p>
           <a href={portfolioHref}>Back to writing portfolio</a>
         </div>
@@ -2894,7 +3044,8 @@ const css = `
 .bc .hgrid{position:relative;z-index:1;display:grid;grid-template-columns:.92fr 1.08fr;gap:68px;align-items:center}
 .bc .hcopy{max-width:660px;padding-bottom:38px}
 .bc .hcopy h1{padding-top:18px}
-.bc .deck{max-width:620px;margin-top:22px;color:#cae2df;font-size:18px;line-height:1.75;letter-spacing:.01em}
+@media(max-width:600px){.bc .hero .eye{padding-top:15px}}
+.bc .deck{max-width:620px;margin-top:22px;color:#fafafa;font-size:18px;line-height:1.75;letter-spacing:.01em}
 .bc .hcopy>*{animation:rise .8s cubic-bezier(.22,1,.36,1) both}
 .bc .hcopy>:nth-child(2){animation-delay:.08s}.bc .hcopy>:nth-child(3){animation-delay:.16s}.bc .hcopy>:nth-child(4){animation-delay:.24s}.bc .hcopy>:nth-child(5){animation-delay:.32s}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
@@ -2953,7 +3104,7 @@ const css = `
 .bc .faqSec .sectionEyebrow span{width:48px;height:48px;border-radius:10px;font-size:16px;font-weight:700}
 .bc .faqSec .sectionEyebrow i{width:48px}
 .bc .faqSec .faqIntro h2{max-width:580px;font-size:clamp(46px,5.4vw,80px);font-weight:400;line-height:1.02;letter-spacing:-.05em;color:#0a1f20}
-.bc .faqSec .faqIntro>p{max-width:520px;margin-top:28px;font-size:20px;line-height:1.65;color:#3d5553}
+.bc .faqSec .faqIntro>p{max-width:520px;margin-top:28px;font-size:20px;line-height:1.65;color:#011522}
 .bc .faqSec .faqIntro .textAction{margin-top:36px;padding-bottom:8px;border-bottom:2px solid var(--teal);font-size:19px;font-weight:700;color:var(--teal)}
 .bc .faqSec .faqIntro .textAction svg{width:24px;height:24px}
 
@@ -2972,7 +3123,7 @@ const css = `
 .bc .faqSec .faq summary i:after{width:16px;height:2px}
 .bc .faqSec .faq details[open] summary i{background:#fff;border-color:#c5dbd6}
 
-.bc .faqSec .faq details p{max-width:none;margin:0 36px;padding:30px 0 38px 96px;border-top:1px solid #d5e3e0;font-size:18px;line-height:1.7;color:#3d5553}
+.bc .faqSec .faq details p{max-width:none;margin:0 36px;padding:30px 0 38px 96px;border-top:1px solid #d5e3e0;font-size:18px;line-height:1.7;color:#011522}
 
 @media(max-width:1080px){
   .bc .faqSec .faqLayout{grid-template-columns:1fr;gap:48px}
@@ -2985,16 +3136,56 @@ const css = `
   .bc .faqSec .faq summary i{width:44px;height:44px;flex-basis:44px}
   .bc .faqSec .faq details p{margin:0 20px;padding:22px 0 26px;font-size:16px}
 }
-.bc .faqSec{background:#fff}.bc .faqLayout{display:grid;grid-template-columns:.72fr 1.28fr;gap:82px;align-items:start}.bc .faqIntro{position:sticky;top:32px}.bc .faqIntro h2{max-width:500px}.bc .faqIntro>p{max-width:430px;margin-top:16px;color:var(--mute);font-size:14px;line-height:1.7}.bc .darkLink{margin-top:24px;color:var(--teal)}
-.bc .faq{border-top:1px solid var(--line)}.bc details{border-bottom:1px solid var(--line)}.bc summary{display:flex;justify-content:space-between;gap:24px;align-items:center;padding:23px 3px;color:#1f403d;font-size:14px;font-weight:750;cursor:pointer;list-style:none}.bc summary::-webkit-details-marker{display:none}.bc summary i{position:relative;width:28px;height:28px;flex:0 0 28px;border:1px solid #d5e4e0;border-radius:50%}.bc summary i:before,.bc summary i:after{content:"";position:absolute;left:50%;top:50%;width:9px;height:1px;background:var(--teal);transform:translate(-50%,-50%)}.bc summary i:after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .2s}.bc details[open] summary i:after{transform:translate(-50%,-50%) rotate(0)}.bc details p{max-width:760px;padding:0 48px 24px 3px;color:#667f7a;font-size:12px;line-height:1.7}
+.bc .faqSec{background:#fff}.bc .faqLayout{display:grid;grid-template-columns:.72fr 1.28fr;gap:82px;align-items:start}.bc .faqIntro{position:sticky;top:32px}.bc .faqIntro h2{max-width:500px}.bc .faqIntro>p{max-width:430px;margin-top:16px;color:#011522;font-size:14px;line-height:1.7}.bc .darkLink{margin-top:24px;color:var(--teal)}
+.bc .faq{border-top:1px solid var(--line)}.bc details{border-bottom:1px solid var(--line)}.bc summary{display:flex;justify-content:space-between;gap:24px;align-items:center;padding:23px 3px;color:#1f403d;font-size:14px;font-weight:750;cursor:pointer;list-style:none}.bc summary::-webkit-details-marker{display:none}.bc summary i{position:relative;width:28px;height:28px;flex:0 0 28px;border:1px solid #d5e4e0;border-radius:50%}.bc summary i:before,.bc summary i:after{content:"";position:absolute;left:50%;top:50%;width:9px;height:1px;background:var(--teal);transform:translate(-50%,-50%)}.bc summary i:after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .2s}.bc details[open] summary i:after{transform:translate(-50%,-50%) rotate(0)}.bc details p{max-width:760px;padding:0 48px 24px 3px;color:#011522;font-size:12px;line-height:1.7}
+
+/* FINAL */
+.bc .final .ctaCard{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:48px;align-items:center;padding:68px 72px;border:1px solid rgba(127,211,208,.22);border-radius:18px;background:rgba(255,255,255,.02)}
+
+.bc .final .ctaEyebrow{display:flex;align-items:center;gap:16px;font-size:13px;font-weight:800;letter-spacing:.22em;color:var(--mint)}
+.bc .final .ctaEyebrow i{display:block;width:56px;height:1px;background:rgba(127,211,208,.4)}
+.bc .final .ctaCopy h2{margin-top:24px;font-size:clamp(40px,4.4vw,66px);font-weight:400;line-height:1.04;letter-spacing:-.05em;color:#fff}
+.bc .final .ctaText{max-width:520px;margin-top:26px;font-size:18px;line-height:1.65;color:#fafafa}
+
+.bc .final .ctaBtns{display:flex;flex-wrap:nowrap;gap:14px;margin-top:38px}
+.bc .final .ctaBtn{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:60px;padding:0 26px;border-radius:10px;font:700 15px/1 Inter,Arial,sans-serif;color:#fff;cursor:pointer;white-space:nowrap;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.bc .final .ctaBtn svg{width:22px;height:22px;stroke-width:1.9}
+.bc .final .ctaBtn.primary{border:1px solid #167273;background:#167273}
+.bc .final .ctaBtn.primary:hover{background:#13aeaa;transform:translateY(-2px)}
+.bc .final .ctaBtn.ghost{border:1px solid rgba(255,255,255,.4);background:transparent}
+.bc .final .ctaBtn.ghost:hover:not(:disabled){border-color:#fff;background:rgba(255,255,255,.06);transform:translateY(-2px)}
+.bc .final .ctaBtn:disabled{opacity:.6;cursor:wait}
+
+.bc .final .ctaSteps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+.bc .final .ctaStep{display:flex;flex-direction:column}
+.bc .final .ctaIconRow{display:flex;align-items:center;gap:16px}
+.bc .final .ctaStep:not(:last-child) .ctaIconRow:after{content:"";flex:1;height:1px;margin-right:24px;margin-left:24px;background:rgba(127,211,208,.3)}
+.bc .final .ctaIcon{display:grid;place-items:center;flex:none;width:56px;height:56px;border:1px solid rgba(127,211,208,.3);border-radius:12px;background:transparent;color:var(--mint)}
+.bc .final .ctaIcon .mi{display:grid;place-items:center;line-height:0}
+.bc .final .ctaIcon svg{width:24px;height:24px;stroke-width:1.5}
+.bc .final .ctaNum{margin-top:32px;font-size:13px;font-weight:800;letter-spacing:.14em;color:var(--mint)}
+.bc .final .ctaStep h3{margin-top:8px;font:400 20px/1.25 Georgia,"Times New Roman",serif;letter-spacing:-.015em;color:#fff}
+.bc .final .ctaStep p{max-width:230px;margin-top:12px;font-size:16px;line-height:1.55;color:#b8d1ce}
+
+@media(max-width:1180px){
+  .bc .final .ctaCard{grid-template-columns:1fr;gap:56px;padding:48px 40px}
+}
+@media(max-width:700px){
+  .bc .final .ctaCard{padding:32px 22px}
+  .bc .final .ctaSteps{grid-template-columns:1fr;gap:32px}
+  .bc .final .ctaStep:not(:last-child) .ctaIconRow:after{display:none}
+  .bc .final .ctaBtn{width:100%}
+}
 
 /* FINAL */
 .bc .final{position:relative;overflow:hidden;padding:86px 0 34px;color:#fff;background:linear-gradient(135deg,#031819,#062629)}
-.bc .final:before{content:"";position:absolute;width:540px;height:540px;right:-140px;top:-260px;border-radius:50%;border:1px solid rgba(127,211,208,.1);box-shadow:0 0 0 80px rgba(127,211,208,.02),0 0 0 160px rgba(127,211,208,.014)}
+.bc .final:before{display:none}
 .bc .finalCard{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:72px;align-items:center;padding:46px;border:1px solid rgba(127,211,208,.16);border-radius:18px;background:rgba(255,255,255,.035)}
 .bc .finalCopy h2{margin-top:12px}.bc .finalCopy>p:not(.eye){max-width:600px;margin-top:16px;color:#b7d0cd;font-size:14px;line-height:1.7}
 .bc .finalImpact{padding:28px;border-radius:14px;background:#f7fbfa;color:var(--ink);box-shadow:0 28px 60px rgba(0,0,0,.22)}.bc .finalImpactTop{display:flex;justify-content:space-between;align-items:center;gap:12px}.bc .finalImpactTop>span{padding:5px 8px;border-radius:5px;background:#eaf6f4;color:var(--teal);font-size:9px;font-weight:800}.bc .finalImpactTop .mi{width:36px;height:36px;border-radius:50%}.bc .finalImpact>strong{display:block;margin-top:20px;color:#0b7272;font-family:Georgia,"Times New Roman",serif;font-size:42px;line-height:1;letter-spacing:-.05em}.bc .finalImpact>p{margin-top:7px!important;color:#5c7672!important;font-size:11px!important}.bc .finalStats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;padding-top:18px;border-top:1px solid #dde9e6}.bc .finalStats span{color:#6b827e;font-size:9px;line-height:1.45}.bc .finalStats b{display:block;color:#173b38;font-size:13px}
-.bc .note{position:relative;z-index:1;display:flex;justify-content:space-between;gap:24px;margin-top:46px;padding-top:20px;border-top:1px solid rgba(255,255,255,.11);color:#7fa4a0;font-size:9px}.bc .note p{max-width:820px}.bc .note a{color:#d6e9e7;font-weight:700;white-space:nowrap}
+.bc .note{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-top:56px;padding-top:28px;border-top:1px solid rgba(127,211,208,.14);color:#8fb0ac;font-size:11px;line-height:1.65}.bc .note p{max-width:760px;letter-spacing:.005em}
+.bc .note p b{color:#e8f5f2;font-weight:700}.bc .note a{flex:none;color:#d6e9e7;font-weight:700;white-space:nowrap;border-bottom:1px solid rgba(127,211,208,.4);padding-bottom:2px;transition:color .2s ease,border-color .2s ease}
+.bc .note a:hover{color:#fff;border-bottom-color:#7fd3d0}
 
 /* REVEAL */
 .bc [data-r]{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}.bc [data-r].in{opacity:1;transform:none}
@@ -3034,9 +3225,9 @@ const css = `
 .bc .modelTop{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:36px}
 .bc .modelIntro{max-width:740px}
 .bc .modelTitleRow{display:flex;align-items:flex-start;gap:20px}
-.bc .modelNumber{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;margin-top:5px;border-radius:10px;background:#eef7f5;color:#087675;font-size:13px;font-weight:700}
+.bc .modelNumber{display:none}
 .bc .modelTitleRow h2{font-size:clamp(34px,3.6vw,52px);line-height:1.06;letter-spacing:-.045em}
-.bc .modelIntro>p{margin:16px 0 0 62px;max-width:610px;font-size:15px;line-height:1.65;color:#011522}
+.bc .modelIntro>p{margin:16px 0 0;max-width:610px;font-size:15px;line-height:1.65;color:#011522}
 .bc .scenarioArea{flex:none;width:340px;min-width:0;margin:0;padding:0}
 .bc .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:3px;border:1px solid #e3ebe8;border-radius:8px;background:transparent;box-shadow:none}
 .bc .seg button{min-height:34px;border:0;border-radius:6px;background:transparent;color:#647674;font:600 12px Inter,Arial,sans-serif;cursor:pointer;padding:0 10px;box-shadow:none;transition:color .2s ease,background .2s ease,box-shadow .2s ease}
@@ -3237,7 +3428,7 @@ const css = `
 
   margin-bottom:20px;
 
-  color:#687d82;
+  color:#011522;
 
   font-family:Inter,"Helvetica Neue",Arial,sans-serif;
   font-size:10px;
@@ -3274,7 +3465,7 @@ const css = `
 .bc .kpiDescription{
   margin-top:17px;
 
-  color:#687c81;
+  color:#011522;
 
   font-family:Georgia,"Times New Roman",serif;
   font-size:15px;
@@ -3337,12 +3528,32 @@ const css = `
 }
 
 .bc .chartTitleRow{
+  position:relative;
   display:flex;
   align-items:center;
   gap:10px;
 
   margin:0 0 25px;
 }
+.bc .chartTitleRow .tipIcon{
+  position:relative;
+  width:19px;
+  height:19px;
+  color:#788d89;
+}
+.bc .chartTitleRow .tipIcon svg{width:17px;height:17px}
+.bc .chartTitleRow .tipIcon:hover,
+.bc .chartTitleRow .tipIcon:focus-visible{color:#087675}
+.bc .chartTitleRow .tipBubble{
+  left:auto;
+  right:-12px;
+  bottom:calc(100% + 10px);
+  width:620px;
+  font-size:12px;
+  line-height:1.5;
+  padding:16px 18px;
+}
+.bc .chartTitleRow .tipBubble br + br{display:block}
 
 .bc .chartTitleRow p{
   color:#183333;
@@ -3585,7 +3796,7 @@ const css = `
  .bc .stepCardBody{grid-template-columns:1.1fr 1fr}.bc .impactPanel{grid-template-columns:1fr;gap:0;padding:24px}.bc .kpis{grid-column:1;grid-row:auto;margin-bottom:28px}.bc .chartTitleRow,.bc .chartShell,.bc .impactNote{grid-column:1;grid-row:auto}.bc .chartShell{height:240px}.bc .kpi b{font-size:29px}
 }
 @media(max-width:600px){
- .bc .modelSec{padding:56px 0}.bc .modelSec .wrap{width:calc(100% - 28px)}.bc .modelTitleRow{gap:12px}.bc .modelNumber{width:32px;height:32px;flex-basis:32px}.bc .modelTitleRow h2{font-size:34px}.bc .modelIntro>p{margin:16px 0 0;font-size:14px}.bc .scenarioArea{width:100%;margin:0}.bc .seg{grid-template-columns:repeat(3,1fr)}.bc .seg button{font-size:11px;padding:0 6px}
+ .bc .modelSec{padding:56px 0}.bc .modelSec .wrap{width:calc(100% - 28px)}.bc .modelTitleRow{gap:12px}.bc .modelTitleRow h2{font-size:34px}.bc .modelIntro>p{margin:16px 0 0;font-size:14px}.bc .scenarioArea{width:100%;margin:0}.bc .seg{grid-template-columns:repeat(3,1fr)}.bc .seg button{font-size:11px;padding:0 6px}
  .bc .stepRail{grid-template-columns:repeat(2,minmax(0,1fr))}.bc .railStep{padding:8px 10px}.bc .stepCard{padding:20px 16px;border-radius:18px}.bc .stepCardTop{width:100%;margin-bottom:20px}.bc .stepCardBody{grid-template-columns:1fr;gap:22px}.bc .stepHeading h3{font-size:30px}.bc .calcField{grid-template-columns:38px minmax(0,1fr) 100px;gap:9px;padding:12px 10px}.bc .fieldControl{grid-column:auto}.bc .fieldLabel{font-size:12px}.bc .fieldCopy small{font-size:11px}.bc .quickTips{margin:0;padding:18px}.bc .tipItem{min-height:64px}.bc .stepActions{display:flex}.bc .stepCount{display:block}
  .bc .impactPanel{padding:20px 16px;border-radius:18px}.bc .impactHead{display:block}.bc .impactHead h3{font-size:30px}.bc .impactBadge{display:inline-block;margin-top:12px}.bc .kpis{grid-template-columns:1fr;gap:10px}.bc .kpi{min-height:110px;align-items:center;padding:18px;gap:16px}.bc .kpi>div{padding:0}.bc .kpi b{font-size:29px}.bc .modelSec .kpi>.mi{width:48px;height:48px;flex-basis:48px}.bc .chart{gap:14px}.bc .chartShell{height:210px;grid-template-columns:40px 1fr}.bc .barItem>span{font-size:9px}.bc .barItem em{font-size:10px}
 }
@@ -3801,7 +4012,7 @@ const css = `
 /* ---- executive summary: deck viewer ---- */
 .bc .summaryHead{max-width:none}
 .bc .summaryHead h2{max-width:none;text-wrap:wrap;font-size:clamp(34px,4vw,60px)}
-.bc .summaryHead p{max-width:none;margin-top:18px;color:#c3dad7;font-size:18px;line-height:1.65}
+.bc .summaryHead p{max-width:none;margin-top:18px;color:#fafafa;font-size:20px;line-height:1.65}
 
 .bc .deckWrap{display:grid;grid-template-columns:170px minmax(0,1fr);gap:24px;align-items:start;margin-top:44px}
 
@@ -3918,8 +4129,8 @@ const css = `
 .bc .summaryHead p{
   max-width:760px;
   margin-top:18px;
-  color:#b6cfcc;
-  font-size:16px;
+  color:#fafafa;
+  font-size:18px;
   line-height:1.7;
 }
 
@@ -4095,10 +4306,10 @@ const css = `
 
 .bc .slide-impact .dsLogo,
 .bc .slide-next .dsLogo{
-  padding:7px 10px;
+  padding:0;
   width:105px;
-  border-radius:7px;
-  background:#fff;
+  border-radius:0;
+  background:none;
 }
 
 .bc .dsTopRight{
@@ -4178,14 +4389,14 @@ const css = `
 .bc .dsSub{
   max-width:470px;
   margin-top:12px;
-  color:#46615e;
+  color:#011522;
   font-size:12px;
   line-height:1.45;
 }
 
 .bc .slide-impact .dsSub,
 .bc .slide-next .dsSub{
-  color:#b8d1ce;
+  color:#fafafa;
 }
 
 .bc .dsBig{
@@ -4233,7 +4444,7 @@ const css = `
   grid-template-columns:7px minmax(0,1fr);
   align-items:start;
   gap:10px;
-  color:#36524f;
+  color:#011522;
   font-size:10px;
   line-height:1.45;
 }
@@ -4404,7 +4615,8 @@ const css = `
   gap:18px;
   padding-top:10px;
   border-top:1px solid #dde5e1;
-  color:#778984;
+  color:#011522;
+  opacity:.8;
   font-size:7px;
 }
 
@@ -4419,14 +4631,17 @@ const css = `
 }
 
 .bc .slide-impact .dsFoot,
-.bc .slide-next .dsFoot{
+.bc .slide-next .dsFoot,
+.bc .slide-proof .dsFoot{
   border-top-color:rgba(127,211,208,.17);
-  color:#7fa5a1;
+  color:#fafafa;
+  opacity:.8;
 }
 
 .bc .slide-impact .dsFoot strong,
-.bc .slide-next .dsFoot strong{
-  color:#dff1ee;
+.bc .slide-next .dsFoot strong,
+.bc .slide-proof .dsFoot strong{
+  color:#fafafa;
 }
 
 /* controls */
@@ -4488,13 +4703,12 @@ const css = `
   gap:10px;
   min-height:46px;
   padding:0 22px;
-  border-radius:999px;
+  border-radius:8px;
   color:#fff;
   font-size:11px;
   font-weight:750;
   cursor:pointer;
   transition:
-    transform .18s ease,
     background .18s ease,
     border-color .18s ease;
 }
@@ -4647,22 +4861,22 @@ const css = `
 .bc .dsCard .mi svg{width:21px;height:21px}
 .bc .dsCard small{font-size:11px;font-weight:700;letter-spacing:0;text-transform:none;color:#0a2728}
 .bc .dsCard strong{margin-top:6px;font-size:clamp(22px,2.3vw,32px)}
-.bc .dsCard p{margin-top:8px;font-size:9.5px;color:#5f7773}
+.bc .dsCard p{margin-top:8px;font-size:9.5px;color:#011522}
 
 /* paragraph under the title */
-.bc .dsLead{max-width:340px;margin-top:18px;font-size:13px;line-height:1.65;color:#4b625f}
+.bc .dsLead{max-width:340px;margin-top:18px;font-size:13px;line-height:1.65;color:#011522}
 
 /* ---- slide 4: customer evidence (dark, full-width cards) ---- */
 .bc .deckSlide.slide-proof{
   background:radial-gradient(circle at 78% 46%,rgba(22,114,115,.22),transparent 35%),#061f20;
   color:#fff;
 }
-.bc .slide-proof .dsLogo{padding:7px 10px;width:105px;border-radius:7px;background:#fff}
+.bc .slide-proof .dsLogo{padding:0;width:105px;border-radius:0;background:none}
 .bc .slide-proof .dsTopRight{color:#9fbebb}
 .bc .slide-proof .dsKicker{color:#7fd3d0}
 .bc .slide-proof textarea{color:#fff}
-.bc .slide-proof .dsSub{color:#b8d1ce;max-width:none}
-.bc .slide-proof .dsFoot{border-top-color:rgba(127,211,208,.17);color:#7fa5a1}
+.bc .slide-proof .dsSub{color:#fafafa;max-width:none}
+.bc .slide-proof .dsFoot{border-top-color:rgba(127,211,208,.17);color:#fafafa}
 .bc .slide-proof .dsFoot strong{color:#dff1ee}
 
 /* image on the right is removed for this slide; cards take the full width */
@@ -4715,7 +4929,7 @@ const css = `
 
 .bc .dsRiskRow>span.mi svg{width:16px;height:16px;stroke-width:1.7}
 .bc .slide-risks .dsRiskRow strong{font:700 12px Georgia,"Times New Roman",serif;letter-spacing:-.02em;color:#0a2728}
-.bc .slide-risks .dsRiskRow p{padding-left:18px;border-left:1px solid #dce5e2;font-size:9.5px;line-height:1.4;color:#5f716e}
+.bc .slide-risks .dsRiskRow p{padding-left:18px;border-left:1px solid #dce5e2;font-size:9.5px;line-height:1.4;color:#011522}
 
 @media(max-width:760px){
   .bc .slide-risks .dsRiskRow{grid-template-columns:24px 30px minmax(0,1fr)}
@@ -4740,8 +4954,8 @@ const css = `
 .bc .dsNextTop .mi{display:grid;place-items:center;width:28px;height:28px;border-radius:7px;background:rgba(127,211,208,.1);color:#7fd3d0}
 .bc .dsNextTop .mi svg{width:15px;height:15px;stroke-width:1.7}
 .bc .dsNextCard>strong{margin-top:14px;font:700 11px/1.25 Georgia,"Times New Roman",serif;letter-spacing:-.01em;color:#fff}
-.bc .dsNextCard>p,.bc .dsNextCard>a{margin-top:5px;font-size:9px;line-height:1.4;color:#b8d1ce}
-.bc .dsNextCard>a{color:#7fd3d0;text-decoration:none;transition:color .2s ease}
+.bc .dsNextCard>p{margin-top:5px;font-size:9px;line-height:1.4;color:#b8d1ce}
+.bc .dsNextCard>a{margin-top:10px;font-size:9px;line-height:1.4;color:#7fd3d0;text-decoration:none;transition:color .2s ease}
 .bc .dsNextCard>a:hover{color:#fff}
 
 @media(max-width:760px){
@@ -4760,7 +4974,7 @@ const css = `
 .bc .dsImpactTop .mi,.bc .dsImpactTotal .mi{display:grid;place-items:center;flex:none;width:30px;height:30px;border:1px solid rgba(127,211,208,.3);border-radius:8px;background:rgba(127,211,208,.1);color:#7fd3d0}
 .bc .dsImpactTop .mi svg,.bc .dsImpactTotal .mi svg{width:16px;height:16px;stroke-width:1.7}
 .bc .dsImpactCard>strong{margin-top:12px;font:700 clamp(18px,2.2vw,30px)/1 Georgia,"Times New Roman",serif;letter-spacing:-.04em;color:#7fd3d0;white-space:nowrap}
-.bc .dsImpactCard>p{margin-top:6px;font-size:10px;line-height:1.4;color:#b8d1ce}
+.bc .dsImpactCard>p{margin-top:6px;font-size:10px;line-height:1.4;color:#fafafa}
 
 .bc .dsImpactTotal{grid-column:1/-1;display:flex;align-items:center;gap:18px;padding:12px 16px;border:1px solid rgba(127,211,208,.4);border-radius:10px;background:linear-gradient(90deg,rgba(22,114,115,.45),rgba(22,114,115,.12))}
 .bc .dsImpactTotal>strong{font:700 clamp(18px,2.4vw,32px)/1 Georgia,"Times New Roman",serif;letter-spacing:-.04em;color:#fff;white-space:nowrap}
@@ -4782,7 +4996,7 @@ const css = `
 .bc .deckSlide .dsLogo{width:150px}
 .bc .deckSlide.slide-impact .dsLogo,
 .bc .deckSlide.slide-next .dsLogo,
-.bc .deckSlide.slide-proof .dsLogo{width:172px;padding:10px 16px;border-radius:10px;background:#fff}
+.bc .deckSlide.slide-proof .dsLogo{width:172px;padding:0;border-radius:0;background:none}
 .bc .deckSlide .dsTopRight{gap:36px;font-size:15px;letter-spacing:.05em}
 .bc .deckSlide .dsTopRight span{display:inline;margin:0}
 
@@ -5003,7 +5217,7 @@ const css = `
   min-height:60px;
   padding:0 34px;
   gap:14px;
-  border-radius:14px;
+  border-radius:8px;
   font:650 16px/1 Inter,Arial,sans-serif;
   letter-spacing:.01em;
 }
@@ -5011,14 +5225,14 @@ const css = `
 
 .bc .deckStage .deckBtn.primary{
   min-width:300px;
-  border:1px solid rgba(127,211,208,.45);
-  background:linear-gradient(135deg,#17a6a1 0%,#087675 100%);
-  box-shadow:0 14px 34px rgba(8,118,117,.32),inset 0 1px 0 rgba(255,255,255,.18);
+  border:1px solid #167273;
+  background:#167273;
+  box-shadow:none;
 }
 .bc .deckStage .deckBtn.primary:hover:not(:disabled){
-  transform:translateY(-2px);
-  background:linear-gradient(135deg,#1dbab4 0%,#0a8582 100%);
-  box-shadow:0 18px 40px rgba(8,118,117,.4),inset 0 1px 0 rgba(255,255,255,.22);
+  background:#1a8586;
+  border-color:#1a8586;
+  box-shadow:none;
 }
 
 .bc .deckStage .deckBtn.ghost{
@@ -5046,4 +5260,99 @@ const css = `
   .bc .deckStage .deckBtn.ghost{width:100%;min-width:0}
 }
 
+
+/* =========================================================
+   MOBILE OVERRIDES — keep at the very end of the css string
+   ========================================================= */
+.bc{overflow-x:clip}
+
+@media(max-width:900px){
+  /* impact panel: stack chart under KPIs */
+  .bc .impactChartArea{grid-column:1;grid-row:auto;margin-top:8px}
+  .bc .impactHead{flex-direction:column;gap:16px}
+  .bc .impactHead .seg{width:100%}
+
+  /* calculator: single column */
+  .bc .stepCardBody{grid-template-columns:1fr}
+  .bc .stepCardTop{width:100%}
+  .bc .quickTips{margin-top:0}
+  .bc .railStep{min-height:64px}
+}
+
+@media(max-width:600px){
+  .bc .wrap,
+  .bc .modelSec .wrap{width:calc(100% - 32px)}
+
+  /* hero */
+  .bc .deck{font-size:16px;line-height:1.65}
+  .bc .btns .btn{width:100%}
+
+  /* calculator */
+  .bc .modelSec{padding:48px 0 56px}
+  .bc .stepCard{padding:18px 14px}
+  .bc .stepHeading h3{font-size:28px}
+  .bc .stepHeading p{font-size:14px}
+  .bc .calcField{position:relative;grid-template-columns:minmax(0,1fr) 128px;padding:14px 12px}
+  .bc .fieldControl input{font-size:17px}
+  .bc .quickTips{padding:20px 16px}
+  .bc .quickTipsHead h4{font-size:24px}
+  .bc .tipNum{flex-basis:36px;width:36px;height:36px}
+
+  /* tooltips: anchor to the card so they never run off-screen */
+  .bc .fieldLabel .tipIcon,
+  .bc .chartTitleRow .tipIcon{position:static}
+  .bc .fieldLabel .tipBubble,
+  .bc .chartTitleRow .tipBubble{left:0;right:0;width:auto;bottom:calc(100% + 8px)}
+  .bc .fieldLabel .tipBubble:after,
+  .bc .chartTitleRow .tipBubble:after{display:none}
+
+  /* impact panel */
+  .bc .impactPanel{padding:20px 14px}
+  .bc .impactHead h3{font-size:28px}
+  .bc .kpis{gap:10px;margin-bottom:20px}
+  .bc .kpi{align-items:flex-start;gap:0;min-height:0;padding:20px 18px}
+  .bc .kpiLabel{margin-bottom:12px}
+  .bc .kpiValue{font-size:30px}
+  .bc .kpiDescription{margin-top:10px;font-size:14px;text-align:left}
+
+  /* chart */
+  .bc .chartShell{height:270px;grid-template-columns:44px minmax(0,1fr);gap:6px}
+  .bc .axis{padding-bottom:58px}
+  .bc .gridLines{inset:0 0 58px}
+  .bc .chart{gap:8px;padding:0 2px 58px}
+  .bc .barItem .bar{width:80%}
+  .bc .barItem em{font-size:12px}
+  .bc .barItem>span{width:100%;top:calc(100% + 10px);font-size:11px}
+  .bc .impactNote{grid-template-columns:12px minmax(0,1fr);gap:12px;padding:14px}
+  .bc .impactNote:before{display:none}
+
+  /* executive summary */
+  .bc .summarySec{padding:64px 0 72px}
+  .bc .summaryHead h2{font-size:34px}
+  .bc .summaryHead p{font-size:15px}
+  .bc .deckWrap{margin-top:32px;gap:16px}
+  .bc .deckStage .deckBar{margin-top:20px;padding-top:20px}
+  .bc .deckStage .deckNav button{width:48px;height:48px}
+  .bc .deckStage .deckBtn{min-height:54px;padding:0 20px;font-size:15px}
+
+  /* FAQ */
+  .bc .faqSec{padding-block:56px}
+  .bc .faqSec .faqIntro h2{font-size:34px;line-height:1.08}
+  .bc .faqSec .faqIntro>p{font-size:16px;margin-top:18px}
+  .bc .faqSec .faqIntro .textAction{font-size:16px;margin-top:24px}
+  .bc .faqSec .faqIntro .textAction svg{width:20px;height:20px}
+  .bc .faqSec .faq summary span{font-size:19px}
+  .bc .faqSec .faq .faqNum{font-size:13px}
+  .bc .faqSec .faq details p{font-size:16px}
+
+  /* final CTA: this is the cut-off in screenshot 1 */
+  .bc .final{padding:56px 0 28px}
+  .bc .final .ctaCard{grid-template-columns:minmax(0,1fr);gap:36px;padding:28px 20px}
+  .bc .final .ctaCopy{min-width:0}
+  .bc .final .ctaCopy h2{font-size:36px}
+  .bc .final .ctaText{font-size:16px}
+  .bc .final .ctaBtns{flex-direction:column;flex-wrap:wrap;gap:12px}
+  .bc .final .ctaBtn{width:100%;white-space:normal;min-height:56px}
+  .bc .final .ctaStep p{max-width:none;font-size:15px}
+}
 `;

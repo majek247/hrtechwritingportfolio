@@ -17,7 +17,7 @@ export default function Footer() {
               />
             </a>
             <p className="mt-6 max-w-[320px] font-serif text-[22px] leading-[1.45] text-[#e8e4d9]">
-              Fintech content built to support search, sales and pipeline.
+          Content built to support search, sales and pipeline.
             </p>
           </div>
 
@@ -74,7 +74,7 @@ export default function Footer() {
               Let&rsquo;s talk
             </p>
             <h3 className="mt-6 max-w-[340px] font-serif text-[30px] font-normal leading-[1.2] tracking-[-.02em] text-[#f6f2e8]">
-     Have an HR tech content project in mind?
+     Have a content project in mind?
             </h3>
             <a
               href="https://www.seo-growup.com/get-in-touch"

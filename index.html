@@ -32,6 +32,16 @@
         document.head.appendChild(n);
       }
     </script>
+    <script>
+      if (location.pathname.indexOf("maki-business-case") > -1) {
+        var m = document.createElement("link");
+        m.rel = "preload";
+        m.as = "image";
+        m.href = "/images/maki-exec-summary.png";
+        m.fetchPriority = "high";
+        document.head.appendChild(m);
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
