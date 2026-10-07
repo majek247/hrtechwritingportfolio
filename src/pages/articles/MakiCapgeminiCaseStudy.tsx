@@ -37,6 +37,9 @@ type IconName =
   | "check"
   | "briefcase"
   | "layers"
+  | "user"
+  | "gear"
+  | "link"
   | "arrow";
 
 const SCN: Record<
@@ -53,6 +56,10 @@ const proof = [
   {
     id: "cap",
     name: "Capgemini",
+    logo: "/images/logos/capgemini.svg",
+    href: "https://www.makipeople.com/customers/capgemini",
+    icon: "clock",
+    note: "Faster hiring across global roles.",
     stat: "Under 10 days",
     line: "time to hire, from several weeks",
     stat2: "95%",
@@ -61,6 +68,10 @@ const proof = [
   {
     id: "del",
     name: "Deloitte France",
+logo: "/images/logos/deloitte-white.svg",
+    href: "https://www.makipeople.com/customers/deloitte-france",
+    icon: "people",
+    note: "A better experience for every candidate.",
     stat: "94.2%",
     line: "positive candidate feedback",
     stat2: "Faster",
@@ -69,6 +80,10 @@ const proof = [
   {
     id: "asos",
     name: "ASOS",
+    logo: "/images/logos/asos-white.svg",
+    href: "https://www.makipeople.com/customers/asos",
+    icon: "spark",
+    note: "Higher candidate satisfaction at scale.",
     stat: "93%+",
     line: "positive candidate feedback",
     stat2: "Skills",
@@ -77,6 +92,10 @@ const proof = [
   {
     id: "trg",
     name: "The Restaurant Group",
+    logo: "",
+    href: "",
+    icon: "layers",
+    note: "No manual screening needed.",
     stat: "300+",
     line: "locations hiring at the frontline",
     stat2: "None",
@@ -208,6 +227,38 @@ const stepTips: Record<StepId, Array<{ title: string; text: string }>> = {
     },
   ],
 };
+
+const riskIcons: IconName[] = ["chart", "user", "people", "gear"];
+
+const riskIconSvg: Record<string, string> = {
+  chart: '<path d="M5 19V9M12 19V5M19 19v-7"/><path d="M3 19h18"/>',
+  clock: '<circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/>',
+  calendar:
+    '<rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 3v6M16 3v6M4 10h16M8 14h2M14 14h2"/>',
+  coins:
+    '<ellipse cx="12" cy="7" rx="6" ry="3"/><path d="M6 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M6 11v4c0 1.7 2.7 3 6 3s6-1.3 6-3v-4"/>',
+  hires:
+    '<rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/>',
+  link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6"/>',
+  people:
+    '<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2"/><path d="M3.5 19c.5-4 2.5-6 5.5-6s5 2 5.5 6"/><path d="M14 14c3 0 5 1.7 5.5 5"/>',
+  gear: '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+};
+
+async function iconToPng(name: string, color = "#087675") {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="192" height="192" fill="none" stroke="${color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${riskIconSvg[name]}</svg>`;
+  const img = new Image();
+  img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+  await img.decode();
+  const canvas = document.createElement("canvas");
+  canvas.width = 192;
+  canvas.height = 192;
+  canvas.getContext("2d")!.drawImage(img, 0, 0, 192, 192);
+  return canvas.toDataURL("image/png");
+}
+
+
 const gbp = (n: number) =>
   new Intl.NumberFormat("en-GB", {
     style: "currency",
@@ -242,15 +293,16 @@ type Slide = {
   big?: string;
   sub?: string;
   bullets: string[];
+  bulletIcons?: IconName[];
   visual: string;
   chart?: { labels: string[]; values: number[] };
 };
 
 const deckAssets = {
   logo: "/images/maki-logo-black.png",
-  cover: "/images/01-assess-first.png",
+  cover: "/images/make-hero-slide.png",
   current: "/images/02-current-state.png",
-  impact: "/images/03-projected-impact.png",
+  impact: "/images/03-project-impact.png",
   proof: "/images/04-customer-proof.png",
   risks: "/images/05-risk-controls.png",
   next: "/images/06-next-steps.png",
@@ -267,6 +319,21 @@ async function imageUrlToDataUri(url: string) {
     reader.onerror = reject;
     reader.readAsDataURL(blob);
   });
+}
+
+async function whiteLogoPng(url: string) {
+  const img = new Image();
+  img.src = url;
+  await img.decode();
+  const w = (img.naturalWidth || 400) * 2;
+  const h = (img.naturalHeight || 120) * 2;
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext("2d")!;
+  ctx.filter = "brightness(0) invert(1)";
+  ctx.drawImage(img, 0, 0, w, h);
+  return canvas.toDataURL("image/png");
 }
 
 function Icon({ name, className = "" }: { name: IconName; className?: string }) {
@@ -361,6 +428,24 @@ function Icon({ name, className = "" }: { name: IconName; className?: string }) 
       <>
         <path d="m12 3 8 4-8 4-8-4 8-4Z" />
         <path d="m4 12 8 4 8-4M4 17l8 4 8-4" />
+      </>
+    ),
+    user: (
+      <>
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" />
+      </>
+    ),
+    gear: (
+      <>
+        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+        <circle cx="12" cy="12" r="3" />
+      </>
+    ),
+    link: (
+      <>
+        <path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1" />
+        <path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" />
       </>
     ),
     arrow: <path d="M4 12h15m-6-6 6 6-6 6" />,
@@ -490,6 +575,19 @@ export default function MakiBusinessCaseBuilder({
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  const deckRef = useRef<HTMLDivElement>(null);
+  const [deckScale, setDeckScale] = useState(1);
+
+  useEffect(() => {
+    const el = deckRef.current;
+    if (!el) return;
+    const update = () => setDeckScale(el.clientWidth / 1280);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   useEffect(() => {
     const el = root.current;
     if (!el) return;
@@ -543,6 +641,57 @@ export default function MakiBusinessCaseBuilder({
 
   const chosen = proof.filter((p) => picked.includes(p.id));
 
+  const nextSteps: Array<{
+    title: string;
+    detail: string;
+    icon: IconName;
+    href?: string;
+  }> = [
+    {
+      title: "Approve a focused pilot",
+      detail: "for a defined role group or market.",
+      icon: "hires",
+    },
+    {
+      title: "Agree success measures",
+      detail: "before launch.",
+      icon: "chart",
+    },
+    {
+      title: "Request a Maki demo",
+      detail: demoHref.replace("https://", ""),
+      icon: "link",
+      href: demoHref,
+    },
+  ];
+
+  const impactCards: Array<{ icon: IconName; value: string; label: string }> = [
+    {
+      icon: "clock",
+      value: num(c.hours),
+      label: "recruiter hours returned per year",
+    },
+    {
+      icon: "calendar",
+      value: String(Math.round(c.daysSaved)),
+      label: "fewer days to hire",
+    },
+    {
+      icon: "chart",
+      value: gbp(cost > 0 ? c.net3 : c.three),
+      label:
+        cost > 0
+          ? "net estimated benefit over three years"
+          : "estimated benefit over three years before Maki cost",
+    },
+  ];
+
+  const impactTotal: { icon: IconName; value: string; label: string } = {
+    icon: "coins",
+    value: gbp(c.annual),
+    label: "estimated annual benefit",
+  };
+
   const slides: Slide[] = [
     {
       layout: "cover",
@@ -553,6 +702,7 @@ export default function MakiBusinessCaseBuilder({
         `Across ${num(units)} markets or business units`,
         "Built from your hiring inputs and selected customer evidence",
       ],
+      bulletIcons: ["globe", "chart"] as IconName[],
       visual: deckAssets.cover,
     },
     {
@@ -689,6 +839,22 @@ export default function MakiBusinessCaseBuilder({
         keyof typeof deckAssets,
         string
       >;
+            const riskPngs = await Promise.all(riskIcons.map((name) => iconToPng(name)));
+      const nextPngs = await Promise.all(
+        nextSteps.map((item) => iconToPng(item.icon, "#7FD3D0")),
+      );
+      const impactPngs = await Promise.all(
+        [...impactCards, impactTotal].map((item) =>
+          iconToPng(item.icon, "#7FD3D0"),
+        ),
+      );
+
+            const logoEntries = await Promise.all(
+        proof
+          .filter((item) => item.logo)
+          .map(async (item) => [item.id, await whiteLogoPng(item.logo)] as const),
+      );
+      const logos = Object.fromEntries(logoEntries) as Record<string, string>;
 
       const C = {
         deep: "041B1C",
@@ -880,7 +1046,8 @@ export default function MakiBusinessCaseBuilder({
 
       slides.forEach((x, i) => {
         const d = p.addSlide();
-        const dark = x.layout === "impact" || x.layout === "next";
+        const dark =
+          x.layout === "impact" || x.layout === "next" || x.layout === "proof";
         d.background = { color: dark ? C.deep : C.cream };
 
         addTopBrand(d, i + 1, dark);
@@ -991,6 +1158,165 @@ export default function MakiBusinessCaseBuilder({
         if (x.layout === "impact") {
           d.addText(titles[i] ?? x.title, {
             x: 0.72,
+            y: 1.7,
+            w: 11.9,
+            h: 0.9,
+            fontFace: "Georgia",
+            fontSize: 34,
+            bold: true,
+            color: C.white,
+            margin: 0,
+          });
+
+          d.addText("Based on your inputs, scenario and selected customer evidence.", {
+            x: 0.74,
+            y: 2.67,
+            w: 9,
+            h: 0.32,
+            fontFace: "Arial",
+            fontSize: 14,
+            color: "B5CECB",
+            margin: 0,
+          });
+
+          const gap = 0.3;
+          const cw = (11.9 - gap * 2) / 3;
+
+          impactCards.forEach((item, index) => {
+            const cx = 0.7 + index * (cw + gap);
+            const cy = 3.2;
+
+            d.addShape(p.ShapeType.roundRect, {
+              x: cx,
+              y: cy,
+              w: cw,
+              h: 2.2,
+              rectRadius: 0.08,
+              line: { color: "31595A", width: 1 },
+              fill: { color: "0A3334" },
+            });
+
+            d.addShape(p.ShapeType.roundRect, {
+              x: cx + 0.3,
+              y: cy + 0.25,
+              w: 0.5,
+              h: 0.5,
+              rectRadius: 0.08,
+              line: { color: "31595A", width: 1 },
+              fill: { color: "123F40" },
+            });
+
+            d.addImage({
+              data: impactPngs[index],
+              x: cx + 0.43,
+              y: cy + 0.38,
+              w: 0.24,
+              h: 0.24,
+            });
+
+            d.addShape(p.ShapeType.line, {
+              x: cx + 1.0,
+              y: cy + 0.5,
+              w: cw - 1.3,
+              h: 0,
+              line: { color: "31595A", width: 1 },
+            });
+
+            d.addText(item.value, {
+              x: cx + 0.3,
+              y: cy + 0.9,
+              w: cw - 0.6,
+              h: 0.6,
+              fontFace: "Georgia",
+              fontSize: 28,
+              bold: true,
+              color: C.mint,
+              margin: 0,
+              valign: "mid",
+              fit: "shrink",
+            });
+
+            d.addText(item.label, {
+              x: cx + 0.3,
+              y: cy + 1.5,
+              w: cw - 0.6,
+              h: 0.55,
+              fontFace: "Arial",
+              fontSize: 11.5,
+              color: "B5CECB",
+              margin: 0,
+              valign: "top",
+            });
+          });
+
+          const wy = 5.6;
+
+          d.addShape(p.ShapeType.roundRect, {
+            x: 0.7,
+            y: wy,
+            w: 11.9,
+            h: 1.1,
+            rectRadius: 0.08,
+            line: { color: C.mint, transparency: 55, width: 1 },
+            fill: { color: "0B4A49" },
+          });
+
+          d.addShape(p.ShapeType.roundRect, {
+            x: 1.0,
+            y: wy + 0.3,
+            w: 0.5,
+            h: 0.5,
+            rectRadius: 0.08,
+            line: { color: "31595A", width: 1 },
+            fill: { color: "123F40" },
+          });
+
+          d.addImage({
+            data: impactPngs[impactCards.length],
+            x: 1.13,
+            y: wy + 0.43,
+            w: 0.24,
+            h: 0.24,
+          });
+
+          d.addText(impactTotal.value, {
+            x: 1.85,
+            y: wy,
+            w: 5.0,
+            h: 1.1,
+            fontFace: "Georgia",
+            fontSize: 34,
+            bold: true,
+            color: C.white,
+            margin: 0,
+            valign: "mid",
+            fit: "shrink",
+          });
+
+          d.addShape(p.ShapeType.line, {
+            x: 7.0,
+            y: wy + 0.3,
+            w: 0,
+            h: 0.5,
+            line: { color: C.mint, transparency: 55, width: 1 },
+          });
+
+          d.addText(impactTotal.label, {
+            x: 7.3,
+            y: wy,
+            w: 5.0,
+            h: 1.1,
+            fontFace: "Arial",
+            fontSize: 16,
+            color: "E0EFEC",
+            margin: 0,
+            valign: "mid",
+          });
+        }
+
+        if (false) {
+          d.addText(titles[i] ?? x.title, {
+            x: 0.72,
             y: 1.67,
             w: 5.3,
             h: 0.8,
@@ -1069,98 +1395,168 @@ export default function MakiBusinessCaseBuilder({
           }
         }
 
+ 
+
         if (x.layout === "proof") {
           d.addText(titles[i] ?? x.title, {
             x: 0.72,
             y: 1.68,
-            w: 6.0,
+            w: 9.5,
             h: 0.8,
             fontFace: "Georgia",
-            fontSize: 32,
+            fontSize: 34,
             bold: true,
-            color: C.ink,
+            color: C.white,
             margin: 0,
           });
 
           d.addText(x.sub ?? "", {
             x: 0.74,
             y: 2.55,
-            w: 4.6,
+            w: 6,
             h: 0.3,
             fontFace: "Arial",
             fontSize: 13,
-            color: C.muted,
+            color: "B5CECB",
             margin: 0,
           });
 
           const cards = chosen.length ? chosen.slice(0, 3) : proof.slice(0, 3);
+          const gap = 0.3;
+          const cw = (11.9 - gap * 2) / 3;
 
           cards.forEach((item, index) => {
-            const yy = 3.12 + index * 1.02;
+            const cx = 0.7 + index * (cw + gap);
+            const cy = 3.15;
 
             d.addShape(p.ShapeType.roundRect, {
-              x: 0.72,
-              y: yy,
-              w: 5.45,
-              h: 0.83,
-              rectRadius: 0.06,
-              line: { color: "DCE6E3", width: 1 },
-              fill: { color: "FFFFFF" },
+              x: cx,
+              y: cy,
+              w: cw,
+              h: 3.45,
+              rectRadius: 0.08,
+              line: { color: "31595A", width: 1 },
+              fill: { color: "0A3334" },
             });
 
-            d.addText(item.name, {
-              x: 0.96,
-              y: yy + 0.16,
-              w: 1.85,
-              h: 0.22,
-              fontFace: "Arial",
-              fontSize: 10,
-              bold: true,
-              color: C.teal,
-              margin: 0,
+            if (logos[item.id]) {
+              d.addImage({
+                data: logos[item.id],
+                x: cx + 0.3,
+                y: cy + 0.3,
+                w: 1.9,
+                h: 0.36,
+                sizing: { type: "contain", w: 1.9, h: 0.36 },
+              });
+            } else {
+              d.addText(item.name, {
+                x: cx + 0.3,
+                y: cy + 0.3,
+                w: cw - 0.6,
+                h: 0.36,
+                fontFace: "Arial",
+                fontSize: 13,
+                bold: true,
+                color: C.white,
+                margin: 0,
+              });
+            }
+
+            d.addShape(p.ShapeType.line, {
+              x: cx + 0.3,
+              y: cy + 0.9,
+              w: cw - 0.6,
+              h: 0,
+              line: { color: "31595A", width: 1 },
             });
 
             d.addText(item.stat, {
-              x: 2.75,
-              y: yy + 0.1,
-              w: 1.25,
-              h: 0.27,
+              x: cx + 0.3,
+              y: cy + 1.1,
+              w: cw - 0.6,
+              h: 0.6,
               fontFace: "Georgia",
-              fontSize: 16,
+              fontSize: 28,
               bold: true,
-              color: C.ink,
+              color: C.white,
               margin: 0,
+              valign: "mid",
             });
 
             d.addText(item.line, {
-              x: 4.0,
-              y: yy + 0.14,
-              w: 1.85,
-              h: 0.36,
+              x: cx + 0.3,
+              y: cy + 1.75,
+              w: cw - 0.6,
+              h: 0.5,
               fontFace: "Arial",
-              fontSize: 9.5,
-              color: C.muted,
+              fontSize: 11.5,
+              color: "B5CECB",
+              margin: 0,
+              valign: "top",
+            });
+
+            d.addShape(p.ShapeType.roundRect, {
+              x: cx + 0.3,
+              y: cy + 2.5,
+              w: 0.5,
+              h: 0.5,
+              rectRadius: 0.08,
+              line: { color: C.mint, width: 1 },
+              fill: { color: "0A3334" },
+            });
+
+            d.addText("✓", {
+              x: cx + 0.3,
+              y: cy + 2.5,
+              w: 0.5,
+              h: 0.5,
+              fontFace: "Arial",
+              fontSize: 13,
+              bold: true,
+              color: C.mint,
+              align: "center",
+              valign: "mid",
               margin: 0,
             });
-          });
 
-          d.addImage({
-            data: assets.proof,
-            x: 6.35,
-            y: 1.5,
-            w: 6.1,
-            h: 5.0,
+            d.addText(item.note, {
+              x: cx + 0.95,
+              y: cy + 2.45,
+              w: cw - 1.25,
+              h: 0.6,
+              fontFace: "Arial",
+              fontSize: 10.5,
+              color: "E0EFEC",
+              margin: 0,
+              valign: "mid",
+            });
+
+            if (item.href) {
+              d.addText("Read the case study →", {
+                x: cx + 0.3,
+                y: cy + 3.08,
+                w: cw - 0.6,
+                h: 0.25,
+                fontFace: "Arial",
+                fontSize: 10,
+                bold: true,
+                color: C.mint,
+                margin: 0,
+                hyperlink: { url: item.href, tooltip: item.name },
+              });
+            }
           });
         }
+  
 
-        if (x.layout === "risks") {
+             if (x.layout === "risks") {
           d.addText(titles[i] ?? x.title, {
             x: 0.72,
             y: 1.68,
-            w: 6.0,
-            h: 0.85,
+            w: 11.9,
+            h: 0.9,
             fontFace: "Georgia",
-            fontSize: 31,
+            fontSize: 34,
             bold: true,
             color: C.ink,
             margin: 0,
@@ -1168,66 +1564,89 @@ export default function MakiBusinessCaseBuilder({
 
           x.bullets.forEach((item, index) => {
             const [risk, action] = item.split(":");
-            const yy = 2.85 + index * 0.83;
+            const yy = 2.9 + index * 0.98;
 
-            d.addText(String(index + 1).padStart(2, "0"), {
-              x: 0.74,
-              y: yy + 0.02,
-              w: 0.42,
-              h: 0.22,
-              fontFace: "Arial",
-              fontSize: 9,
-              bold: true,
-              color: C.teal,
-              margin: 0,
+            d.addShape(p.ShapeType.roundRect, {
+              x: 0.7,
+              y: yy,
+              w: 11.9,
+              h: 0.82,
+              rectRadius: 0.08,
+              line: { color: "DCE6E3", width: 1 },
+              fill: { color: "FFFFFF" },
             });
 
-            d.addText(risk ?? item, {
-              x: 1.25,
+            d.addText(String(index + 1).padStart(2, "0"), {
+              x: 0.95,
               y: yy,
-              w: 1.7,
-              h: 0.25,
+              w: 0.5,
+              h: 0.82,
               fontFace: "Arial",
               fontSize: 11,
               bold: true,
-              color: C.ink,
+              color: C.teal,
               margin: 0,
+              valign: "mid",
             });
 
-            d.addText(action?.trim() ?? "", {
-              x: 2.95,
+            d.addShape(p.ShapeType.roundRect, {
+              x: 1.6,
+              y: yy + 0.14,
+              w: 0.54,
+              h: 0.54,
+              rectRadius: 0.1,
+              line: { color: "E8F5F2", transparency: 100 },
+              fill: { color: "E8F5F2" },
+            });
+
+            d.addImage({
+              data: riskPngs[index] ?? riskPngs[0],
+              x: 1.73,
+              y: yy + 0.27,
+              w: 0.28,
+              h: 0.28,
+            });
+
+            d.addText(risk ?? item, {
+              x: 2.5,
               y: yy,
-              w: 3.05,
-              h: 0.42,
-              fontFace: "Arial",
-              fontSize: 10.2,
-              color: C.muted,
+              w: 3.2,
+              h: 0.82,
+              fontFace: "Georgia",
+              fontSize: 15,
+              bold: true,
+              color: C.ink,
               margin: 0,
+              valign: "mid",
             });
 
             d.addShape(p.ShapeType.line, {
-              x: 0.74,
-              y: yy + 0.55,
-              w: 5.25,
-              h: 0,
-              line: { color: "DEE7E4", width: 0.8 },
+              x: 5.85,
+              y: yy + 0.2,
+              w: 0,
+              h: 0.42,
+              line: { color: "DCE6E3", width: 1 },
             });
-          });
 
-          d.addImage({
-            data: assets.risks,
-            x: 6.35,
-            y: 1.5,
-            w: 6.1,
-            h: 5.0,
+            d.addText(action?.trim() ?? "", {
+              x: 6.15,
+              y: yy,
+              w: 6.2,
+              h: 0.82,
+              fontFace: "Arial",
+              fontSize: 13,
+              color: "5F716E",
+              margin: 0,
+              valign: "mid",
+            });
           });
         }
 
-        if (x.layout === "next") {
+             if (x.layout === "next") {
           d.addText(titles[i] ?? x.title, {
             x: 0.72,
             y: 1.7,
-            w: 5.8,
+            w: 11.9,
             h: 0.9,
             fontFace: "Georgia",
             fontSize: 34,
@@ -1239,61 +1658,122 @@ export default function MakiBusinessCaseBuilder({
           d.addText(x.sub ?? "", {
             x: 0.74,
             y: 2.67,
-            w: 4.6,
+            w: 6,
             h: 0.32,
             fontFace: "Arial",
             fontSize: 14,
-            bold: true,
-            color: C.mint,
+            color: "B5CECB",
             margin: 0,
           });
 
-          x.bullets.forEach((item, index) => {
-            const yy = 3.35 + index * 0.86;
+          const gap = 0.3;
+          const cw = (11.9 - gap * 2) / 3;
+
+          nextSteps.forEach((item, index) => {
+            const cx = 0.7 + index * (cw + gap);
+            const cy = 3.4;
+
+            d.addShape(p.ShapeType.roundRect, {
+              x: cx,
+              y: cy,
+              w: cw,
+              h: 2.9,
+              rectRadius: 0.08,
+              line: { color: "31595A", width: 1 },
+              fill: { color: "0A3334" },
+            });
 
             d.addShape(p.ShapeType.ellipse, {
-              x: 0.75,
-              y: yy - 0.02,
-              w: 0.38,
-              h: 0.38,
-              line: { color: C.mint, width: 1.2 },
-              fill: { color: C.deep },
+              x: cx + 0.3,
+              y: cy + 0.3,
+              w: 0.44,
+              h: 0.44,
+              line: { color: C.mint, width: 1 },
+              fill: { color: "0A3334" },
             });
 
             d.addText(String(index + 1).padStart(2, "0"), {
-              x: 0.75,
-              y: yy + 0.085,
-              w: 0.38,
-              h: 0.12,
+              x: cx + 0.3,
+              y: cy + 0.3,
+              w: 0.44,
+              h: 0.44,
               fontFace: "Arial",
-              fontSize: 7.8,
+              fontSize: 9,
               bold: true,
               color: C.mint,
               align: "center",
+              valign: "mid",
               margin: 0,
             });
 
-            d.addText(item, {
-              x: 1.35,
-              y: yy,
-              w: 4.45,
-              h: 0.38,
-              fontFace: "Arial",
-              fontSize: 12,
-              color: "E0EFEC",
-              margin: 0,
+            d.addShape(p.ShapeType.roundRect, {
+              x: cx + 0.9,
+              y: cy + 0.3,
+              w: 0.44,
+              h: 0.44,
+              rectRadius: 0.08,
+              line: { color: "31595A", width: 1 },
+              fill: { color: "123F40" },
             });
-          });
 
-          d.addImage({
-            data: assets.next,
-            x: 6.35,
-            y: 1.4,
-            w: 6.05,
-            h: 5.05,
+            d.addImage({
+              data: nextPngs[index],
+              x: cx + 1.01,
+              y: cy + 0.41,
+              w: 0.22,
+              h: 0.22,
+            });
+
+            d.addText(item.title, {
+              x: cx + 0.3,
+              y: cy + 1.1,
+              w: cw - 0.6,
+              h: 0.5,
+              fontFace: "Georgia",
+              fontSize: 16,
+              bold: true,
+              color: C.white,
+              margin: 0,
+              valign: "mid",
+            });
+
+            d.addText(
+              item.detail,
+              item.href
+                ? {
+                    x: cx + 0.3,
+                    y: cy + 1.65,
+                    w: cw - 0.6,
+                    h: 0.6,
+                    fontFace: "Arial",
+                    fontSize: 11.5,
+                    color: C.mint,
+                    margin: 0,
+                    valign: "top",
+                    hyperlink: { url: item.href, tooltip: item.title },
+                  }
+                : {
+                    x: cx + 0.3,
+                    y: cy + 1.65,
+                    w: cw - 0.6,
+                    h: 0.6,
+                    fontFace: "Arial",
+                    fontSize: 11.5,
+                    color: "B5CECB",
+                    margin: 0,
+                    valign: "top",
+                  },
+            );
+
+            d.addShape(p.ShapeType.line, {
+              x: cx + 0.3,
+              y: cy + 2.65,
+              w: 0.5,
+              h: 0,
+              line: { color: C.mint, width: 2 },
+            });
           });
         }
-
         addFooter(d, i + 1, dark);
       });
 
@@ -1302,6 +1782,221 @@ export default function MakiBusinessCaseBuilder({
       setBusy(false);
     }
   }
+
+  const thumbRef = useRef<HTMLDivElement>(null);
+  const [thumbScale, setThumbScale] = useState(0.1);
+
+  useEffect(() => {
+    const el = thumbRef.current;
+    if (!el) return;
+    const update = () => setThumbScale(el.clientWidth / 1280);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+
+    const renderSlide = (
+    sl: Slide,
+    active: number,
+    scale: number,
+    editable = false,
+  ) => (
+    <div
+      className={`deckSlide slide-${sl.layout}`}
+      style={{ transform: `scale(${scale})` }}
+    >
+      <div className="dsTop">
+        <img className="dsLogo" src={deckAssets.logo} alt="Maki" />
+
+        <div className="dsTopRight">
+          <span>Confidential · Illustrative</span>
+          <span>{active + 1} / {slides.length}</span>
+        </div>
+      </div>
+
+      <div className="dsBody">
+        <div className="dsMain">
+          <span className="dsKicker">{sl.kicker}</span>
+
+          <textarea
+            aria-label="Slide title"
+            rows={2}
+            readOnly={!editable}
+            tabIndex={editable ? 0 : -1}
+            value={titles[active] ?? sl.title}
+            onChange={(e) =>
+              setTitles({ ...titles, [active]: e.target.value })
+            }
+          />
+
+          {sl.sub && !sl.big && <p className="dsSub">{sl.sub}</p>}
+
+          {sl.layout === "impact" && (
+            <p className="dsSub">
+              Based on your inputs, scenario and selected customer evidence.
+            </p>
+          )}
+
+          {sl.layout === "current" && (
+            <p className="dsLead">
+              Hiring isn&apos;t just recruitment fees. It&apos;s team time, slow time to fill and the cost of lost productivity.
+            </p>
+          )}
+
+          {sl.big && sl.layout !== "current" && sl.layout !== "impact" && (
+            <div className="dsBig">
+              <strong>{sl.big}</strong>
+              {sl.sub && <span>{sl.sub}</span>}
+            </div>
+          )}
+
+          {sl.layout === "current" ? null : sl.layout === "impact" ? (
+            <div className="dsImpact">
+              {impactCards.map((item) => (
+                <div className="dsImpactCard" key={item.label}>
+                  <div className="dsImpactTop">
+                    <Icon name={item.icon} />
+                    <i />
+                  </div>
+                  <strong>{item.value}</strong>
+                  <p>{item.label}</p>
+                </div>
+              ))}
+
+              <div className="dsImpactTotal">
+                <Icon name={impactTotal.icon} />
+                <strong>{impactTotal.value}</strong>
+                <span>{impactTotal.label}</span>
+              </div>
+            </div>
+          ) : sl.layout === "proof" && chosen.length > 0 ? (
+            <div className="dsProof">
+              {chosen.slice(0, 3).map((item) => (
+                <div className="dsProofCard" key={item.id}>
+                  {item.logo ? (
+                    <img
+                      className="dsProofLogo"
+                      src={item.logo}
+                      alt={item.name}
+                    />
+                  ) : (
+                    <span className="dsProofName">{item.name}</span>
+                  )}
+                  <i className="dsProofRule" />
+                  <strong>{item.stat}</strong>
+                  <p>{item.line}</p>
+                  <div className="dsProofNote">
+                    <Icon name={item.icon as IconName} />
+                    <span>{item.note}</span>
+                  </div>
+                  {item.href && (
+                    <a
+                      className="dsProofLink"
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Read the case study <Arrow />
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : sl.layout === "risks" ? (
+            <div className="dsRiskList">
+              {sl.bullets.map((bullet, index) => {
+                const [label, detail] = bullet.split(":");
+                return (
+                  <div className="dsRiskRow" key={bullet}>
+                    <em>{String(index + 1).padStart(2, "0")}</em>
+                    <Icon name={riskIcons[index] ?? "check"} />
+                    <strong>{label}</strong>
+                    <p>{detail?.trim()}</p>
+                  </div>
+                );
+              })}
+            </div>
+          ) : sl.layout === "next" ? (
+            <div className="dsNext">
+              {nextSteps.map((item, index) => (
+                <div className="dsNextCard" key={item.title}>
+                  <div className="dsNextTop">
+                    <span className="dsNextNum">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <Icon name={item.icon} />
+                  </div>
+                  <strong>{item.title}</strong>
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {item.detail}
+                    </a>
+                  ) : (
+                    <p>{item.detail}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <ul className="dsList">
+              {sl.bullets.map((bullet, bi) => (
+                <li key={bullet}>
+                  {sl.bulletIcons?.[bi] ? (
+                    <Icon name={sl.bulletIcons[bi]} />
+                  ) : (
+                    <span />
+                  )}
+                  {bullet}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {sl.layout === "current" ? (
+          <div className="dsCards">
+            {[
+              ["clock", "Screening effort", num(Math.round((apps * mins) / 60)), "recruiter hours per year"],
+              ["people", "Hires", num(hires), "across the roles in scope"],
+              ["calendar", "Time to hire", `${num(days)} days`, "from role open to accepted offer"],
+              ["refresh", "Early attrition", `${attr}%`, "of new hires leave early"],
+            ].map(([icon, label, value, note]) => (
+              <div className="dsCard" key={label}>
+                <Icon name={icon as IconName} />
+                <small>{label}</small>
+                <strong>{value}</strong>
+                <p>{note}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="dsVisual" aria-hidden="true">
+            <div className="dsVisualGlow" />
+            <img src={sl.visual} alt="" />
+          </div>
+        )}
+      </div>
+
+      <div className="dsFoot">
+        <span>
+          {new Date().toLocaleDateString("en-GB", {
+            month: "long",
+            year: "numeric",
+          })}
+        </span>
+
+        <span>Maki · Executive summary</span>
+
+        <strong>{String(active + 1).padStart(2, "0")}</strong>
+      </div>
+    </div>
+  );
 
   const bars = [
     ["Recruiter capacity", c.capacity],
@@ -1684,7 +2379,7 @@ export default function MakiBusinessCaseBuilder({
                           Next: {steps[step].title} <Arrow />
                         </button>
                       ) : (
-                        <a className="nextBtn" href="#proof">
+                        <a className="nextBtn" href="#summary">
                           Use this model <Arrow />
                         </a>
                       )}
@@ -1913,135 +2608,15 @@ export default function MakiBusinessCaseBuilder({
         </div>
       </section>
 
-      <section className="sec proofSec" id="proof">
+ 
+
+  
+
+
+      <section className="sec summarySec" id="summary">
         <div className="wrap">
-          <div className="sectionEyebrow" data-r>
+            <div className="sectionEyebrow" data-r>
             <span>03</span>
-            <i />
-            CUSTOMER EVIDENCE
-          </div>
-
-          <div className="shead split proofHead" data-r>
-            <div>
-              <h2>Use evidence your VP can actually point to.</h2>
-              <p>
-                These results are published by Maki about real customers. Select
-                the examples most relevant to your case and they’ll be pulled
-                into the executive summary.
-              </p>
-            </div>
-            <a className="tl" href={customersHref} target="_blank" rel="noreferrer">
-              Explore all customer stories <Arrow />
-            </a>
-          </div>
-
-          <div className="proofGrid">
-            {proof.map((item) => {
-              const selected = picked.includes(item.id);
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={`proofCard ${selected ? "selected" : ""}`}
-                  aria-pressed={selected}
-                  onClick={() => toggle(setPicked, item.id)}
-                  data-r
-                >
-                  <div className="proofCardTop">
-                    <span className="proofCompany">{item.name}</span>
-                    <span className="selectMark">
-                      <Tick />
-                    </span>
-                  </div>
-
-                  <div className="proofPrimary">
-                    <strong>{item.stat}</strong>
-                    <p>{item.line}</p>
-                  </div>
-
-                  <div className="proofDivider" />
-
-                  <div className="proofSecondary">
-                    <strong>{item.stat2}</strong>
-                    <p>{item.line2}</p>
-                  </div>
-
-                  <span className="includeLabel">
-                    {selected ? "Included in summary" : "Add to summary"}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="sec storySec">
-        <div className="wrap storyLayout">
-          <div className="storyIntro" data-r>
-            <div className="sectionEyebrow lightEye">
-              <span>04</span>
-              <i />
-              EXECUTIVE NARRATIVE
-            </div>
-            <h2>Turn the model into a four-part decision story.</h2>
-            <p>
-              The numbers matter, but the internal pitch still needs a clean
-              sequence: what is happening now, what changes, what it is worth,
-              and what you want approved.
-            </p>
-            <button className="btn out" type="button" onClick={copy}>
-              {copied ? "Copied to clipboard" : "Copy executive summary"}
-              <Arrow />
-            </button>
-          </div>
-
-          <ol className="storySteps">
-            {[
-              {
-                kicker: "Current state",
-                title: "Make the hiring friction visible.",
-                body: `${num(apps)} applications a year, ${mins} minutes of screening each, ${days} days to hire and ${attr}% early attrition.`,
-                metric: `${num(apps)} applications`,
-              },
-              {
-                kicker: "Opportunity",
-                title: "Show exactly what changes with Maki.",
-                body: "Automate high-volume screening, standardise assessment and give recruiters structured evidence earlier in the process.",
-                metric: `${num(c.hours)} hours returned`,
-              },
-              {
-                kicker: "Commercial impact",
-                title: "Translate the change into money and time.",
-                body: `In the ${s.label.toLowerCase()} scenario, the model estimates ${gbp(c.annual)} of annual benefit and a ${Math.round(c.daysSaved)}-day reduction in time-to-hire.`,
-                metric: gbp(c.annual),
-              },
-              {
-                kicker: "The ask",
-                title: "Make the next decision feel low-risk.",
-                body: "Approve a focused pilot, agree the success measures before launch, then use the results to replace the illustrative assumptions with your own evidence.",
-                metric: "Pilot → proof → rollout",
-              },
-            ].map((item, i) => (
-              <li key={item.kicker} data-r>
-                <span className="storyNum">0{i + 1}</span>
-                <div className="storyBody">
-                  <p className="storyKicker">{item.kicker}</p>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </div>
-                <strong className="storyMetric">{item.metric}</strong>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-
-      <section className="sec summarySec">
-        <div className="wrap">
-          <div className="sectionEyebrow" data-r>
-            <span>05</span>
             <i />
             EXECUTIVE SUMMARY
           </div>
@@ -2062,161 +2637,46 @@ export default function MakiBusinessCaseBuilder({
               aria-label="Executive summary slides"
             >
               {slides.map((x, i) => (
-                <button
+                <div
                   key={i}
-                  type="button"
                   role="tab"
+                  tabIndex={0}
                   aria-selected={active === i}
+                  aria-label={`Slide ${i + 1}: ${titles[i] ?? x.title}`}
                   className="deckThumb"
                   onClick={() => setActive(i)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setActive(i);
+                    }
+                  }}
                 >
                   <span className="thumbNum">
                     {String(i + 1).padStart(2, "0")}
                   </span>
 
-                  <span className="thumbCard">
-                    <img src={x.visual} alt="" aria-hidden="true" />
-                    <span className="thumbShade" />
-                    <span className="thumbMeta">
-                      <small>{x.kicker}</small>
-                      <b>{titles[i] ?? x.title}</b>
-                    </span>
-                  </span>
-                </button>
+                  <div
+                    className="thumbCard"
+                    ref={i === 0 ? thumbRef : undefined}
+                    aria-hidden="true"
+                  >
+                    {renderSlide(x, i, thumbScale)}
+                  </div>
+                </div>
               ))}
             </div>
 
             <div className="deckStage">
-              <div className="deckFrame">
-                <div className={`deckSlide slide-${sl.layout}`}>
-                  <div className="dsTop">
-                    <img
-                      className="dsLogo"
-                      src={deckAssets.logo}
-                      alt="Maki"
-                    />
-
-                    <div className="dsTopRight">
-                      <span>Confidential · Illustrative</span>
-                      <span>{active + 1} / {slides.length}</span>
-                    </div>
-                  </div>
-
-                  <div className="dsBody">
-                    <div className="dsMain">
-                      <span className="dsKicker">{sl.kicker}</span>
-
-                      <textarea
-                        aria-label="Slide title"
-                        rows={2}
-                        value={titles[active] ?? sl.title}
-                        onChange={(e) =>
-                          setTitles({ ...titles, [active]: e.target.value })
-                        }
-                      />
-
-                      {sl.sub && !sl.big && (
-                        <p className="dsSub">
-                          {sl.sub}
-                        </p>
-                      )}
-
-                      {sl.layout === "current" && (
-                        <p className="dsLead">
-                          Hiring isn&apos;t just recruitment fees. It&apos;s team time, slow time to fill and the cost of lost productivity.
-                        </p>
-                      )}
-
-                      {sl.big && sl.layout !== "current" && (
-                        <div className="dsBig">
-                          <strong>{sl.big}</strong>
-                          {sl.sub && <span>{sl.sub}</span>}
-                        </div>
-                      )}
-
-                      {sl.layout === "current" ? null : sl.layout === "proof" && chosen.length > 0 ? (
-                        <div className="dsProof">
-                          {chosen.slice(0, 3).map((item) => (
-                            <div className="dsProofRow" key={item.id}>
-                              <span>{item.name}</span>
-                              <strong>{item.stat}</strong>
-                              <small>{item.line}</small>
-                            </div>
-                          ))}
-                        </div>
-                      ) : sl.layout === "risks" ? (
-                        <div className="dsRiskList">
-                          {sl.bullets.map((bullet, index) => {
-                            const [label, detail] = bullet.split(":");
-                            return (
-                              <div className="dsRiskRow" key={bullet}>
-                                <span>{String(index + 1).padStart(2, "0")}</span>
-                                <strong>{label}</strong>
-                                <p>{detail?.trim()}</p>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      ) : sl.layout === "next" ? (
-                        <div className="dsSteps">
-                          {sl.bullets.map((bullet, index) => (
-                            <div key={bullet}>
-                              <span>{String(index + 1).padStart(2, "0")}</span>
-                              <p>{bullet}</p>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <ul className="dsList">
-                          {sl.bullets.map((bullet) => (
-                            <li key={bullet}>
-                              <span />
-                              {bullet}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-
-                    {sl.layout === "current" ? (
-                      <div className="dsCards">
-                        {[
-                          ["clock", "Screening effort", num(Math.round((apps * mins) / 60)), "recruiter hours per year"],
-                          ["people", "Hires", num(hires), "across the roles in scope"],
-                          ["calendar", "Time to hire", `${num(days)} days`, "from role open to accepted offer"],
-                          ["refresh", "Early attrition", `${attr}%`, "of new hires leave early"],
-                        ].map(([icon, label, value, note]) => (
-                          <div className="dsCard" key={label}>
-                            <Icon name={icon as IconName} />
-                            <small>{label}</small>
-                            <strong>{value}</strong>
-                            <p>{note}</p>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="dsVisual" aria-hidden="true">
-                        <div className="dsVisualGlow" />
-                        <img src={sl.visual} alt="" />
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="dsFoot">
-                    <span>
-                      {new Date().toLocaleDateString("en-GB", {
-                        month: "long",
-                        year: "numeric",
-                      })}
-                    </span>
-
-                    <span>Maki · Executive summary</span>
-
-                    <strong>
-                      {String(active + 1).padStart(2, "0")}
-                    </strong>
-                  </div>
-                </div>
+              <div
+                className="deckFrame"
+                ref={deckRef}
+                style={{ height: 720 * deckScale }}
+              >
+                
+                
+                
+{renderSlide(sl, active, deckScale, true)}
               </div>
 
               <div className="deckBar">
@@ -2294,7 +2754,7 @@ export default function MakiBusinessCaseBuilder({
         <div className="wrap faqLayout">
           <div className="faqIntro" data-r>
             <div className="sectionEyebrow lightEye">
-              <span>06</span>
+              <span>04</span>
               <i />
               FAQ
             </div>
@@ -2312,7 +2772,8 @@ export default function MakiBusinessCaseBuilder({
             {faqs.map(([question, answer], index) => (
               <details key={question} open={index === 0}>
                 <summary>
-                  <span>{question}</span>
+                  <em className="faqNum">{String(index + 1).padStart(2, "0")}</em>
+<span>{question}</span>
                   <i />
                 </summary>
                 <p>{answer}</p>
@@ -2458,17 +2919,9 @@ const css = `
 .bc .sectionEyebrow i{display:block;width:30px;height:1px;background:rgba(127,211,208,.35)}
 .bc .lightEye{color:var(--teal)}.bc .lightEye span{border-color:#d8ebe8;background:#eff8f6;color:var(--teal)}.bc .lightEye i{background:#c6dfdb}
 
-/* PROOF */
-.bc .proofSec{position:relative;overflow:hidden;color:#fff;background:radial-gradient(ellipse at 10% 100%,rgba(22,114,115,.35),transparent 50%),var(--deep)}
-.bc .proofSec:after{content:"";position:absolute;inset:auto -180px -260px auto;width:620px;height:620px;border:1px solid rgba(127,211,208,.08);border-radius:50%;box-shadow:0 0 0 85px rgba(127,211,208,.018),0 0 0 170px rgba(127,211,208,.012)}
-.bc .proofSec .wrap{position:relative;z-index:1}.bc .proofHead h2{max-width:760px}.bc .proofHead p{color:#abc9c6}.bc .proofGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:38px}
-.bc .proofCard{position:relative;min-height:330px;padding:22px;border:1px solid rgba(127,211,208,.18);border-radius:12px;background:rgba(255,255,255,.045);color:#fff;text-align:left;cursor:pointer;transition:.22s ease;backdrop-filter:blur(4px)}.bc .proofCard:hover{transform:translateY(-3px);border-color:rgba(127,211,208,.36);background:rgba(255,255,255,.065)}.bc .proofCard.selected{border-color:rgba(127,211,208,.58);background:linear-gradient(180deg,rgba(22,114,115,.2),rgba(255,255,255,.045));box-shadow:inset 0 0 0 1px rgba(127,211,208,.08)}
-.bc .proofCardTop{display:flex;align-items:center;justify-content:space-between;gap:12px}.bc .proofCompany{font-size:12px;font-weight:800;color:#d9ecea}.bc .selectMark{display:grid;place-items:center;width:24px;height:24px;border:1px solid rgba(127,211,208,.35);border-radius:50%;color:transparent}.bc .selected .selectMark{background:var(--teal);border-color:var(--teal);color:#fff}.bc .selectMark svg{width:12px;height:12px}
-.bc .proofPrimary{margin-top:34px}.bc .proofPrimary strong{display:block;font-family:Georgia,"Times New Roman",serif;color:#fff;font-size:30px;line-height:1.04;letter-spacing:-.035em}.bc .proofPrimary p,.bc .proofSecondary p{margin-top:6px;color:#9fbfbc;font-size:11px;line-height:1.45}.bc .proofDivider{height:1px;margin:25px 0 18px;background:rgba(127,211,208,.14)}.bc .proofSecondary strong{color:var(--mint);font-size:20px;line-height:1.1}.bc .includeLabel{position:absolute;left:22px;bottom:18px;color:#7fa8a4;font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.bc .selected .includeLabel{color:var(--mint)}
+ 
 
-/* STORY */
-.bc .storySec{background:#fff}.bc .storyLayout{display:grid;grid-template-columns:.72fr 1.28fr;gap:78px;align-items:start}.bc .storyIntro{position:sticky;top:32px}.bc .storyIntro h2{max-width:540px}.bc .storyIntro>p{max-width:520px;margin-top:16px;color:var(--mute);font-size:14px;line-height:1.7}.bc .storyIntro .btn{margin-top:28px}
-.bc .storySteps{border-top:1px solid var(--line)}.bc .storySteps li{display:grid;grid-template-columns:50px minmax(0,1fr) 160px;gap:22px;align-items:start;padding:27px 0;border-bottom:1px solid var(--line)}.bc .storyNum{color:#8ca39f;font-size:11px;font-weight:800;letter-spacing:.06em}.bc .storyKicker{color:var(--teal)!important;font-size:9px!important;font-weight:850!important;letter-spacing:.12em;text-transform:uppercase}.bc .storyBody h3{margin-top:6px;color:#193b38;font-size:18px;line-height:1.25}.bc .storyBody>p:last-child{margin-top:8px;color:#687f7b;font-size:12px;line-height:1.6}.bc .storyMetric{align-self:center;color:#0e6564;font-family:Georgia,"Times New Roman",serif;font-size:18px;line-height:1.2;text-align:right}
+  
 
 /* SUMMARY */
 .bc .summarySec{position:relative;overflow:hidden;color:#fff;background:radial-gradient(ellipse at 80% 10%,rgba(22,114,115,.3),transparent 45%),var(--deep)}
@@ -2486,7 +2939,52 @@ const css = `
 .bc .summaryValue{padding:18px;border-top:1px solid rgba(127,211,208,.14);border-bottom:1px solid rgba(127,211,208,.14);background:rgba(0,0,0,.06)}.bc .summaryValue span{display:block;color:#88aaa6;font-size:9px}.bc .summaryValue strong{display:block;margin-top:5px;color:#fff;font-family:Georgia,"Times New Roman",serif;font-size:34px;line-height:1.05;letter-spacing:-.04em}.bc .summaryValue small{display:block;margin-top:5px;color:#7fa6a2;font-size:8px}
 .bc .summaryActions{display:grid;gap:13px;margin-top:22px}.bc .summaryActions .btn{width:100%}.bc .summaryActions .textAction{justify-content:center;color:var(--mint)}.bc .downloadNote{display:block;margin-top:15px;color:#769b97;font-size:8px;line-height:1.45}
 
+/* DECK THUMBS: live miniature of each slide */
+.bc .thumbCard{position:relative;overflow:hidden;pointer-events:none;border-radius:6px}
+.bc .thumbCard .deckSlide{position:absolute;top:0;left:0;width:1280px;height:720px;min-height:0;aspect-ratio:auto;padding:44px 72px 34px;border-radius:0;box-shadow:none;transform-origin:top left}
+
 /* FAQ */
+.bc .faqSec{padding-block:clamp(88px,9vw,132px)}
+.bc .faqSec .faqLayout{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:80px;align-items:start}
+.bc .faqSec .faqIntro{position:sticky;top:40px}
+
+/* left side */
+.bc .faqSec .sectionEyebrow{gap:18px;margin-bottom:30px;font-size:15px;letter-spacing:.22em}
+.bc .faqSec .sectionEyebrow span{width:48px;height:48px;border-radius:10px;font-size:16px;font-weight:700}
+.bc .faqSec .sectionEyebrow i{width:48px}
+.bc .faqSec .faqIntro h2{max-width:580px;font-size:clamp(46px,5.4vw,80px);font-weight:400;line-height:1.02;letter-spacing:-.05em;color:#0a1f20}
+.bc .faqSec .faqIntro>p{max-width:520px;margin-top:28px;font-size:20px;line-height:1.65;color:#3d5553}
+.bc .faqSec .faqIntro .textAction{margin-top:36px;padding-bottom:8px;border-bottom:2px solid var(--teal);font-size:19px;font-weight:700;color:var(--teal)}
+.bc .faqSec .faqIntro .textAction svg{width:24px;height:24px}
+
+/* cards */
+.bc .faqSec .faq{display:grid;gap:16px;border-top:0}
+.bc .faqSec .faq details{border:1px solid #dbe6e3;border-radius:16px;background:#fff;transition:background .25s ease,border-color .25s ease,box-shadow .25s ease}
+.bc .faqSec .faq details:hover{border-color:#dbe6e3}
+.bc .faqSec .faq details[open]{background:#fff;border-color:#dbe6e3;box-shadow:none}
+
+.bc .faqSec .faq summary{display:grid;grid-template-columns:auto minmax(0,1fr) 52px;align-items:center;gap:26px;padding:34px 36px;cursor:pointer;list-style:none}
+.bc .faqSec .faq .faqNum{display:block;width:70px;height:34px;padding-right:26px;border-right:1px solid #cfdcd9;font-style:normal;font-size:15px;font-weight:600;line-height:34px;letter-spacing:.04em;color:#087675}
+.bc .faqSec .faq summary span{font:400 clamp(22px,2vw,28px)/1.25 Georgia,"Times New Roman",serif;letter-spacing:-.03em;color:#0a1f20}
+
+.bc .faqSec .faq summary i{width:52px;height:52px;flex:0 0 52px;border:1px solid #c5dbd6;background:#fff;transition:background .25s ease,border-color .25s ease}
+.bc .faqSec .faq summary i:before,
+.bc .faqSec .faq summary i:after{width:16px;height:2px}
+.bc .faqSec .faq details[open] summary i{background:#fff;border-color:#c5dbd6}
+
+.bc .faqSec .faq details p{max-width:none;margin:0 36px;padding:30px 0 38px 96px;border-top:1px solid #d5e3e0;font-size:18px;line-height:1.7;color:#3d5553}
+
+@media(max-width:1080px){
+  .bc .faqSec .faqLayout{grid-template-columns:1fr;gap:48px}
+  .bc .faqSec .faqIntro{position:relative;top:auto}
+}
+@media(max-width:640px){
+  .bc .faqSec .faq summary{grid-template-columns:auto minmax(0,1fr) 44px;gap:16px;padding:24px 20px}
+  .bc .faqSec .faq .faqNum{width:auto;padding-right:16px}
+  .bc .faqSec .faq summary span{font-size:20px}
+  .bc .faqSec .faq summary i{width:44px;height:44px;flex-basis:44px}
+  .bc .faqSec .faq details p{margin:0 20px;padding:22px 0 26px;font-size:16px}
+}
 .bc .faqSec{background:#fff}.bc .faqLayout{display:grid;grid-template-columns:.72fr 1.28fr;gap:82px;align-items:start}.bc .faqIntro{position:sticky;top:32px}.bc .faqIntro h2{max-width:500px}.bc .faqIntro>p{max-width:430px;margin-top:16px;color:var(--mute);font-size:14px;line-height:1.7}.bc .darkLink{margin-top:24px;color:var(--teal)}
 .bc .faq{border-top:1px solid var(--line)}.bc details{border-bottom:1px solid var(--line)}.bc summary{display:flex;justify-content:space-between;gap:24px;align-items:center;padding:23px 3px;color:#1f403d;font-size:14px;font-weight:750;cursor:pointer;list-style:none}.bc summary::-webkit-details-marker{display:none}.bc summary i{position:relative;width:28px;height:28px;flex:0 0 28px;border:1px solid #d5e4e0;border-radius:50%}.bc summary i:before,.bc summary i:after{content:"";position:absolute;left:50%;top:50%;width:9px;height:1px;background:var(--teal);transform:translate(-50%,-50%)}.bc summary i:after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .2s}.bc details[open] summary i:after{transform:translate(-50%,-50%) rotate(0)}.bc details p{max-width:760px;padding:0 48px 24px 3px;color:#667f7a;font-size:12px;line-height:1.7}
 
@@ -2508,23 +3006,17 @@ const css = `
 
 }
 @media(max-width:1080px){
-  .bc .hgrid,.bc .storyLayout,.bc .egrid,.bc .faqLayout,.bc .finalCard{grid-template-columns:1fr}
+   .bc .hgrid,.bc .egrid,.bc .faqLayout,.bc .finalCard{grid-template-columns:1fr}
   .bc .dash{max-width:760px}.bc .heroFloatA{left:10px}.bc .heroFloatB{right:10px}
   .bc .trust div{grid-template-columns:repeat(3,1fr)}
   .bc .modelTop{grid-template-columns:1fr;gap:24px;align-items:start}
 
-  .bc .proofGrid{grid-template-columns:1fr 1fr}
-  .bc .storyIntro,.bc .faqIntro{position:relative;top:auto}.bc .storySteps li{grid-template-columns:44px minmax(0,1fr) 150px}
+    .bc .faqIntro{position:relative;top:auto}
 }
 @media(max-width:760px){
   .bc .wrap{width:calc(100% - 34px)}
   .bc .hero{padding-top:82px}.bc .hcopy{padding-bottom:10px}.bc .heroFloat{display:none}.bc .trust div{grid-template-columns:1fr 1fr;gap:12px}.bc .trust span{font-size:14px}
 
-
-
-
-  .bc .proofGrid{grid-template-columns:1fr}.bc .proofCard{min-height:280px}
-  .bc .storySteps li{grid-template-columns:34px 1fr;gap:14px}.bc .storyMetric{grid-column:2;text-align:left;font-size:16px}
   .bc .previewTop{align-items:flex-start;flex-direction:column}.bc .tabs{flex-wrap:wrap}.bc .slide{min-height:420px;padding:24px 20px 38px}.bc .slide ul{max-width:100%}.bc .slideFooter{left:20px;right:20px}
   .bc .finalCard{padding:28px 20px;gap:38px}.bc .finalImpact>strong{font-size:34px}.bc .finalStats{grid-template-columns:1fr}.bc .note{flex-direction:column}
 }
@@ -4160,5 +4652,398 @@ const css = `
 /* paragraph under the title */
 .bc .dsLead{max-width:340px;margin-top:18px;font-size:13px;line-height:1.65;color:#4b625f}
 
+/* ---- slide 4: customer evidence (dark, full-width cards) ---- */
+.bc .deckSlide.slide-proof{
+  background:radial-gradient(circle at 78% 46%,rgba(22,114,115,.22),transparent 35%),#061f20;
+  color:#fff;
+}
+.bc .slide-proof .dsLogo{padding:7px 10px;width:105px;border-radius:7px;background:#fff}
+.bc .slide-proof .dsTopRight{color:#9fbebb}
+.bc .slide-proof .dsKicker{color:#7fd3d0}
+.bc .slide-proof textarea{color:#fff}
+.bc .slide-proof .dsSub{color:#b8d1ce;max-width:none}
+.bc .slide-proof .dsFoot{border-top-color:rgba(127,211,208,.17);color:#7fa5a1}
+.bc .slide-proof .dsFoot strong{color:#dff1ee}
+
+/* image on the right is removed for this slide; cards take the full width */
+.bc .slide-proof .dsVisual{display:none}
+.bc .slide-proof .dsBody{grid-template-columns:1fr}
+
+.bc .dsProof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+.bc .dsProofCard{display:flex;flex-direction:column;padding:16px 18px 16px;border:1px solid rgba(127,211,208,.2);border-radius:10px;background:rgba(255,255,255,.04)}
+.bc .dsProofLogo{display:block;height:20px;width:auto;max-width:120px;object-fit:contain;object-position:left;filter:brightness(0) invert(1)}
+.bc .dsProofName{font:700 12px Inter,Arial,sans-serif;color:#fff;height:20px;display:flex;align-items:center}
+.bc .dsProofRule{display:block;height:1px;margin:12px 0 14px;background:rgba(127,211,208,.22)}
+.bc .dsProofCard>strong{font:700 clamp(18px,2.2vw,30px)/1.05 Georgia,"Times New Roman",serif;letter-spacing:-.04em;color:#fff}
+.bc .dsProofCard>p{margin-top:6px;font-size:10px;line-height:1.4;color:#b8d1ce}
+.bc .dsProofNote{display:flex;align-items:center;gap:9px;margin-top:14px}
+.bc .dsProofNote .mi{display:grid;place-items:center;flex:none;width:28px;height:28px;border:1px solid rgba(127,211,208,.5);border-radius:7px;color:#7fd3d0}
+.bc .dsProofNote .mi svg{width:15px;height:15px;stroke-width:1.7}
+.bc .dsProofNote span:last-child{font-size:9px;line-height:1.35;color:#d8e9e6}
+
+.bc .dsProofLink{
+  display:inline-flex;align-items:center;gap:8px;
+  align-self:flex-start;
+  margin-top:auto;padding-top:16px;
+  font:600 9.5px Inter,Arial,sans-serif;letter-spacing:.04em;
+  color:#7fd3d0;
+  text-decoration:none;
+  transition:gap .2s ease,color .2s ease;
+}
+.bc .dsProofLink svg{width:12px;height:12px;stroke-width:2;transition:transform .2s ease}
+.bc .dsProofLink:hover{gap:12px;color:#fff}
+.bc .dsProofLink:hover svg{transform:translateX(2px)}
+.bc .dsProofLink:focus-visible{outline:2px solid #7fd3d0;outline-offset:4px;border-radius:3px}
+
+
+
+/* ---- slide 5: validation (image removed, full-width rows) ---- */
+.bc .slide-risks .dsVisual{display:none}
+.bc .slide-risks .dsBody{grid-template-columns:1fr}
+.bc .slide-risks .dsRiskList{gap:8px;margin-top:18px;border-top:0}
+.bc .slide-risks .dsRiskRow{
+  display:grid;grid-template-columns:28px 34px 170px minmax(0,1fr);
+  align-items:center;gap:12px;
+    padding:8px 16px;
+  border:1px solid rgba(8,118,117,.18);border-radius:10px;
+  background:transparent;
+}
+.bc .dsRiskRow>em{font-style:normal;font-size:9px;font-weight:800;color:#087675;letter-spacing:.04em}
+.bc .dsRiskRow>span.mi{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:#e8f5f2;color:#087675}
+
+
+
+.bc .dsRiskRow>span.mi svg{width:16px;height:16px;stroke-width:1.7}
+.bc .slide-risks .dsRiskRow strong{font:700 12px Georgia,"Times New Roman",serif;letter-spacing:-.02em;color:#0a2728}
+.bc .slide-risks .dsRiskRow p{padding-left:18px;border-left:1px solid #dce5e2;font-size:9.5px;line-height:1.4;color:#5f716e}
+
+@media(max-width:760px){
+  .bc .slide-risks .dsRiskRow{grid-template-columns:24px 30px minmax(0,1fr)}
+  .bc .slide-risks .dsRiskRow p{grid-column:1/-1;padding-left:0;border-left:0}
+}
+
+@media(max-width:760px){
+  .bc .dsProof{grid-template-columns:1fr}
+  .bc .dsProofLink{margin-top:14px;padding-top:0}
+}
+
+/* ---- slide 6: next steps (image removed, three boxes) ---- */
+.bc .slide-next .dsVisual{display:none}
+.bc .slide-next .dsBody{grid-template-columns:1fr}
+.bc .slide-next .dsSub{max-width:none}
+
+.bc .dsNext{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+.bc .dsNextCard{position:relative;display:flex;flex-direction:column;padding:16px 18px 24px;border:1px solid rgba(127,211,208,.2);border-radius:10px;background:rgba(255,255,255,.04);overflow:hidden}
+.bc .dsNextCard:after{content:"";position:absolute;left:18px;bottom:0;width:34px;height:2px;background:#7fd3d0}
+.bc .dsNextTop{display:flex;align-items:center;gap:8px}
+.bc .dsNextNum{display:grid;place-items:center;width:26px;height:26px;border:1px solid rgba(127,211,208,.5);border-radius:50%;font-size:7.5px;font-weight:850;color:#7fd3d0}
+.bc .dsNextTop .mi{display:grid;place-items:center;width:28px;height:28px;border-radius:7px;background:rgba(127,211,208,.1);color:#7fd3d0}
+.bc .dsNextTop .mi svg{width:15px;height:15px;stroke-width:1.7}
+.bc .dsNextCard>strong{margin-top:14px;font:700 11px/1.25 Georgia,"Times New Roman",serif;letter-spacing:-.01em;color:#fff}
+.bc .dsNextCard>p,.bc .dsNextCard>a{margin-top:5px;font-size:9px;line-height:1.4;color:#b8d1ce}
+.bc .dsNextCard>a{color:#7fd3d0;text-decoration:none;transition:color .2s ease}
+.bc .dsNextCard>a:hover{color:#fff}
+
+@media(max-width:760px){
+  .bc .dsNext{grid-template-columns:1fr}
+}
+
+/* ---- slide 3: projected impact (image removed, 3 boxes + 1 wide) ---- */
+.bc .slide-impact .dsVisual{display:none}
+.bc .slide-impact .dsBody{grid-template-columns:1fr}
+.bc .slide-impact .dsSub{max-width:none}
+
+.bc .dsImpact{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.bc .dsImpactCard{display:flex;flex-direction:column;padding:14px 16px 14px;border:1px solid rgba(127,211,208,.2);border-radius:10px;background:rgba(255,255,255,.04)}
+.bc .dsImpactTop{display:flex;align-items:center;gap:12px}
+.bc .dsImpactTop i{display:block;flex:1;height:1px;background:rgba(127,211,208,.22)}
+.bc .dsImpactTop .mi,.bc .dsImpactTotal .mi{display:grid;place-items:center;flex:none;width:30px;height:30px;border:1px solid rgba(127,211,208,.3);border-radius:8px;background:rgba(127,211,208,.1);color:#7fd3d0}
+.bc .dsImpactTop .mi svg,.bc .dsImpactTotal .mi svg{width:16px;height:16px;stroke-width:1.7}
+.bc .dsImpactCard>strong{margin-top:12px;font:700 clamp(18px,2.2vw,30px)/1 Georgia,"Times New Roman",serif;letter-spacing:-.04em;color:#7fd3d0;white-space:nowrap}
+.bc .dsImpactCard>p{margin-top:6px;font-size:10px;line-height:1.4;color:#b8d1ce}
+
+.bc .dsImpactTotal{grid-column:1/-1;display:flex;align-items:center;gap:18px;padding:12px 16px;border:1px solid rgba(127,211,208,.4);border-radius:10px;background:linear-gradient(90deg,rgba(22,114,115,.45),rgba(22,114,115,.12))}
+.bc .dsImpactTotal>strong{font:700 clamp(18px,2.4vw,32px)/1 Georgia,"Times New Roman",serif;letter-spacing:-.04em;color:#fff;white-space:nowrap}
+.bc .dsImpactTotal>span:last-child{padding-left:18px;border-left:1px solid rgba(127,211,208,.3);font-size:11px;color:#e0efec}
+
+@media(max-width:760px){
+  .bc .dsImpact{grid-template-columns:1fr}
+  .bc .dsImpactTotal{flex-wrap:wrap}
+}
+
+/* =========================================================
+   DECK: fixed 1280x720 canvas, scaled to fit the frame
+   ========================================================= */
+.bc .deckStage .deckFrame{position:relative;overflow:hidden;padding:0;border:0;border-radius:14px;background:#041b1c;box-shadow:0 0 0 1px rgba(127,211,208,.18),0 24px 70px rgba(0,0,0,.18)}
+.bc .deckStage .deckFrame .deckSlide{position:absolute;top:0;left:0;width:1280px;height:720px;min-height:0;aspect-ratio:auto;padding:44px 72px 34px;border-radius:0;box-shadow:none;transform-origin:top left}
+
+/* top bar */
+.bc .deckSlide .dsTop{min-height:56px;gap:32px}
+.bc .deckSlide .dsLogo{width:150px}
+.bc .deckSlide.slide-impact .dsLogo,
+.bc .deckSlide.slide-next .dsLogo,
+.bc .deckSlide.slide-proof .dsLogo{width:172px;padding:10px 16px;border-radius:10px;background:#fff}
+.bc .deckSlide .dsTopRight{gap:36px;font-size:15px;letter-spacing:.05em}
+.bc .deckSlide .dsTopRight span{display:inline;margin:0}
+
+/* body grid */
+.bc .deckSlide .dsBody{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;padding:12px 0 8px}
+.bc .deckSlide.slide-impact .dsBody,
+.bc .deckSlide.slide-proof .dsBody,
+.bc .deckSlide.slide-risks .dsBody,
+.bc .deckSlide.slide-next .dsBody{grid-template-columns:1fr}
+.bc .deckSlide .dsMain{max-width:none}
+
+/* type */
+.bc .deckSlide .dsKicker{margin-bottom:18px;font-size:15px;letter-spacing:.22em}
+.bc .deckSlide textarea{font-size:76px;line-height:1.03;letter-spacing:-.045em}
+.bc .deckSlide.slide-impact textarea,
+.bc .deckSlide.slide-proof textarea,
+.bc .deckSlide.slide-risks textarea,
+.bc .deckSlide.slide-next textarea{font-size:56px}
+.bc .deckSlide .dsSub{max-width:640px;margin-top:22px;font-size:22px;line-height:1.5}
+.bc .deckSlide.slide-impact .dsSub,
+.bc .deckSlide.slide-proof .dsSub,
+.bc .deckSlide.slide-next .dsSub{max-width:none;margin-top:14px;font-size:21px}
+.bc .deckSlide .dsLead{max-width:520px;margin-top:26px;font-size:22px;line-height:1.6}
+.bc .deckSlide .dsBig{margin-top:28px}
+.bc .deckSlide .dsBig strong{font-size:88px}
+.bc .deckSlide .dsBig span{margin-top:10px;font-size:20px}
+
+/* cover bullets */
+.bc .deckSlide .dsList{gap:18px;max-width:none;margin-top:32px;padding-top:30px}
+.bc .deckSlide .dsList li{grid-template-columns:12px minmax(0,1fr);gap:16px;font-size:22px;line-height:1.45}
+.bc .deckSlide .dsList li>span{width:10px;height:10px;margin-top:.5em}
+
+/* cover image */
+.bc .deckSlide .dsVisual{min-height:0}
+.bc .deckSlide .dsVisual>img{max-height:500px}
+
+/* slide 2: current state cards */
+.bc .deckSlide .dsCards{gap:16px}
+.bc .deckSlide .dsCard{padding:24px 26px 22px;border-radius:14px}
+.bc .deckSlide .dsCard .mi{width:48px;height:48px;margin-bottom:16px;border-radius:12px}
+.bc .deckSlide .dsCard .mi svg{width:24px;height:24px}
+.bc .deckSlide .dsCard small{font-size:17px}
+.bc .deckSlide .dsCard strong{margin-top:8px;font-size:44px}
+.bc .deckSlide .dsCard p{margin-top:10px;font-size:16px;line-height:1.4}
+
+/* slide 3: projected impact */
+.bc .deckSlide .dsImpact{gap:22px;margin-top:26px}
+.bc .deckSlide .dsImpactCard{padding:24px 28px;border-radius:14px}
+.bc .deckSlide .dsImpactTop{gap:18px}
+.bc .deckSlide .dsImpactTop .mi,
+.bc .deckSlide .dsImpactTotal .mi{width:46px;height:46px;border-radius:12px}
+.bc .deckSlide .dsImpactTop .mi svg,
+.bc .deckSlide .dsImpactTotal .mi svg{width:23px;height:23px}
+.bc .deckSlide .dsImpactCard>strong{margin-top:22px;font-size:44px}
+.bc .deckSlide .dsImpactCard>p{margin-top:10px;font-size:17px;line-height:1.4}
+.bc .deckSlide .dsImpactTotal{gap:26px;padding:20px 30px;border-radius:14px}
+.bc .deckSlide .dsImpactTotal>strong{font-size:46px}
+.bc .deckSlide .dsImpactTotal>span:last-child{padding-left:26px;font-size:20px}
+
+/* slide 4: customer evidence */
+.bc .deckSlide .dsProof{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:26px}
+.bc .deckSlide .dsProofCard{padding:28px 30px 26px;border-radius:14px}
+.bc .deckSlide .dsProofLogo{height:34px;max-width:200px}
+.bc .deckSlide .dsProofName{height:34px;font-size:20px}
+.bc .deckSlide .dsProofRule{margin:20px 0 22px}
+.bc .deckSlide .dsProofCard>strong{font-size:46px}
+.bc .deckSlide .dsProofCard>p{margin-top:10px;font-size:18px;line-height:1.4}
+.bc .deckSlide .dsProofNote{gap:14px;margin-top:24px}
+.bc .deckSlide .dsProofNote .mi{width:44px;height:44px;border-radius:10px}
+.bc .deckSlide .dsProofNote .mi svg{width:22px;height:22px}
+.bc .deckSlide .dsProofNote span:last-child{font-size:16px;line-height:1.4}
+.bc .deckSlide .dsProofLink{gap:10px;padding-top:22px;font-size:16px}
+.bc .deckSlide .dsProofLink svg{width:16px;height:16px}
+
+/* slide 5: validation */
+.bc .deckSlide .dsRiskList{gap:14px;margin-top:26px;border-top:0}
+.bc .deckSlide .dsRiskRow{grid-template-columns:44px 52px 290px minmax(0,1fr);gap:20px;align-items:center;padding:16px 28px;border-radius:14px}
+.bc .deckSlide .dsRiskRow>em{font-size:16px}
+.bc .deckSlide .dsRiskRow>span.mi{width:50px;height:50px;border-radius:12px}
+.bc .deckSlide .dsRiskRow>span.mi svg{width:25px;height:25px}
+.bc .deckSlide .dsRiskRow strong{font-size:23px}
+.bc .deckSlide .dsRiskRow p{grid-column:auto;padding-left:28px;border-left:1px solid #dce5e2;font-size:18px;line-height:1.45}
+
+/* slide 6: next steps */
+.bc .deckSlide .dsNext{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:30px}
+.bc .deckSlide .dsNextCard{min-height:270px;padding:28px 30px 40px;border-radius:14px}
+.bc .deckSlide .dsNextCard:after{left:30px;width:56px;height:3px}
+.bc .deckSlide .dsNextTop{gap:14px}
+.bc .deckSlide .dsNextNum{width:46px;height:46px;font-size:14px}
+.bc .deckSlide .dsNextTop .mi{width:48px;height:48px;border-radius:12px}
+.bc .deckSlide .dsNextTop .mi svg{width:24px;height:24px}
+.bc .deckSlide .dsNextCard>strong{margin-top:26px;font-size:27px;line-height:1.25}
+.bc .deckSlide .dsNextCard>p,
+.bc .deckSlide .dsNextCard>a{margin-top:12px;font-size:18px;line-height:1.5}
+
+/* footer */
+.bc .deckSlide .dsFoot{grid-template-columns:1fr auto 1fr;gap:24px;padding-top:16px;font-size:14px}
+.bc .deckSlide .dsFoot span:nth-child(2){display:block}
+.bc .deckSlide .dsFoot strong{font-size:18px}
+
+/* cover bullets: dark icons instead of green dots */
+.bc .deckSlide .dsList li:has(.mi){grid-template-columns:34px minmax(0,1fr);gap:18px;align-items:center}
+.bc .deckSlide .dsList .mi{display:grid;place-items:center;width:34px;height:34px;background:none;border-radius:0;color:#0a2728}
+.bc .deckSlide .dsList .mi svg{width:30px;height:30px;stroke-width:1.5}
+
+
+/* cover bullets: smaller, single line */
+.bc .deckSlide.slide-cover .dsList{gap:14px;margin-top:26px;padding-top:24px}
+.bc .deckSlide.slide-cover .dsList li,
+.bc .deckSlide.slide-cover .dsList li:has(.mi){grid-template-columns:24px auto;gap:14px;align-items:center;font-size:17px;line-height:1.3;white-space:nowrap}
+.bc .deckSlide.slide-cover .dsList .mi{width:24px;height:24px}
+.bc .deckSlide.slide-cover .dsList .mi svg{width:22px;height:22px;stroke-width:1.5}
+
+/* give the text column more room on the cover */
+.bc .deckSlide.slide-cover .dsBody{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}
+.bc .deckSlide.slide-cover .dsList{max-width:none}
+
+
+/* cover bullets: icon and text on the same line */
+.bc .deckSlide.slide-cover .dsList li,
+.bc .deckSlide.slide-cover .dsList li:has(.mi){
+  display:flex;
+  align-items:center;
+  gap:14px;
+  line-height:1;
+}
+.bc .deckSlide.slide-cover .dsList .mi{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:none;
+  width:24px;
+  height:24px;
+  margin:0;
+  padding:0;
+  line-height:0;
+}
+.bc .deckSlide.slide-cover .dsList .mi svg{
+  display:block;
+  width:22px;
+  height:22px;
+  margin:0;
+}
+
+  /* slide 3 and 4 (customer evidence): remove footer line bleeding into the cards */
+.bc .deckSlide.slide-proof .dsFoot,
+.bc .deckSlide.slide-impact .dsFoot{border-top:0}
+
+/* slide 4: tighter cards so they clear the footer */
+.bc .deckSlide.slide-proof .dsProof{margin-top:20px;gap:20px}
+.bc .deckSlide.slide-proof .dsProofCard{padding:24px 28px 22px}
+.bc .deckSlide.slide-proof .dsProofCard>strong{font-size:40px;white-space:nowrap}
+.bc .deckSlide.slide-proof .dsProofRule{margin:16px 0 18px}
+.bc .deckSlide.slide-proof .dsProofNote{margin-top:18px}
+.bc .deckSlide.slide-proof .dsProofLink{padding-top:16px}
+.bc .deckSlide.slide-proof .dsBody{padding-bottom:0}
+
+
+
+/* slides 3, 4 and 6: transparent card backgrounds */
+.bc .deckSlide .dsImpactCard,
+.bc .deckSlide .dsProofCard,
+.bc .deckSlide .dsNextCard{
+  background:transparent;
+  backdrop-filter:none;
+}
+
+
+/* =========================================================
+   DECK CONTROLS: bigger, premium
+   ========================================================= */
+.bc .deckStage .deckBar{
+  align-items:center;
+  justify-content:space-between;
+  gap:28px;
+  margin-top:32px;
+  padding-top:28px;
+  border-top:1px solid rgba(127,211,208,.14);
+}
+
+/* prev / next + counter */
+.bc .deckStage .deckNav{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  color:#cfe4e1;
+  font-size:16px;
+  font-weight:600;
+  letter-spacing:.02em;
+}
+.bc .deckStage .deckNav button{
+  width:56px;
+  height:56px;
+  border:1px solid rgba(127,211,208,.28);
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+  color:#fff;
+  transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+.bc .deckStage .deckNav button:hover:not(:disabled){
+  border-color:rgba(127,211,208,.7);
+  background:rgba(127,211,208,.1);
+  transform:translateY(-1px);
+}
+.bc .deckStage .deckNav button:disabled{opacity:.28}
+.bc .deckStage .deckNav button svg{width:22px;height:22px;stroke-width:1.8}
+.bc .deckStage .deckNav>span{
+  min-width:128px;
+  text-align:center;
+  font-size:16px;
+  font-weight:600;
+  color:#e3f1ef;
+}
+
+/* action buttons */
+.bc .deckStage .deckActions{gap:14px}
+.bc .deckStage .deckBtn{
+  min-height:60px;
+  padding:0 34px;
+  gap:14px;
+  border-radius:14px;
+  font:650 16px/1 Inter,Arial,sans-serif;
+  letter-spacing:.01em;
+}
+.bc .deckStage .deckBtn svg{width:21px;height:21px;stroke-width:1.9}
+
+.bc .deckStage .deckBtn.primary{
+  min-width:300px;
+  border:1px solid rgba(127,211,208,.45);
+  background:linear-gradient(135deg,#17a6a1 0%,#087675 100%);
+  box-shadow:0 14px 34px rgba(8,118,117,.32),inset 0 1px 0 rgba(255,255,255,.18);
+}
+.bc .deckStage .deckBtn.primary:hover:not(:disabled){
+  transform:translateY(-2px);
+  background:linear-gradient(135deg,#1dbab4 0%,#0a8582 100%);
+  box-shadow:0 18px 40px rgba(8,118,117,.4),inset 0 1px 0 rgba(255,255,255,.22);
+}
+
+.bc .deckStage .deckBtn.ghost{
+  min-width:220px;
+  border:1px solid rgba(255,255,255,.3);
+  background:rgba(255,255,255,.03);
+}
+.bc .deckStage .deckBtn.ghost:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,255,255,.65);
+  background:rgba(255,255,255,.08);
+}
+
+@media(max-width:1180px){
+  .bc .deckStage .deckBar{flex-wrap:wrap}
+  .bc .deckStage .deckBtn.primary{min-width:260px}
+  .bc .deckStage .deckBtn.ghost{min-width:190px}
+}
+@media(max-width:760px){
+  .bc .deckStage .deckBar{flex-direction:column;align-items:stretch;gap:20px}
+  .bc .deckStage .deckNav{justify-content:center}
+  .bc .deckStage .deckActions{flex-direction:column}
+  .bc .deckStage .deckBtn,
+  .bc .deckStage .deckBtn.primary,
+  .bc .deckStage .deckBtn.ghost{width:100%;min-width:0}
+}
 
 `;
