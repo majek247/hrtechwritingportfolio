@@ -18,8 +18,9 @@ const ANIM_CSS = `
 
 const ROUTES = {
   caseStudy: "/articles/adfin-stubbs-parkin-case-study",
-  noteTaking: "/articles/best-ai-note-taking-tools",
-  openBanking: "/articles/open-banking-2026",
+  makiCase: "/articles/maki-business-case",
+  benefits: "/articles/best-global-employee-benefits-platform",
+  aiLifecycle: "/articles/ai-employee-lifecycle",
 };
 
 
@@ -27,26 +28,26 @@ const steps = [
   {
     n: "01",
     icon: "search",
-    t: "Identify high-value opportunities",
-    d: "We analyse your product, competitors and buyer journey to find the topics that can attract, influence and convert your ideal customers.",
+    t: "Map the buying and approval process",
+    d: "We look at how HR, finance, IT, procurement and leadership evaluate the category, then identify where content can remove friction and strengthen important commercial conversations.",
   },
   {
     n: "02",
     icon: "doc",
-    t: "Research and plan with evidence",
-    d: "We use primary sources, regulator guidance, product testing and customer insights to build a focused content plan with clear commercial intent.",
+    t: "Build the evidence with your experts",
+    d: "We work with product, compliance, customer and leadership teams to capture the detail, proof and perspective needed to create content that stands up to enterprise scrutiny.",
   },
   {
     n: "03",
     icon: "pencil",
-    t: "Write and optimise for buyers and search",
-    d: "We turn research into clear, structured content that matches search intent and answers real buyer questions, with compelling narratives and useful visuals.",
+    t: "Create content for complex decisions",
+    d: "We turn that evidence into buyer guides, commercial pages, thought leadership and sales-support content that helps multiple stakeholders understand, evaluate and justify the decision.",
   },
   {
     n: "04",
     icon: "chart",
-    t: "Measure, report and iterate",
-    d: "We track rankings, engagement and pipeline influence, then refine and expand what works to keep driving results over time.",
+    t: "Connect content back to pipeline",
+    d: "We track how content contributes across the buying journey, from early research through opportunity and revenue, then use those signals to guide what we create next.",
   },
 ];
 
@@ -154,28 +155,37 @@ const mockShell =
 
 function MockOpportunities() {
   const rows = [
-    ["Comparisons", 85, "High"],
-    ["Alternatives", 85, "High"],
-    ["Pricing", 55, "Medium"],
-    ["Use cases", 50, "Medium"],
-    ["Regulation", 40, "Medium"],
+    ["Executive case", 92, "Priority"],
+    ["Vendor evaluation", 86, "Priority"],
+    ["Security & IT", 72, "High"],
+    ["Implementation", 64, "High"],
+    ["Commercial proof", 58, "High"],
   ] as const;
+
   return (
     <div className={mockShell}>
       <p className="mb-3 text-[8px] font-semibold uppercase tracking-[.18em] text-[#8eaaa3]">
-        Top opportunities
+        Buying journey priorities
       </p>
+
       <div className="space-y-2.5">
         {rows.map(([l, w, lvl]) => (
           <div key={l} className="flex items-center gap-2 text-[10px] text-[#d5e2de]">
             <span className="w-[96px] shrink-0">{l}</span>
+
             <span className="h-[5px] flex-1 rounded-full bg-white/10">
               <span
                 className="block h-full rounded-full bg-[#4de3d2]"
-                style={{ width: `${w}%`, opacity: lvl === "High" ? 1 : 0.7 }}
+                style={{
+                  width: `${w}%`,
+                  opacity: lvl === "Priority" ? 1 : 0.72,
+                }}
               />
             </span>
-            <span className="w-[38px] text-right text-[9px] text-[#8eaaa3]">{lvl}</span>
+
+            <span className="w-[42px] text-right text-[9px] text-[#8eaaa3]">
+              {lvl}
+            </span>
           </div>
         ))}
       </div>
@@ -185,11 +195,11 @@ function MockOpportunities() {
 
 function MockSources() {
   const items = [
-    ["Regulatory sources", "#5b8def"],
-    ["Product testing", "#4d9bff"],
-    ["Customer interviews", "#6f7dff"],
-    ["Competitor analysis", "#d46bd0"],
-    ["Content plan", "#5aa8ff"],
+    ["Product & SME interviews", "#5b8def"],
+    ["Customer evidence", "#4d9bff"],
+    ["Regulatory sources", "#6f7dff"],
+    ["Sales call insights", "#d46bd0"],
+    ["Market evidence", "#5aa8ff"],
   ];
   return (
     <div className="space-y-1.5">
@@ -208,7 +218,7 @@ function MockSources() {
 }
 
 function MockWorkflow() {
-  const steps = ["Outline", "Draft", "SEO optimisation", "Expert review", "Visuals", "Publish"];
+  const steps = ["Outline", "Draft", "SEO optimisation", "Expert review", "Visual story", "Publish"];
   return (
     <div className={`${mockShell} flex gap-3 p-3`}>
       <ul className="w-[46%] space-y-2 text-[9px] text-[#e3eeea]">
@@ -279,36 +289,36 @@ const mocks = [
 
 const faqItems = [
   {
-    q: "What fintech subjects do you cover?",
-    a: "We cover payments, open banking, lending, wealthtech, insurtech, regtech, financial infrastructure, accounting software and adjacent B2B finance topics. We do not rely on surface-level familiarity. Before writing, we build enough context around the product, market, regulation and buyer to understand what matters, what needs evidence and where the real complexity sits.",
+    q: "What HR tech subjects do you cover?",
+    a: "We cover recruitment technology, talent acquisition, employee benefits, payroll, workforce management, learning, performance, people analytics and adjacent HR software categories. Before writing, we build enough context around the product, market and buyer to understand what matters and where the real complexity sits.",
   },
   {
-    q: "Can you help decide which fintech topics to write about?",
-    a: "Yes. We prioritise topics against commercial relevance, buyer intent, sales friction, product priorities and search demand. That usually means identifying where content can support evaluation, answer recurring objections or strengthen important revenue pages. We would rather build a focused backlog of high-value opportunities than produce a large editorial calendar with no clear role in the buying journey.",
+    q: "Can you help decide which HR tech topics to write about?",
+    a: "Yes. We prioritise topics against buyer questions, commercial relevance, product priorities, search demand and the conversations your sales team is already having. The aim is to build a focused content plan around the areas most likely to support discovery, evaluation and demand.",
   },
   {
-    q: "Is your fintech content optimised for SEO?",
-    a: "Yes, where search is relevant. We research intent, competing pages, keyword language, internal-link opportunities and the depth required to compete. But SEO does not dictate the piece. The article still needs a clear argument, useful evidence and enough originality to be credible with an informed buyer. Search helps shape the structure; it does not replace editorial judgement.",
+    q: "Is your HR tech content optimised for SEO?",
+    a: "Yes, where search is relevant. We research intent, competing pages, keyword language, internal-link opportunities and the depth required to compete. But SEO does not dictate the piece. The content still needs a clear angle, useful evidence and enough substance to be genuinely helpful.",
   },
   {
-    q: "Do you write under our brand, or ghostwrite for our executives?",
-    a: "We do both. Brand-led content is written to match your established positioning and tone. For executive ghostwriting, we go further into point of view, experience, language and argument so the piece reflects how that person actually thinks.  ",
+    q: "Do you write under our brand, or ghostwrite for executives?",
+    a: "We do both. Brand-led content is written to match your positioning, tone and existing voice. For executive ghostwriting, we go deeper into point of view, experience, language and argument so the final piece sounds like the person behind it.",
   },
   {
-    q: "Can you work with our in-house fintech experts?",
-    a: "Yes. We regularly work with product, compliance, sales, customer success and leadership teams to strengthen technical accuracy and bring first-hand insight into the content. We use focused interviews to get to the useful detail quickly, then turn that input into clear arguments, examples and evidence.",
+    q: "Can you work with our in-house HR tech experts?",
+    a: "Yes. We regularly work with product, sales, customer success, implementation and subject-matter experts to strengthen accuracy and bring first-hand insight into the content. We use focused interviews to get to the useful detail quickly, then turn it into clear arguments and examples.",
   },
   {
-    q: "How long does a fintech article take?",
-    a: "Most long-form pieces take around one to two weeks from approved brief to final draft. Timing depends on research depth, technical complexity and the number of reviewers involved. A buyer guide may move quickly; a regulated or interview-led piece will need more time. We agree the review path upfront so quality is protected without creating unnecessary delays.",
+    q: "What types of HR tech content do you create?",
+    a: "We create buyer guides, comparison pieces, customer stories, thought leadership, commercial landing pages, research-led articles, business cases and other content designed around the buying journey. The format depends on the job the piece needs to do, not a fixed editorial template.",
   },
   {
-    q: "Do you do test pieces?",
-    a: "Yes. A single paid article is often the best way to assess fit before moving into an ongoing programme. We treat it as a proper engagement, with the same research, briefing, writing and revision standards as monthly work. It gives both sides a clear view of quality, working style and review process before committing to a larger content cadence.",
+    q: "How long does an HR tech article take?",
+    a: "Most long-form pieces take around one to two weeks from approved brief to final draft. Timing depends on research depth, product complexity and the number of reviewers involved. We agree the process upfront so feedback stays focused and the work keeps moving.",
   },
   {
     q: "What do you need from us to get started?",
-    a: "We typically need your core product material, website, positioning documents, existing content and any useful customer or sales insight. If the subject requires specialist input, we may also schedule a short interview with the relevant expert. From there, we define the audience, angle, evidence base, search opportunity and review process before the first draft begins.",
+    a: "We typically need your product material, positioning, existing content and any useful customer or sales insight. If the topic needs specialist input, we may also speak with the relevant expert. From there, we define the audience, angle, evidence base and review process before drafting begins.",
   },
 ];
 
@@ -357,19 +367,19 @@ useEffect(() => {
           className="pointer-events-none absolute right-[-95px] top-[-25px] h-[470px] w-[470px] rounded-full border border-dashed border-[#6ddbd0]/15"
         />
 
-        <div className="mx-auto grid w-[min(1340px,calc(100%-96px))] items-center gap-6 pb-16 lg:grid-cols-[.82fr_1.18fr] lg:pb-20">
+        <div className="mx-auto grid w-[min(1340px,calc(100%-96px))] items-center gap-6 pb-16 lg:grid-cols-[.92fr_1.08fr] lg:pb-20">
           <div className="relative z-10">
             <p className="hero-anim mb-6 text-[11px] font-semibold uppercase tracking-[.22em] text-[#1F9FA1]">
-              Fintech writing portfolio
+              HR tech writing samples
             </p>
 
-                      <h1 style={{ animationDelay: "120ms" }} className="hero-anim max-w-[640px] font-serif text-[50px] font-normal leading-[.98] tracking-[-.045em] text-[#f6f2e8] md:text-[66px]">
-              Fintech content<br className="hidden md:block" /> built to support{" "}
-              <span className="text-[#1F9FA1]">pipeline growth.</span>
+                      <h1 style={{ animationDelay: "120ms" }} className="hero-anim max-w-[720px] font-serif text-[50px] font-normal leading-[.98] tracking-[-.045em] text-[#f6f2e8] md:text-[64px]">
+              HR content built to<br className="hidden md:block" />{" "}
+              <span className="text-[#1F9FA1]">drive pipeline growth.</span>
             </h1>
 
-            <p className="mt-7 max-w-[450px] text-[17px] leading-7 text-[#c4d3cf]">
-       A collection of articles, buyer guides and customer stories we’ve researched and written for fintech and financial services companies.
+            <p className="mt-7 max-w-[520px] text-[17px] leading-7 text-[#c4d3cf]">
+      In-depth writing samples showing how we turn complex HR and people tech topics into search visibility, sales conversations and measurable pipeline for B2B SaaS brands.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -395,7 +405,7 @@ useEffect(() => {
 
           <div className="relative w-full lg:-mr-[7vw]">
             <img
-              src="/images/fintech-writing-dashboard.png"
+              src="/images/hr-tech-hero-image.png"
               alt="Search performance dashboard showing organic traffic growth and ranking positions for fintech topics."
               className="block h-auto w-full lg:w-[122%] lg:max-w-none lg:-ml-[12%] [filter:saturate(1.12)_contrast(1.05)] drop-shadow-[0_38px_70px_rgba(0,0,0,.28)]"
             />
@@ -407,80 +417,54 @@ useEffect(() => {
       {/* SELECTED WORK */}
       <section id="work" className="bg-[#f6f2e9] text-[#082722]">
         <div className="mx-auto w-[min(1340px,calc(100%-96px))] py-20 lg:py-24">
-          <div className="grid gap-8 lg:grid-cols-[1.25fr_.75fr] lg:items-end">
+          <div className="grid gap-8 lg:grid-cols-1">
             <div>
               <p className="text-[10px] font-bold uppercase tracking-[.19em] text-[#17796e]">
-           Our fintech work    
+                Featured articles
               </p>
-                        <h2 className="mt-4 max-w-[650px] font-serif text-[43px] font-normal leading-[1.03] tracking-[-.045em] md:text-[58px]">
-                Content for Different Stages of the Buying Journey
+              <h2 className="mt-4 max-w-[1250px] font-serif text-[43px] font-normal leading-[1.03] tracking-[-.045em] md:text-[58px]">
+                Explore our HR tech writing samples.
               </h2>
               <p className="mt-8 max-w-[900px] text-[18px] leading-7 text-[#011522]">
-          From customer proof and high-intent comparisons to research-led financial education, each piece is designed to build trust, answer buyer questions and move prospects closer to a decision.
+                From enterprise HR transformation to benefits platforms and the future of work, these articles show how we turn complex topics into clear, credible and commercially valuable content.
               </p>
             </div>
 
           </div>
 
-          {/* FEATURED CASE STUDY */}
+                 {/* FEATURED CASE STUDY — MAKI */}
           <Link
-            to={ROUTES.caseStudy}
-reloadDocument
-
+            to={ROUTES.makiCase}
+            reloadDocument
             className="group relative mt-10 block overflow-hidden rounded-[24px] border border-[#0a443c]/15 bg-[#06332f] shadow-[0_20px_60px_rgba(4,27,28,.10)]"
           >
-            <img
-              src="/images/officegarden.png"
-              alt=""
-              className="absolute inset-0 h-full w-full object-cover object-center opacity-90 transition duration-700 group-hover:scale-[1.02]"
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,31,29,.98)_0%,rgba(4,31,29,.94)_34%,rgba(4,31,29,.45)_58%,rgba(4,31,29,0)_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,31,29,.98)_0%,rgba(4,31,29,.94)_38%,rgba(4,31,29,.55)_62%,rgba(4,31,29,.05)_100%)]" />
 
-            <div className="relative z-10 grid min-h-[440px] lg:grid-cols-[1.04fr_.96fr]">
-              <div className="flex flex-col justify-between p-8 md:p-10 lg:p-12">
+            <div className="relative z-10 grid min-h-[400px] lg:grid-cols-[1.02fr_.98fr]">
+               <div className="flex flex-col justify-center p-8 md:p-10 lg:p-12">
                 <div>
                   <p className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[.16em] text-[#1F9FA1]">
                     <span className="text-[#1F9FA1]">01</span>
-                    Customer story · Case study
+                    Business case · Enterprise HR
                   </p>
 
-                  <h3 className="mt-5 max-w-[650px] font-serif text-[38px] font-normal leading-[1.02] tracking-[-.04em] text-[#f5f1e8] md:text-[49px]">
-                    How Stubbs Parkin took on nearly 200 clients without{" "}
-                    <span className="text-[#1F9FA1]">adding more payment admin.</span>
+                  <h3 className="mt-5 max-w-[620px] font-serif text-[38px] font-normal leading-[1.02] tracking-[-.04em] text-[#f5f1e8] md:text-[49px]">
+                    Pitching Maki to Your VP:<br/> A Business Case Builder<br/> for HR Teams.
                   </h3>
 
-                  <p className="mt-5 max-w-[550px] text-[15px] leading-6 text-[#c8d7d2]">
-                A story-led case study showing how Adfin helped a growing accountancy practice move 231 mandates in three days, increase payment volume and keep collections running without creating more admin.
+                  <p className="mt-5 max-w-[550px] text-[17px] leading-6 text-[#fafafa]">
+Instead of explaining Maki at a surface level, we structured the piece around internal buy-in, using customer evidence, commercial logic and an interactive calculator to make the case more tangible.
                   </p>
 
-                  <span className="mt-7 inline-flex min-h-11 items-center gap-8 rounded-full bg-[#167273] px-6 text-[12px] font-semibold text-white">
-                    View the case study <Arrow />
+                  <span className="mt-7 inline-flex min-h-11 items-center gap-8 rounded-full bg-[#167273] px-6 text-[14px] font-semibold text-white transition-all duration-300 group-hover:gap-10 group-hover:bg-[#1d8f90]">
+                    Explore the business case <Arrow />
                   </span>
                 </div>
 
-                <div className="mt-10 grid max-w-[640px] grid-cols-3 gap-4 border-t border-white/12 pt-6">
-                  {caseStats.map((s, i) => (
-                    <div
-                      key={s.n}
-                      className={`flex items-start gap-3 ${i ? "border-l border-white/10 pl-4" : ""}`}
-                    >
-                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] border border-[#6bd8ce]/25 bg-[#0b4a43]/80 text-[#79ded5]">
-                        <ApproachIcon kind={s.icon} small />
-                      </span>
-                      <div>
-                        <strong className="block font-serif text-[24px] font-normal leading-none text-white">
-                          {s.n}
-                        </strong>
-                        <span className="mt-1 block text-[9px] leading-4 text-[#fafafa]">
-                          {s.l}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+ 
               </div>
 
-              <div className="relative hidden min-h-[440px] lg:block">
+              <div className="relative hidden min-h-[400px] lg:block">
                 <div
                   aria-hidden="true"
                   className="absolute bottom-[42px] right-[84px] h-[290px] w-[290px] rounded-full border border-[#66d7cc]/20"
@@ -491,20 +475,22 @@ reloadDocument
                 />
 
                 <img
-                  src="/images/adfinclientengager.png"
-                  alt="Adfin and Client Engager payments dashboard showing paid invoices."
-                  className="absolute bottom-[-4px] right-[-28px] z-10 w-[112%] max-w-none object-contain drop-shadow-[0_30px_48px_rgba(0,0,0,.30)] transition duration-700 group-hover:translate-y-[-5px] group-hover:scale-[1.018]"
+                  src="/images/maki-exec-summary.png"
+                  alt="Maki executive summary dashboard showing estimated annual impact of £10.7M, faster time-to-hire, lower hiring costs and stronger candidate experience."
+                  className="absolute right-[8%] top-1/2 z-10 h-[100%] w-auto max-w-none -translate-y-1/2 object-contain drop-shadow-[0_30px_48px_rgba(0,0,0,.30)] transition duration-700 group-hover:scale-[1.015]"
                 />
               </div>
             </div>
           </Link>
 
+
+
           {/* TWO SUPPORTING PIECES */}
           <div className="mt-5 grid gap-5 lg:grid-cols-2">
-            {/* AVENI BUYER GUIDE */}
+            {/* BENEFITS PLATFORMS */}
             <Link
-              to={ROUTES.noteTaking}
-reloadDocument
+              to={ROUTES.benefits}
+              reloadDocument
               className="group relative overflow-hidden rounded-[20px] border border-[#123f38]/10 bg-[#f1ede1] shadow-[0_10px_35px_rgba(4,27,28,.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(4,27,28,.09)]"
             >
               <div className="grid min-h-[350px] lg:grid-cols-[1.04fr_.96fr]">
@@ -512,55 +498,15 @@ reloadDocument
                 <div className="relative z-10 flex flex-col justify-between p-7 md:p-8 lg:pr-3">
                   <div>
                     <p className="text-[9px] font-bold uppercase tracking-[.17em] text-[#257970]">
-                      02 · Buyer guide · Financial advice
+                      02 · HR tech · Buyer guide
                     </p>
 
                     <h3 className="mt-4 max-w-[360px] font-serif text-[29px] font-normal leading-[1.04] tracking-[-.035em] text-[#082722] md:text-[32px]">
-                      5 Best AI Note-Taking Tools for UK Financial Advisers in 2026
+                      7 Best Global Employee Benefits Platforms for 2026
                     </h3>
 
-                    <p className="mt-4 max-w-[340px] text-[12px] leading-[1.7] text-[#011522]">
-             We compared five AI note-taking tools for UK financial advisers across workflows, pricing, strengths, limitations and best-fit use cases.
-                    </p>
-                  </div>
-
-                  <span className="mt-7 inline-flex min-h-10 w-fit items-center gap-3 rounded-full bg-[#167273] px-5 text-[12px] font-semibold text-white transition-all duration-300 group-hover:gap-5 group-hover:bg-[#1d8f90]">
-                    Read the comparison <Arrow />
-                  </span>
-                </div>
-
-                {/* IMAGE */}
-                <div className="relative flex min-h-[300px] items-center justify-center p-4 lg:min-h-[350px] lg:p-2">
-                  <img
-                    src="/images/aveni-workflow-pricing.png"
-                    alt="Comparison of AI note-taking tools for UK financial advisers."
-                    className="relative block w-[108%] max-w-[390px] object-contain transition duration-700 group-hover:scale-[1.02]"
-                  />
-                </div>
-              </div>
-            </Link>
-
-            {/* OPEN BANKING */}
-            <Link
-              to={ROUTES.openBanking}
-reloadDocument
-              className="group relative overflow-hidden rounded-[20px] border border-[#123f38]/10 bg-[#f1ede1] shadow-[0_10px_35px_rgba(4,27,28,.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(4,27,28,.09)]"
-            >
-              <div className="grid min-h-[350px] lg:grid-cols-[1.04fr_.96fr]">
-                {/* COPY */}
-                <div className="relative z-10 flex flex-col justify-between p-7 md:p-8 lg:pr-3">
-                  <div>
-                    <p className="text-[9px] font-bold uppercase tracking-[.17em] text-[#257970]">
-                      03 · Finance guide · Industry insight
-                    </p>
-
-                    <h3 className="mt-4 max-w-[365px] font-serif text-[29px] font-normal leading-[1.04] tracking-[-.035em] text-[#082722] md:text-[32px]">
-                      How Open Banking Is Changing Finance and Payments in 2026
-                    </h3>
-
-                    <p className="mt-4 max-w-[345px] text-[12px] leading-[1.7] text-[#011522]">
-                      A research-led guide to how open banking is reshaping payments,
-                      lending and financial services, and what businesses should prepare for next.
+                    <p className="mt-4 max-w-[340px] text-[14px] leading-[1.7] text-[#011522]">
+                      A practical comparison of seven platforms covering global administration, local flexibility, employee experience, payroll controls and reporting, with real-world use cases to help teams evaluate vendors.
                     </p>
                   </div>
 
@@ -572,9 +518,48 @@ reloadDocument
                 {/* IMAGE */}
                 <div className="relative flex min-h-[300px] items-center justify-center p-4 lg:min-h-[350px] lg:p-2">
                   <img
-                    src="/images/openbanking2026.png"
-                    alt="Open Banking in 2026 editorial visual with regulation, use cases and business impact."
-                    className="relative block w-[112%] max-w-[420px] object-contain transition duration-700 group-hover:scale-[1.02] lg:translate-x-3"
+                    src="/images/benbenefitsdashboard.png"
+                    alt="Global benefits overview dashboard showing total employees and countries covered."
+                    className="relative block w-[108%] max-w-[390px] object-contain transition duration-700 group-hover:scale-[1.02]"
+                  />
+                </div>
+              </div>
+            </Link>
+
+            {/* AI EMPLOYEE LIFECYCLE */}
+            <Link
+              to={ROUTES.aiLifecycle}
+              reloadDocument
+              className="group relative overflow-hidden rounded-[20px] border border-[#123f38]/10 bg-[#f1ede1] shadow-[0_10px_35px_rgba(4,27,28,.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(4,27,28,.09)]"
+            >
+              <div className="grid min-h-[350px] lg:grid-cols-[1.04fr_.96fr]">
+                {/* COPY */}
+                <div className="relative z-10 flex flex-col justify-between p-7 md:p-8 lg:pr-3">
+                  <div>
+                    <p className="text-[9px] font-bold uppercase tracking-[.17em] text-[#257970]">
+                      03 · HR strategy · Industry insight
+                    </p>
+
+                    <h3 className="mt-4 max-w-[365px] font-serif text-[29px] font-normal leading-[1.04] tracking-[-.035em] text-[#082722] md:text-[32px]">
+                      How AI Is Changing the Employee Lifecycle in 2026
+                    </h3>
+
+                    <p className="mt-4 max-w-[345px] text-[14px] leading-[1.7] text-[#011522]">
+Follow one employee through recruitment, onboarding, performance, development and exit to see where AI is shaping the employee experience and what that means for HR and people leaders.
+                    </p>
+                  </div>
+
+                  <span className="mt-7 inline-flex min-h-10 w-fit items-center gap-3 rounded-full bg-[#167273] px-5 text-[12px] font-semibold text-white transition-all duration-300 group-hover:gap-5 group-hover:bg-[#1d8f90]">
+                    Read the article <Arrow />
+                  </span>
+                </div>
+
+                {/* IMAGE */}
+                <div className="relative flex min-h-[300px] items-center justify-center p-4 lg:min-h-[350px] lg:p-2">
+                  <img
+                    src="/images/maya-employee-lifecyle-dashboard.png"
+                    alt="Employee lifecycle dashboard showing performance and development metrics with AI across each stage."
+                    className="relative block w-[94%] max-w-[360px] object-contain transition duration-700 group-hover:scale-[1.02]"
                   />
                 </div>
               </div>
@@ -583,31 +568,31 @@ reloadDocument
         </div>
       </section>
 
+{/* APPROACH */}
+<section id="approach" className="bg-[#041b1c]">
+  <div className="mx-auto w-[min(1340px,calc(100%-96px))] py-20 lg:py-24">
+    <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+      <div>
+        <p className="text-[11px] font-bold uppercase tracking-[.22em] text-[#1F9FA1]">
+          Our approach
+        </p>
 
+        <h2 className="mt-5 max-w-[650px] font-serif text-[46px] font-normal leading-[1.02] tracking-[-.03em] text-[#f6f2e8] md:text-[62px]">
+          Content built for
+          <br />
+          complex enterprise
+          <br />
+          <span className="text-[#1F9FA1]">buying journeys.</span>
+        </h2>
+      </div>
 
-      {/* APPROACH */}
-      <section id="approach" className="bg-[#041b1c]">
-        <div className="mx-auto w-[min(1340px,calc(100%-96px))] py-20 lg:py-24">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-            <div>
-              <p className="text-[11px] font-bold uppercase tracking-[.22em] text-[#1F9FA1]">
-                Our approach
-              </p>
-              <h2 className="mt-5 max-w-[620px] font-serif text-[46px] font-normal leading-[1.02] tracking-[-.03em] text-[#f6f2e8] md:text-[62px]">
-                A clear process
-                <br />
-                for content that
-                <br />
-                <span className="text-[#1F9FA1]">drives pipeline.</span>
-              </h2>
-            </div>
+      <p className="max-w-[590px] text-[18px] leading-8 text-[#c4d3cf] lg:border-l lg:border-white/10 lg:pl-10">
+        We build around how enterprise HR technology is actually bought:
+        multiple stakeholders, longer evaluation cycles, internal scrutiny
+        and the evidence teams need to secure approval.
+      </p>
+    </div>
 
-            <p className="max-w-[580px] text-[18px] leading-8 text-[#c4d3cf] lg:border-l lg:border-white/10 lg:pl-10">
-              We combine fintech expertise, rigorous research and search-led
-              strategy to create content that reaches the right buyers,
-              supports your sales cycle and shows clear commercial impact.
-            </p>
-          </div>
 
           <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {steps.map((s, i) => (
@@ -652,50 +637,46 @@ reloadDocument
    </div>
   </section>
 
-
   {/* INVESTMENT */}
-  <section id="investment" className="scroll-mt-24 bg-white text-[#082722]">
+  <section id="investment" className="scroll-mt-24 bg-white text-[#011522]">
     <div className="mx-auto w-[min(1340px,calc(100%-48px))] py-16 md:w-[min(1340px,calc(100%-96px))] lg:py-20">
-      <div className="bg-[#eef4f3] px-6 py-14 md:px-12 lg:px-16">
+      <div className="bg-[#f6f8f9] px-6 py-16 md:px-12 lg:px-16">
         {/* HEADER */}
         <div className="text-center">
-          <p className="flex items-center justify-center gap-2 text-[11px] font-bold uppercase tracking-[.18em] text-[#167273]">
+          <p className="flex items-center justify-center gap-2 text-[11px] font-medium uppercase tracking-[.22em] text-[#167273]">
             <span className="h-px w-3 bg-[#167273]" />
             Pricing
           </p>
-          <h2 className="mt-4 font-serif text-[43px] font-normal leading-[1.03] tracking-[-.045em] text-[#071b2c] md:text-[58px]">
+          <h2 className="mt-4 font-serif text-[43px] font-normal leading-[1.03] tracking-[-.045em] text-[#011522] md:text-[58px]">
             Investment Options and Packages
           </h2>
           <p className="mx-auto mt-5 max-w-[640px] text-[18px] leading-7 text-[#011522]">
-
             Choose a single article or an ongoing monthly programme. Both include
-            research, strategic input and content written by fintech specialists.
+            research, strategic input and content written by HR tech specialists.
           </p>
         </div>
 
-        <div className="mt-12 grid items-stretch gap-6 md:grid-cols-2">
+        <div className="mt-14 grid items-stretch gap-6 md:grid-cols-2">
           {/* MONTHLY (featured) */}
-          <div className="reveal relative flex flex-col border border-[#167273] bg-white p-7 shadow-[0_18px_45px_rgba(18,114,115,.10)]">
-            <span className="absolute -top-[11px] left-4 bg-[#167273] px-3 py-1 text-[10px] font-bold uppercase tracking-[.14em] text-white">
+          <div className="reveal relative flex flex-col border border-[#011522] bg-white p-9 shadow-[0_24px_60px_rgba(1,21,34,.08)]">
+             <span className="absolute -top-[11px] left-9 bg-[#167273] px-3 py-1 text-[9px] font-medium uppercase tracking-[.22em] text-white">
               Most popular
             </span>
-
-            <h3 className="font-serif text-[32px] font-normal leading-[1.05] tracking-[-.035em] text-[#071b2c]">
-              Monthly programme
+            <h3 className="font-serif text-[30px] font-normal leading-[1.05] tracking-[-.03em] text-[#011522]">
+              Monthly Programme
             </h3>
-            <p className="mt-4 font-serif text-[56px] font-normal leading-none tracking-[-.05em] text-[#071b2c]">
-              £3,400 <span className="font-sans text-[15px] font-normal tracking-normal text-[#607078]">/mo</span>
+            <p className="mt-4 font-serif text-[52px] font-normal leading-none tracking-[-.045em] text-[#011522]">
+              £3,400 <span className="font-sans text-[15px] font-normal tracking-normal text-[#011522]/50">/mo</span>
             </p>
-            <p className="mt-2 text-[14px] text-[#607078]">4 pieces per month, saving £400</p>
+            <p className="mt-2 text-[14px] text-[#011522]/50">4 pieces per month, saving £400</p>
 
-            <div className="mt-4 border border-[#cfe5e0] bg-[#f1f7f6] px-4 py-3 text-[13px] font-semibold text-[#0c5d57]">
+            <div className="mt-6 border-y border-[#011522]/10 py-3 text-[11px] font-medium uppercase tracking-[.12em] text-[#011522]">
               Expert review and custom visuals on every piece
             </div>
 
-            <p className="mt-5 text-[14px] leading-6 text-[#53656b]">
+            <p className="mt-5 text-[14px] leading-6 text-[#011522]">
               A consistent stream of research-led content for teams publishing every month.
             </p>
-
             <ul className="mt-5 flex-1">
               {[
                 "4 articles or customer stories each month",
@@ -707,11 +688,11 @@ reloadDocument
               ].map((f) => (
                 <li
                   key={f}
-                  className="flex items-center gap-2.5 border-b border-[#e3ecea] py-3 text-[13px] text-[#53656b] last:border-b-0"
+                  className="flex items-center gap-3 border-b border-[#011522]/[.07] py-3.5 text-[13.5px] text-[#011522] last:border-b-0"
                 >
-                  <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#0e8a7d] text-white">
-                    <svg viewBox="0 0 24 24" className="h-3 w-3 fill-none stroke-current stroke-[3]" aria-hidden="true">
-                      <path d="m6 12 4 4 8-8" strokeLinecap="round" strokeLinejoin="round" />
+                  <span className="grid h-4 w-4 shrink-0 place-items-center text-[#167273]">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current stroke-[1.5]" aria-hidden="true">
+                      <path d="m5 12 4.5 4.5L19 7" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </span>
                   {f}
@@ -719,35 +700,35 @@ reloadDocument
               ))}
             </ul>
 
-            <a
+                    <a
               href="https://www.seo-growup.com/get-in-touch"
               target="_blank"
               rel="noreferrer"
-              className="mt-6 block bg-[#06302d] py-4 text-center text-[13px] font-semibold text-white transition hover:bg-[#0b4a43]"
+              className="mt-8 block bg-[#011522] py-4 text-center text-[12px] font-medium uppercase tracking-[.14em] text-white transition hover:bg-[#167273]"
             >
               Start a monthly programme
             </a>
           </div>
 
           {/* ONE-OFF */}
-          <div style={{ animationDelay: "150ms" }} className="reveal relative flex flex-col border border-[#e3ebe9] bg-white p-7">
-            <h3 className="font-serif text-[32px] font-normal leading-[1.05] tracking-[-.035em] text-[#071b2c]">
-              Long-form article
+          <div style={{ animationDelay: "150ms" }} className="reveal relative flex flex-col border border-[#011522]/10 bg-white p-9">
+            <h3 className="font-serif text-[30px] font-normal leading-[1.05] tracking-[-.03em] text-[#011522]">
+              Long-Form Article
             </h3>
-            <p className="mt-4 font-serif text-[56px] font-normal leading-none tracking-[-.05em] text-[#071b2c]">
-              £950 <span className="font-sans text-[15px] font-normal tracking-normal text-[#607078]">/article</span>
+            <p className="mt-4 font-serif text-[52px] font-normal leading-none tracking-[-.045em] text-[#011522]">
+              £950 <span className="font-sans text-[15px] font-normal tracking-normal text-[#011522]/50">/article</span>
             </p>
-            <p className="mt-2 text-[14px] text-[#607078]">One-off, no commitment</p>
+            <p className="mt-2 text-[14px] text-[#011522]/50">One-off, no commitment</p>
 
-            <div className="mt-4 border border-[#e3ebe9] bg-[#f7f9f9] px-4 py-3 text-[13px] font-semibold text-[#1f3a36]">
+            <div className="mt-6 border-y border-[#011522]/10 py-3 text-[11px] font-medium uppercase tracking-[.12em] text-[#011522]">
               Research, SEO and custom visuals included
             </div>
 
-            <p className="mt-5 text-[14px] leading-6 text-[#53656b]">
-              In-depth, research-led articles, buyer guides and specialist fintech content.
+            <p className="mt-5 text-[14px] leading-6 text-[#011522]">
+              In-depth, research-led articles, buyer guides and specialist HR tech content.
             </p>
 
-            <ul className="mt-5 flex-1">
+                       <ul className="mt-5 flex-1">
               {[
                 "1,600 to 2,000 words",
                 "Primary-source research and fact-checking",
@@ -758,23 +739,22 @@ reloadDocument
               ].map((f) => (
                 <li
                   key={f}
-                  className="flex items-center gap-2.5 border-b border-[#e3ecea] py-3 text-[13px] text-[#53656b] last:border-b-0"
+                  className="flex items-center gap-3 border-b border-[#011522]/[.07] py-3.5 text-[13.5px] text-[#011522] last:border-b-0"
                 >
-                  <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#0e8a7d] text-white">
-                    <svg viewBox="0 0 24 24" className="h-3 w-3 fill-none stroke-current stroke-[3]" aria-hidden="true">
-                      <path d="m6 12 4 4 8-8" strokeLinecap="round" strokeLinejoin="round" />
+                  <span className="grid h-4 w-4 shrink-0 place-items-center text-[#167273]">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current stroke-[1.5]" aria-hidden="true">
+                      <path d="m5 12 4.5 4.5L19 7" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </span>
                   {f}
                 </li>
               ))}
             </ul>
-
             <a
               href="https://www.seo-growup.com/get-in-touch"
               target="_blank"
               rel="noreferrer"
-              className="mt-6 block border border-[#167273] py-4 text-center text-[13px] font-semibold text-[#167273] transition hover:bg-[#167273] hover:text-white"
+              className="mt-8 block border border-[#011522] py-4 text-center text-[12px] font-medium uppercase tracking-[.14em] text-[#011522] transition hover:bg-[#011522] hover:text-white"
             >
               Commission an article
             </a>
@@ -800,7 +780,7 @@ reloadDocument
 
             <h2 className="mt-5 max-w-[520px] font-serif text-[46px] font-normal leading-[.98] tracking-[-.045em] text-[#f6f2e8] md:text-[61px]">
               Questions about our{" "}
-              <span className="text-[#1F9FA1]">fintech writing</span>{" "}
+              <span className="text-[#1F9FA1]">HR tech writing</span>{" "}
               services.
             </h2>
 

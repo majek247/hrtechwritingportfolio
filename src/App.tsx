@@ -28,8 +28,8 @@ export default function App() {
           element={
             <>
               <Seo
-                title="GrowUp | Fintech & Financial Services Writing Portfolio"
-                description="See fintech content built for pipeline growth, from buyer guides and comparison pieces to research-led articles and customer stories."
+                title="GrowUp | HRtech Writing Portfolio"
+                description="See hrtech content built for pipeline growth, from buyer guides and comparison pieces to research-led articles and customer stories."
                 path="/"
                 type="website"
               />
@@ -92,7 +92,7 @@ export default function App() {
             <>
               <Seo
                 title="Page not found | GrowUp"
-                description="This page doesn't exist. Return to the GrowUp fintech writing portfolio."
+                description="This page doesn't exist. Return to the GrowUp hrtech writing portfolio."
                 path="/"
                 type="website"
               />

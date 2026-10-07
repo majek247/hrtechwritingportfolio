@@ -1,4 +1,4 @@
-# GrowUp – Fintech Writing Portfolio
+# GrowUp – HRtech Writing Portfolio
 
 Vite + React + TypeScript + Tailwind + React Router. Homepage plus 3 full article pages.
 
