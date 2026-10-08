@@ -683,7 +683,7 @@ Follow one employee through recruitment, onboarding, performance, development an
                 "Monthly topic plan and keyword research",
                 "Expert review on every piece",
                 "Custom visuals for every piece",
-                "Monthly report on rankings and traffic",
+                "Monthly report on pipeline impact, rankings and traffic",
                 "Priority turnaround",
               ].map((f) => (
                 <li
